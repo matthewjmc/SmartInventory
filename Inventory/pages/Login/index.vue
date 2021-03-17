@@ -1,19 +1,20 @@
+
 <template>
     <div>
-        <h1>
-        CIE Inventory System 
-        </h1>
-        <p>
-            Please login to access the system.
-        </p>
+        <img src='~/assets/CIElogo.svg'>
     </div>
 </template>
+
+
+
+
+
 
 <script>
     export default {
         head(){
             return{
-            title: 'Homepage',
+            title: 'Login Page',
             meta: [
                 { hid: 'description',
                 name: 'description',   
@@ -24,3 +25,12 @@
         }
     }
 </script>
+
+<style>
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 10%;
+}
+</style>

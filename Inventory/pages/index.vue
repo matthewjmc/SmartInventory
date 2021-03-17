@@ -1,9 +1,11 @@
 <template>
   <div>
-    <h1> CIE Inventory System </h1>
-    <p> Please login to access the inventory </p>
-
-
+    <p>
+      CIE Inventory System is a system used to keep track of
+    </p>
+    <p>
+      the amount of item within the inventory.
+    </p>
   </div>
 </template>
 
@@ -11,7 +13,7 @@
 export default {
   head(){
     return{
-      title: 'CIE',
+      title: 'Homepage',
       meta: [
         { hid: 'description',
           name: 'description',   
