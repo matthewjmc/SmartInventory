@@ -19,4 +19,4 @@ app.config['MYSQL_DB'] = 'MyDB'
 def home():
     return "<h1>Wrong Page Man</h1><p>Only For API</p>"
 
-app.run(host="0.0.0.0",port=9999)
+app.run(host="0.0.0.0",port=5000)

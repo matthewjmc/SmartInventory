@@ -1,6 +1,21 @@
 ---
 version: "2"
 services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    command: -H unix:///var/run/docker.sock
+    ports:
+      - "9000:9000"
+      - "8000:8000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${DOCKERDIR}/portainer/data:/data
+      - ${DOCKERDIR}/shared:/shared
+    environment:
+      - portainer_data:/data
+
   mariadb:
     image: linuxserver/mariadb:version-110.4.18mariabionic
     container_name: mariadb
@@ -18,18 +33,16 @@ services:
       - 3306:3306/tcp 
 
   dockerIOT:
-    dockerIOT:
-      image: matthew1999/iotproject
-      container_name: dockerIOT
-      restart: unless-stopped
-      command: python3 IOTAPI.py
-      volumes:
-        - ${CODE}:Project
-      working_dir: Project
+    image: matthew1999/iotproject:1.0.0
+    container_name: dockerIOT
+    restart: unless-stopped
+    command: python3 IOTAPI.py
+    volumes:
+      - ${CODE}:/Project
+    working_dir: /Project
 
-      ports:
-        - 1883:1883
-        - 5000:80
-
+    ports:
+      - 80:5000
+  
 
 
