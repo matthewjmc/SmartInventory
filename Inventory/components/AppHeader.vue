@@ -9,9 +9,6 @@
                 <nuxt-link to='/'>Home</nuxt-link>
             </li>
             <li>
-                <nuxt-link to='/inspire'>Inspire</nuxt-link>
-            </li>
-            <li>
                 <nuxt-link to='/login'>Login</nuxt-link>
             </li>
         </ul>
@@ -31,8 +28,7 @@
         align-items: center;
         margin-bottom: 1rem;
         padding-bottom: 1rem;
-        border-bottom: 1px dotted #ccc;
-    }
+            }
     .header .title {
         font-size: 2rem;
         color: #ffffff;

@@ -1,8 +1,11 @@
 
 <template>
-    <div>
-        <img src='~/assets/CIElogo.svg'>
-    </div>
+    
+
+    <img src='~assets/CIElogo.png' >
+    
+    
+    
 </template>
 
 
@@ -27,10 +30,25 @@
 </script>
 
 <style>
+
 img {
+  align-items: center;
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 10%;
+  height: 10%;
+  position: sticky;
+  top: 30%;
+  bottom: 30%;
+  }
+.text {
+  align-items: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 10%;
+  
 }
+
 </style>

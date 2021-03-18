@@ -1,13 +1,9 @@
 <template>
-  <div>
-    <p>
-      CIE Inventory System is a system used to keep track of
-    </p>
-    <p>
-      the amount of item within the inventory.
-    </p>
-  </div>
+            <img src='~/assets/CIElogo.png'
+            >
+    
 </template>
+
 
 <script>
 export default {
@@ -24,3 +20,31 @@ export default {
   }
 }
 </script>
+
+
+
+<style>
+
+img {
+  align-items: center;
+  display: block;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 10%;
+  height: 10%;
+  position: relative;
+  top: 60%;
+  bottom: 30%;
+  }
+.text {
+  align-items: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 10%;
+  
+}
+
+</style>

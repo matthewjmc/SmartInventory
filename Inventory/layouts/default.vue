@@ -1,6 +1,6 @@
 <template>
-  <div class='container'>
-      <AppHeader/>
+  <div>
+      <AppHeader class="container"/>
         <nuxt />
   </div>
 </template>
@@ -21,6 +21,7 @@ export default {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  position: relative;
 }
 
 body {
@@ -36,5 +37,6 @@ a {
 ul{
   list-style: none;
 }
+
 
 </style>
