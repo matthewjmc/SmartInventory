@@ -13,4 +13,5 @@ FROM Borrow_Record
 INNER JOIN Users
 ON Borrow_Record.userID=Users.userID
 INNER JOIN Items
-ON Items.itemID=Borrow_Record.itemID;
+ON Items.itemID=Borrow_Record.itemID
+WHERE Items.itemID=2;

@@ -22,6 +22,7 @@ CREATE TABLE `Items` (
 CREATE TABLE `Borrow_Record` (
   `userID` INT NOT NULL,
   `itemID` INT NOT NULL,
+  `amount` INT NOT NULL,
   `date_borrowed` DATE NOT NULL,
   `expected_return_date` DATE NOT NULL,
   PRIMARY KEY (`userID`, `itemID`),
@@ -42,7 +43,7 @@ CREATE TABLE `Return_Record` (
 CREATE TABLE `Overdue` (
   `userID` INT NOT NULL,
   `itemID` INT NOT NULL,
-  `item_name` VARCHAR(100) NOT NULL,
+  `amount` INT NOT NULL,
   PRIMARY KEY (`userID`, `itemID`),
   CONSTRAINT Return_Record_unique UNIQUE (itemID, userID),
   FOREIGN KEY(userID) references Users(userID),
@@ -50,8 +51,9 @@ CREATE TABLE `Overdue` (
 );
 
 CREATE TABLE `Stock` (
-  `stockID` INT NOT NULL,
-  `item_name` VARCHAR(100) NOT NULL,
-  `amount_in_stock` INT NOT NULL,
-  PRIMARY KEY (`stockID`)
+  `stockID` INT NOT NULL AUTO_INCREMENT,
+  `itemID` INT NOT NULL,
+  `amount` INT NOT NULL,
+  PRIMARY KEY (`stockID`),
+  FOREIGN KEY (itemID) references Items(itemID)
 );
