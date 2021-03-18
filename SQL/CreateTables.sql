@@ -14,7 +14,6 @@ CREATE TABLE `Items` (
   `itemID` INT NOT NULL,
   `item_name` VARCHAR(100) NOT NULL,
   `description` LONGTEXT NULL,
-  `availability` BOOLEAN NOT NULL,
   `lending_period` INT NOT NULL,
   PRIMARY KEY (`itemID`)
 );
@@ -54,6 +53,7 @@ CREATE TABLE `Stock` (
   `stockID` INT NOT NULL AUTO_INCREMENT,
   `itemID` INT NOT NULL,
   `amount` INT NOT NULL,
+  `availability` BOOLEAN NOT NULL,
   PRIMARY KEY (`stockID`),
   FOREIGN KEY (itemID) references Items(itemID)
 );

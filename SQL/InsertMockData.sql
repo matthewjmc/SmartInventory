@@ -14,15 +14,15 @@ INSERT INTO Users(userID,firstname,lastname,role)
     (61011009,"Booky","Prasongsuthon","Student");
     
     
-INSERT INTO Items(itemID,item_name,description,availability,lending_period)
+INSERT INTO Items(itemID,item_name,description,lending_period)
 	VALUES
-    (1,"HoloLens","Microsoft Hololens",true,14),
-    (2,"Oculus VR","Oculus Virtual Reality Goggles",true,7),
-    (3,"HTC VIVE","HTC Vive Virtual Reality Goggles",true,12),
-    (4,"NZXT Computers","NZXT High Performance Computers",true,14),
-    (5,"Alienware PC","Alienware Personal Computer",true,13),
-    (6,"Cobot","Cobot Arm",true,13),
-    (7,"Nao","Nao Robot",true,14);
+    (1,"HoloLens","Microsoft Hololens",14),
+    (2,"Oculus VR","Oculus Virtual Reality Goggles",7),
+    (3,"HTC VIVE","HTC Vive Virtual Reality Goggles",12),
+    (4,"NZXT Computers","NZXT High Performance Computers",14),
+    (5,"Alienware PC","Alienware Personal Computer",13),
+    (6,"Cobot","Cobot Arm",13),
+    (7,"Nao","Nao Robot",14);
     
 
 INSERT INTO Borrow_Record(userID,itemID,amount,date_borrowed,expected_return_date)
@@ -50,13 +50,13 @@ INSERT INTO Overdue(userID,itemID,amount)
     
 INSERT INTO Stock(itemID,amount)
 	VALUES
-    (1,3),
-    (2,4),
-    (3,3),
-    (4,5),
-    (5,2),
-    (6,4),
-    (7,2);
+    (1,3,true),
+    (2,4,true),
+    (3,3,true),
+    (4,5,true),
+    (5,2,true),
+    (6,4,true),
+    (7,2,true);
     
     
     
