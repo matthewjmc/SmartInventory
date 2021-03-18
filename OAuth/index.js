@@ -15,7 +15,7 @@ app.use(session({
 }));
 
 app.get('/', function(req, res) {
-  res.render('pages/auth');
+  res.render('NONO');
 });
 
 const port = process.env.PORT || 3000;
@@ -30,11 +30,6 @@ var userProfile;
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.set('view engine', 'ejs');
-
-app.get('/success', (req, res) => res.send(userProfile));
-app.get('/error', (req, res) => res.send("error logging in"));
 
 passport.serializeUser(function(user, cb) {
   cb(null, user);
@@ -54,7 +49,7 @@ const GOOGLE_CLIENT_SECRET = 'bvd2rGD7a_rfRaWLHpAVPQyF';
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://iot2.mcmullin.org:3000/auth/google/callback"
+    callbackURL: "http://auth.iot2.mcmullin.org/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
       userProfile=profile;
@@ -71,3 +66,29 @@ app.get('/auth/google/callback',
     // Successful authentication, redirect success.
     res.redirect('/success');
   });
+
+
+  /*  JSON Web Tokens  */
+const authenticateJWT = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (authHeader) {
+      const token = authHeader.split(' ')[1];
+
+      jwt.verify(token, accessTokenSecret, (err, user) => {
+          if (err) {
+              return res.sendStatus(403);
+          }
+
+          req.user = user;
+          next();
+      });
+  } else {
+      res.sendStatus(401);
+  }
+};
+
+
+  app.get('/success', (req, res) => res.send(userProfile));
+  app.get('/error', (req, res) => res.send("error logging in"));
+  
