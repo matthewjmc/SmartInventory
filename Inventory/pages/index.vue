@@ -1,18 +1,35 @@
 
 <template>
+
     <div class="flex-container">
-      <div> <img src='~assets/CIElogo.png' > </div>
-      <div class="box"> <header class="dispTitle"> CIE Inventory is a system to keep track of items in the stock</header> </div>     
-    </div>
-    
-                            
+
+      <div> 
+        <img src='~assets/CIElogo.png' > 
+      </div>
+
+      <div class="box"> 
+          <header class="dispTitle"> 
+            CIE INVENTORY SYSTEM
+          </header>
+          <h1>
+            <pre>
+            This system is a tracking systems for items in CIE storage room
+            which is a part of Internet of Things and Smart Systems project.
+            </pre>
+          </h1>
+          <nuxt-link class='loginButton' to='/login'> Login
+          </nuxt-link> 
+      </div>  
+      
+    </div>  
+
 </template>
 
 <script>
     export default {
         head(){
             return{
-            title: 'Login Page',
+            title: 'Homepage',
             meta: [
                 { hid: 'description',
                 name: 'description',   
@@ -43,20 +60,9 @@
   padding: 10px;
 }
 
-
-p {
-  align-items: center;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  position: absolute;
-  width: 10%;
-  position: absolute;
-  padding-top: 18%;
-}
-
 .flex-container  {
   padding-top: 1%;
+  text-align: center;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -70,21 +76,48 @@ img {
   justify-content: center;
 }
 
-div .dispTitle {
-  padding-top: 100;
-  font-size: 1.1rem;
-  
+.box > .dispTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  text-justify: center;
+  justify-content: center;
+  padding-top: 30px;
+  font-size: 26px;
+  color: #FFF;
 }
 
+.box h1 > pre {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  text-align: justify;
+  justify-content: center;
+  padding-top: 12px;
+  font-size: 20px;
+  color: #FFF;
+}
 
 .box {
-  max-width: 2600px;
-  margin: -1rem;
+  text-align: center;
+  justify-content: center;
+  width: 700px;
+  height: 200px;
+  margin: -1.5rem;
   overflow: hidden;
-  padding: 1rem 2rem;
-  background: #ff8d24;
+  background: #ffa959;
   z-index: -1;
+  border-radius: 50px;
 }
 
+.loginButton {
+        text-align: center;
+        justify-content: center;
+        display: inline-block;
+        background: #D77113;
+        color: #fff;
+        padding: 0.6rem 6rem;
+        border-radius: 20px;
+        border-width: 100px;
+        font-size: 30px;    
+}
 
 </style>

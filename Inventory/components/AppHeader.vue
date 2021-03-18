@@ -42,12 +42,13 @@
         color: #fff;
         padding: 0.3rem 1rem;
         margin-right: 1rem;
+        border-radius: 10px;
     }
     .container {
-        max-width: 2500px;
+        max-width: 8000px;
         margin: 1rem;
         overflow: hidden;
         padding: 1rem 2rem;
         background: #ff8d24;
-        }
+    }
 </style>
