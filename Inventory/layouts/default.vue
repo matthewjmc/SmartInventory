@@ -30,6 +30,7 @@ body {
  line-height: 1;
  background: #fbeed4;
 }
+
 a {
   color: #666;
   text-decoration: none;

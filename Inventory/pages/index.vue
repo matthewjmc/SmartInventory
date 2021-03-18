@@ -18,12 +18,8 @@
             </pre>
         
           </h1>
-          
         <nuxt-link class='loginButton' to='/login'> LOGIN </nuxt-link>
       </div>  
-    
-
-
     </div> 
     
 </template>
@@ -46,14 +42,6 @@
 
 <style>
 
-
-.center {
-  align-items: center;
-  margin: auto;
-  width: 50%;
-  padding: 10px;
-}
-
 .flex-container  {
   flex: 0 0 25em;
   padding-top: 1%;
@@ -71,6 +59,17 @@ img {
   align-items: center;
   justify-content: center;
   z-index: 2;
+}
+
+.box {
+  text-align: center;
+  justify-content: center;
+  width: 700px;
+  height: 200px;
+  margin: -1.5rem;
+  overflow: hidden;
+  background: #ffa959;
+  border-radius: 50px;
 }
 
 .box > .dispTitle {
@@ -93,18 +92,6 @@ img {
   color: #FFF;
 }
 
-.box {
-  text-align: center;
-  justify-content: center;
-  width: 700px;
-  height: 200px;
-  margin: -1.5rem;
-  overflow: hidden;
-  background: #ffa959;
-  /* z-index: -1; */
-  border-radius: 50px;
-}
-
 .loginButton {
   text-align: center;
   justify-content: center;
@@ -117,29 +104,29 @@ img {
   font-size: 30px;    
 }
 
-/* Transitions using the page hook */
-    .page-enter-active {
-      animation: acrossIn .50s ease-out both;
-    } 
-    .page-leave-active {
-      animation: acrossOut .50s ease-in both;
-    } 
-    @keyframes acrossIn {
-      0% {
-        transform: translate3d(-100%, 0, 0);
-      }
-      100% {
-        transform: translate3d(0, 0, 0);
-      }
-    }
-    @keyframes acrossOut {
-      0% {
-        transform: translate3d(0, 0, 0);
-      }
-      100% {
-        transform: translate3d(100%, 0, 0);
-      }
-    }
+.page-enter-active {
+  animation: acrossIn .50s ease-out both;
+} 
+.page-leave-active {
+  animation: acrossOut .50s ease-in both;
+} 
+@keyframes acrossIn {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes acrossOut {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(100%, 0, 0);
+  }
+}
 </style>
 
 
