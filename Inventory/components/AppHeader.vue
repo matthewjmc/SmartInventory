@@ -44,7 +44,7 @@
         margin-right: 1rem;
     }
     .container {
-        max-width: 2200px;
+        max-width: 2500px;
         margin: 1rem;
         overflow: hidden;
         padding: 1rem 2rem;
