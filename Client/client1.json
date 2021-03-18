@@ -1,0 +1,8 @@
+{ 
+  "user": 
+    { 
+      "userId": "123456",
+      "command": "allowed",
+      "data": "true"
+      }
+} 
