@@ -6,9 +6,9 @@ services:
     container_name: portainer
     restart: unless-stopped
     command: -H unix:///var/run/docker.sock
-    ports:
-      - "9000:9000"
-      - "8000:8000"
+    expose:
+      - "9000"
+      - "8000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${DOCKERDIR}/portainer/data:/data
@@ -32,17 +32,51 @@ services:
     ports:
       - 3306:3306/tcp 
 
-  dockerIOT:
+  dockerAPI:
     image: matthew1999/iotproject:1.0.0
-    container_name: dockerIOT
+    container_name: dockerAPI
     restart: unless-stopped
     command: python3 IOTAPI.py
     volumes:
       - ${CODE}:/Project
     working_dir: /Project
+    expose:
+      - 5000 ## Change again later
 
+  OAuth:
+    image: node:latest
+    container_name: OAuth
+    restart: unless-stopped
+    command: node index.js
+    volumes:
+      - ${OAuth}:/OAuth
+    working_dir: /OAuth
+    expose:
+      - 3000
+
+  swag:
+    image: ghcr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - URL=iot2.mcmullin.org
+      - SUBDOMAINS=wildcard
+      - VALIDATION=dns
+      - DNSPLUGIN=cloudflare #optional
+      - EMAIL= matthew@mcmullin.one
+      - ONLY_SUBDOMAINS=false #optional
+      - STAGING=false #optional
+    volumes:
+      - ${DOCKERDIR}/swag/appdata/config:/config
     ports:
-      - 80:5000
-  
+      - 443:443
+      - 80:80 #optional
+    restart: unless-stopped
+
+
 
 
