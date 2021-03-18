@@ -1,9 +1,7 @@
 
 <template>
     
-    <header class="header">
-        <img src='~assets/CIElogo.png' >
-    </header>    
+       
     
 </template>
 
@@ -24,27 +22,37 @@
 </script>
 
 <style>
-.text {
+.flex-container  {
+  flex: 0 0 25em;
+  padding-top: 1%;
+  text-align: center;
   align-items: center;
   display: flex;
-  margin-left: auto;
-  margin-right: auto;
-  width: 10%;
+  flex-direction: column;
+  justify-content: center;
+  
 }
 
-.header img {
-  align-items: center;
-  display: flex;
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: auto;
-  width: 12%;
-  max-width: 100%;
-  position: absolute;
-  top: 1200%;
-  bottom: 30%;
-  left: 44%;
-  }
-
+.page-enter-active {
+      animation: acrossIn .50s ease-out both;
+    } 
+    .page-leave-active {
+      animation: acrossOut .50s ease-in both;
+    } 
+    @keyframes acrossIn {
+      0% {
+        transform: translate3d(-100%, 0, 0);
+      }
+      100% {
+        transform: translate3d(0, 0, 0);
+      }
+    }
+    @keyframes acrossOut {
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+      100% {
+        transform: translate3d(100%, 0, 0);
+      }
+    }
 </style>

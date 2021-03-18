@@ -2,7 +2,6 @@
 <template>
 
     <div class="flex-container">
-
       <div> 
         <img src='~assets/CIElogo.png' > 
       </div>
@@ -11,18 +10,22 @@
           <header class="dispTitle"> 
             CIE INVENTORY SYSTEM
           </header>
+
           <h1>
             <pre>
             This system is a tracking systems for items in CIE storage room
             which is a part of Internet of Things and Smart Systems project.
             </pre>
+        
           </h1>
-          <nuxt-link class='loginButton' to='/login'> Login
-          </nuxt-link> 
+          
+        <nuxt-link class='loginButton' to='/login'> LOGIN </nuxt-link>
       </div>  
-      
-    </div>  
+    
 
+
+    </div> 
+    
 </template>
 
 <script>
@@ -43,15 +46,6 @@
 
 <style>
 
-.image {
-  align-items: center;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 12%;
-  max-width: 50%;
-  position: absolute;
-  }
 
 .center {
   align-items: center;
@@ -61,12 +55,14 @@
 }
 
 .flex-container  {
+  flex: 0 0 25em;
   padding-top: 1%;
   text-align: center;
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  
 }
 
 img {
@@ -74,6 +70,7 @@ img {
   width: 250px;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 }
 
 .box > .dispTitle {
@@ -104,20 +101,45 @@ img {
   margin: -1.5rem;
   overflow: hidden;
   background: #ffa959;
-  z-index: -1;
+  /* z-index: -1; */
   border-radius: 50px;
 }
 
 .loginButton {
-        text-align: center;
-        justify-content: center;
-        display: inline-block;
-        background: #D77113;
-        color: #fff;
-        padding: 0.6rem 6rem;
-        border-radius: 20px;
-        border-width: 100px;
-        font-size: 30px;    
+  text-align: center;
+  justify-content: center;
+  display: inline-block;
+  background: #D77113;
+  color: #fff;
+  padding: 0.6rem 6rem;
+  border-radius: 20px;
+  border-width: 100px;
+  font-size: 30px;    
 }
 
+/* Transitions using the page hook */
+    .page-enter-active {
+      animation: acrossIn .50s ease-out both;
+    } 
+    .page-leave-active {
+      animation: acrossOut .50s ease-in both;
+    } 
+    @keyframes acrossIn {
+      0% {
+        transform: translate3d(-100%, 0, 0);
+      }
+      100% {
+        transform: translate3d(0, 0, 0);
+      }
+    }
+    @keyframes acrossOut {
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+      100% {
+        transform: translate3d(100%, 0, 0);
+      }
+    }
 </style>
+
+
