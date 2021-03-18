@@ -4,7 +4,7 @@
 
 ```
 GET /api/v1/inventory
-Content-Type: application/json
+Accept: application/json
 ```
 ### Return
 ```
@@ -41,7 +41,7 @@ Content-Type: application/json
 ## Get Withdrawal History
 ```
 GET /api/v1/withdraw
-Content-Type: application/json
+Accept: application/json
 Data: # Options {all, userID, ItemID} Body not Header
 ```
 ### Data Format in Header
