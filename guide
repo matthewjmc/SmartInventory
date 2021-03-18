@@ -1,0 +1,5 @@
+Change DNS Settings on cloudflare
+
+Run install.sh
+
+Run docker-compose
