@@ -48,7 +48,7 @@ INSERT INTO Overdue(userID,itemID,amount)
     (61011004,2,1),
     (61011004,3,1);
     
-INSERT INTO Stock(itemID,amount)
+INSERT INTO Stock(itemID,amount,availability)
 	VALUES
     (1,3,true),
     (2,4,true),
