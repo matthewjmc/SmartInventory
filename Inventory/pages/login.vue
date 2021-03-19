@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="submitButton">
-                        <input type="submit" value="Submit">
+                        <input type="submit" value="SUBMIT">
                 </div>
           </form>
         
@@ -77,6 +77,8 @@
 }
 
 .infoEntry  {
+  color: white;
+  font-weight: 700;
   flex: auto;
   padding-top: 0.25%;
   text-align: center;
@@ -107,6 +109,7 @@ img {
 }
 
 .submitButton {
+  font-weight: 600;
   text-align: center;
   justify-content: center;
   display: inline-block;
@@ -187,6 +190,7 @@ input[type=submit] {
 
 /* Floating column for labels: 25% width */
 .entryName {
+  font-color: #fff;
   float: left;
   width: 20%;
   margin-top: 6px;
