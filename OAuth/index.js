@@ -5,9 +5,13 @@
 const express = require('express');
 const app = express();
 const session = require('express-session');
+const jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser');
+const cookieParser = require("cookie-parser");
 
+app.use(bodyParser.json());
 app.set('view engine', 'ejs');
-
+app.use(cookieParser());
 app.use(session({
   resave: false,
   saveUninitialized: true,
@@ -15,7 +19,7 @@ app.use(session({
 }));
 
 app.get('/', function(req, res) {
-  res.render('NONO');
+  res.json('HelloWorld');
 });
 
 const port = process.env.PORT || 3000;
@@ -28,8 +32,12 @@ app.listen(port , () => console.log('App listening on port ' + port));
 const passport = require('passport');
 var userProfile;
 
+
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+app.set('view engine', 'ejs');
 
 passport.serializeUser(function(user, cb) {
   cb(null, user);
@@ -57,30 +65,21 @@ passport.use(new GoogleStrategy({
   }
 ));
  
-app.get('/auth/google', 
-  passport.authenticate('google', { scope : ['profile', 'email'] }));
- 
-app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/error' }),
-  function(req, res) {
-    // Successful authentication, redirect success.
-    res.redirect('/success');
-  });
 
+const secretKey = "aoisdjfoiajdsoifjasodif";
 
   /*  JSON Web Tokens  */
 const authenticateJWT = (req, res, next) => {
-  const authHeader = req.headers.authorization;
+  const authHeader = req.cookies;
+  //console.log(authHeader["token"])
+  if (authHeader['token']) {
 
-  if (authHeader) {
-      const token = authHeader.split(' ')[1];
-
-      jwt.verify(token, accessTokenSecret, (err, user) => {
+      jwt.verify(authHeader["token"], secretKey, (err, user) => {
           if (err) {
               return res.sendStatus(403);
           }
-
           req.user = user;
+          //console.log(user)
           next();
       });
   } else {
@@ -89,6 +88,35 @@ const authenticateJWT = (req, res, next) => {
 };
 
 
-  app.get('/success', (req, res) => res.send(userProfile));
-  app.get('/error', (req, res) => res.send("error logging in"));
-  
+app.get('/auth/google', 
+  passport.authenticate('google', { scope : ['profile', 'email'] }));
+ 
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/error' }),
+  function(req, res) {
+    // Successful authentication, redirect success.
+    res.redirect('/success');
+  });
+
+
+app.get('/success', (req, res) => {
+  const tokens = jwt.sign({user:userProfile["_json"]},secretKey);
+  var date = new Date()
+  date.setDate(date.getDate() + 2);
+  res.cookie('token', tokens, {
+    expires: date,
+    secure: false, // set to true if your using https
+    httpOnly: true,
+  });
+  res.redirect('/');
+});
+
+app.get("/user/info",authenticateJWT,(req,res)=>{
+  var cookie = req.cookies;
+  var decoded = jwt.decode(cookie["token"]);
+  return res.json(decoded)
+});
+
+
+app.get('/error', (req, res) => res.send("error logging in"));

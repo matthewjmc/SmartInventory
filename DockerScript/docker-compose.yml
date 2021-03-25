@@ -47,7 +47,7 @@ services:
     image: node:latest
     container_name: OAuth
     restart: unless-stopped
-    command: node index.js
+    command: "npm install && node index.js"
     volumes:
       - ${OAuth}:/OAuth
     working_dir: /OAuth
