@@ -1,5 +1,10 @@
-DockerVolumes/**/*
-!DockerVolumes/swag/
+!DockerVolumes/
+
+DockerVolumes/*
+!DockerVolumes/swag
+
+DockerVolumes/swag/*
+!DockerVolumes/swag/config/
 
 config.js
 # Logs
