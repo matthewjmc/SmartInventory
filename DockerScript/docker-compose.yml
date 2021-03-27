@@ -1,5 +1,5 @@
 ---
-version: "2"
+version: "3.7"
 services:
   portainer:
     image: portainer/portainer-ce:latest
@@ -29,8 +29,8 @@ services:
       - MYSQL_PASSWORD=123456789
     volumes:
       - ${DOCKERDIR}/mariadb:/config
-    ports:
-      - 3306:3306/tcp 
+    expose:
+      - 3306
 
   backend:
     image: node:latest
@@ -61,7 +61,19 @@ services:
       - ${DOCKERDIR}/swag/config:/config
     ports:
       - 443:443
-      - 80:80 #optional
+      - 80:80 
+      - 1883:1883
+      - 3306:3306
+    restart: unless-stopped
+
+  mosquitto:
+    image: vimagick/mosquitto
+    container_name: mosquitto
+    expose:
+      - "1883"
+    volumes:
+      - ${DOCKERDIR}/mosquitto/mosquitto.conf:/etc/mosquitto/mosquitto.conf
+      - ${DOCKERDIR}/mosquitto/data:/var/lib/mosquitto
     restart: unless-stopped
 
 

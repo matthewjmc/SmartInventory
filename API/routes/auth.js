@@ -101,7 +101,7 @@ router.get('/success', (req, res) => {
     secure: false, // set to true if your using https
     httpOnly: true,
   });
-  res.redirect('/');
+  res.redirect('http://iot2.mcmullin.org/');
 });
 
 // Retrieve User Information From Cookie
