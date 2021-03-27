@@ -9,30 +9,48 @@ Accept: application/json
 ### Return
 ```
 [
-    [
-        "HoloLens",
-        "Microsoft Hololens",
-        1,
-        3
-    ],
-    [
-        "Oculus VR",
-        "Oculus Virtual Reality Goggles",
-        1,
-        4
-    ],
-    [
-        "HTC VIVE",
-        "HTC Vive Virtual Reality Goggles",
-        1,
-        3
-    ],
-    [
-        "NZXT Computers",
-        "NZXT High Performance Computers",
-        1,
-        5
-    ]
+    {
+        "item_name": "HoloLens",
+        "description": "Microsoft Hololens",
+        "availability": 1,
+        "amount": 3
+    },
+    {
+        "item_name": "Oculus VR",
+        "description": "Oculus Virtual Reality Goggles",
+        "availability": 1,
+        "amount": 4
+    },
+    {
+        "item_name": "HTC VIVE",
+        "description": "HTC Vive Virtual Reality Goggles",
+        "availability": 1,
+        "amount": 3
+    },
+    {
+        "item_name": "NZXT Computers",
+        "description": "NZXT High Performance Computers",
+        "availability": 1,
+        "amount": 5
+    },
+    {
+        "item_name": "Alienware PC",
+        "description": "Alienware Personal Computer",
+        "availability": 1,
+        "amount": 2
+    },
+    {
+        "item_name": "Cobot",
+        "description": "Cobot Arm",
+        "availability": 1,
+        "amount": 4
+    },
+    {
+        "item_name": "Nao",
+        "description": "Nao Robot",
+        "availability": 1,
+        "amount": 2
+    }
 ]
 ```
 
@@ -42,7 +60,7 @@ Accept: application/json
 ```
 GET /api/v1/withdraw
 Accept: application/json
-Data: # Options {all, userID, ItemID} Body not Header
+Data: # Options {all, userID, ItemID} 
 ```
 ### Data Format in Header
 ```

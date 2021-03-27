@@ -1,5 +1,6 @@
 DockerVolumes/mariadb/
 
+config.js
 # Logs
 logs
 *.log
