@@ -36,7 +36,7 @@ services:
     image: node:latest
     container_name: backend
     restart: unless-stopped
-    command: "node index.js"
+    command: bash -c "npm install && node index.js"
     volumes:
       - ${API}:/Project
     working_dir: /Project
