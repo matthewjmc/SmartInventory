@@ -36,8 +36,9 @@ const secretKey = config.SECRET;
 
 
 const authenticateJWT = (req, res, next) => {
+    var header = req.header("Accept")
     const authHeader = req.cookies;
-    if (authHeader['token']) {
+    if (authHeader['token'] && header == "application/json") {
   
         jwt.verify(authHeader["token"], secretKey, (err, user) => {
             if (err) {
@@ -54,37 +55,34 @@ const authenticateJWT = (req, res, next) => {
 //Retrieve All Items in Inventory 
 router.get("/inventory",authenticateJWT,(req,res)=>{
     var header = req.header("Accept");
-      if (header == "application/json"){
-        con.query("SELECT Items.item_name, Items.description, Stock.availability, Stock.amount FROM Stock INNER JOIN Items ON Stock.itemID=Items.itemID;",(err,rows)=>{
-        if (err) throw err;
-        return res.json(rows)
-        });
-      }
+    con.query("SELECT Items.item_name, Items.description, Stock.availability, Stock.amount FROM Stock INNER JOIN Items ON Stock.itemID=Items.itemID;",(err,rows)=>{
+    if (err) throw err;
+    return res.json(rows)
+    });
+      
   });
   
 router.get("/withdraw",authenticateJWT,(req,res)=>{
     var Data = req.query.command;
     var val = req.query.value;
-    if (req.header("Accept")=="application/json"){
-        if (Data == "all"){
-        con.query("SELECT Items.item_name,Users.userID,Users.firstname,Users.lastname,Borrow_Record.date_borrowed,Borrow_Record.expected_return_date FROM Borrow_Record INNER JOIN Users ON Borrow_Record.userID=Users.userID INNER JOIN Items ON Items.itemID=Borrow_Record.itemID;",
-        (err,rows)=>{
-            if(err) throw err;
-            return res.json(rows)
-        })
-        } else if (Data == "userID"){
-        con.query(`SELECT Items.item_name,Users.userID,Users.firstname,Users.lastname,Borrow_Record.date_borrowed,Borrow_Record.expected_return_date FROM Borrow_Record INNER JOIN Users ON Borrow_Record.userID=Users.userID INNER JOIN Items ON Items.itemID=Borrow_Record.itemID WHERE Users.userID=${val};`,
-        (err,rows)=>{
-            if(err) throw err;
-            return res.json(rows)
-        })
-        } else if(Data == "itemID"){
-        con.query(`SELECT Items.item_name,Users.userID,Users.firstname,Users.lastname,Borrow_Record.date_borrowed,Borrow_Record.expected_return_date FROM Borrow_Record INNER JOIN Users ON Borrow_Record.userID=Users.userID INNER JOIN Items ON Items.itemID=Borrow_Record.itemID WHERE Items.itemID= ${val};`,
-        (err,rows)=>{
-            if(err) throw err;
-            return res.json(rows)
-        })
-        }
+    if (Data == "all"){
+    con.query("SELECT Items.item_name,Users.userID,Users.firstname,Users.lastname,Borrow_Record.date_borrowed,Borrow_Record.expected_return_date FROM Borrow_Record INNER JOIN Users ON Borrow_Record.userID=Users.userID INNER JOIN Items ON Items.itemID=Borrow_Record.itemID;",
+    (err,rows)=>{
+        if(err) throw err;
+        return res.json(rows)
+    })
+    } else if (Data == "userID"){
+    con.query(`SELECT Items.item_name,Users.userID,Users.firstname,Users.lastname,Borrow_Record.date_borrowed,Borrow_Record.expected_return_date FROM Borrow_Record INNER JOIN Users ON Borrow_Record.userID=Users.userID INNER JOIN Items ON Items.itemID=Borrow_Record.itemID WHERE Users.userID=${val};`,
+    (err,rows)=>{
+        if(err) throw err;
+        return res.json(rows)
+    })
+    } else if(Data == "itemID"){
+    con.query(`SELECT Items.item_name,Users.userID,Users.firstname,Users.lastname,Borrow_Record.date_borrowed,Borrow_Record.expected_return_date FROM Borrow_Record INNER JOIN Users ON Borrow_Record.userID=Users.userID INNER JOIN Items ON Items.itemID=Borrow_Record.itemID WHERE Items.itemID= ${val};`,
+    (err,rows)=>{
+        if(err) throw err;
+        return res.json(rows)
+    })
     }
 });
 

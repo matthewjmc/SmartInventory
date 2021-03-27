@@ -1,4 +1,4 @@
-DockerVolumes/mariadb/
+DockerVolumes/
 
 config.js
 # Logs
