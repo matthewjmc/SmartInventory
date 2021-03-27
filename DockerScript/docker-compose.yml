@@ -32,25 +32,14 @@ services:
     ports:
       - 3306:3306/tcp 
 
-  dockerAPI:
-    image: matthew1999/iotproject:1.0.0
-    container_name: dockerAPI
-    restart: unless-stopped
-    command: python3 IOTAPI.py
-    volumes:
-      - ${CODE}:/Project
-    working_dir: /Project
-    expose:
-      - 5000 ## Change again later
-
-  OAuth:
+  backend:
     image: node:latest
-    container_name: OAuth
+    container_name: backend
     restart: unless-stopped
-    command: "npm install && node index.js"
+    command: "node index.js"
     volumes:
-      - ${OAuth}:/OAuth
-    working_dir: /OAuth
+      - ${API}:/Project
+    working_dir: /Project
     expose:
       - 3000
 
@@ -64,14 +53,12 @@ services:
       - PGID=1000
       - TZ=${TZ}
       - URL=iot2.mcmullin.org
-      - SUBDOMAINS=wildcard
-      - VALIDATION=dns
-      - DNSPLUGIN=cloudflare #optional
+      - SUBDOMAINS=www,api,portainer
+      - VALIDATION=http
       - EMAIL= matthew@mcmullin.one
-      - ONLY_SUBDOMAINS=false #optional
       - STAGING=false #optional
     volumes:
-      - ${DOCKERDIR}/swag/appdata/config:/config
+      - ${DOCKERDIR}/swag/config:/config
     ports:
       - 443:443
       - 80:80 #optional
