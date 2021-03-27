@@ -1,3 +1,4 @@
+DockerVolumes/**/*
 !DockerVolumes/swag/
 
 config.js
