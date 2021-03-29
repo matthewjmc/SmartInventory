@@ -1,17 +1,10 @@
 <template>
-  <div>
-      <AppHeader class="container"/>
-        <nuxt />
-  </div>
+  <nuxt />
 </template>
 
 <script>
-import AppHeader from '../components/AppHeader.vue';
 
 export default {
-  components:{
-    AppHeader
-  }
 }
 
 </script>
@@ -37,6 +30,11 @@ a {
 }
 ul{
   list-style: none;
+}
+
+.page {
+  position: center;
+  width: inherit;
 }
 
 
