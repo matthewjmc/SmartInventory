@@ -3,7 +3,7 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - Inventory',
+    titleTemplate: '%s - CIE Inventory',
     title: 'Inventory',
     htmlAttrs: {
       lang: 'en'
@@ -37,6 +37,8 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

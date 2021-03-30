@@ -33,6 +33,8 @@ import AppHeader from '../components/AppHeader.vue';
       components:{
         AppHeader
       },
+
+      methods:{
         head(){
             return{
             title: 'Homepage',
@@ -44,6 +46,9 @@ import AppHeader from '../components/AppHeader.vue';
             ]
             }
         }
+
+      }
+        
     }
 </script>
 

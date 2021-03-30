@@ -3,9 +3,9 @@
     <header class = 'header'>
         <h1 class = 'title'> CIE Inventory System </h1>
         <ul>
-            <li>
-                <nuxt-link to='/'>LOGOUT</nuxt-link>
-            </li>
+            <div v-if="$auth.loggedIn"> {{$auth.user.email}} </div>
+            <!-- username ( gmail account ) -->
+            <li><nuxt-link to='/'>LOGOUT</nuxt-link></li>
         </ul>
     </header>
 </template>

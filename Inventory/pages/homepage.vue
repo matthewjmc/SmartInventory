@@ -5,7 +5,7 @@
         <LoginHeader class="container"/>
         <div class='outer-container'>
             <div> 
-              <img class="img" src='~assets/CIElogo.png' > 
+              <img class="img" src='~assets/CIElogo.png'> 
             </div>
             <div class='buttonGroup'>
               <div class="square">
