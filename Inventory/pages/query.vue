@@ -1,27 +1,11 @@
-
 <template>
-
-    
+  <section class="section">
+      {{ $auth.user.email }}
+  </section>
 </template>
 
 <script>
-    export default {
-        head(){
-            return{
-            title: 'Tracking',
-            meta: [
-                { hid: 'description',
-                name: 'description',   
-                content: 'Inventory System'
-                }
-            ]
-            }
-        }
-    }
+export default {
+  middleware: 'auth'
+};
 </script>
-
-<style>
-
-</style>
-
-

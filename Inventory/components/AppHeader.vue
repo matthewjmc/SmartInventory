@@ -1,7 +1,7 @@
 
 <template>
     <header class = 'header'>
-        <h1 class = 'title'> CIE Inventory System </h1>
+        <h1 class = 'title' > CIE Inventory System </h1>
     </header>
 </template>
 

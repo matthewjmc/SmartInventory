@@ -1,6 +1,9 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  server: {
+    host: '0.0.0.0' // default: localhost
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - CIE Inventory',
@@ -26,6 +29,8 @@ export default {
   plugins: [
   ],
 
+
+  
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
@@ -38,10 +43,10 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
   ],
-
-  // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
+   
+    // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {

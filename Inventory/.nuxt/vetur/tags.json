@@ -1,0 +1,20 @@
+{
+  "AppHeader": {
+    "description": "Auto imported from components/AppHeader.vue"
+  },
+  "InventoryQuery": {
+    "description": "Auto imported from components/InventoryQuery.vue"
+  },
+  "LoginHeader": {
+    "description": "Auto imported from components/LoginHeader.vue"
+  },
+  "UserAuthForm": {
+    "description": "Auto imported from components/UserAuthForm.vue"
+  },
+  "VuetifyLogo": {
+    "description": "Auto imported from components/VuetifyLogo.vue"
+  },
+  "WithdrawQuery": {
+    "description": "Auto imported from components/WithdrawQuery.vue"
+  }
+}

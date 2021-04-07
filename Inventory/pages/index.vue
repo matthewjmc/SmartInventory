@@ -1,5 +1,6 @@
 <---https://api.iot2.mcmullin.org/auth/google--->
 
+
 <template>
 <div>
     <AppHeader class="container"/>
@@ -18,9 +19,8 @@
                 This system is a tracking systems for items in CIE storage room
                 which is a part of Internet of Things and Smart Systems project.
                 </p>
-            
+              <a class='loginButton' href="/login">Proceed to Login Page</a>
               </h1>
-            <a class='loginButton' href="https://api.iot2.mcmullin.org/auth/google">LOGIN WITH KMITL ACCOUNT</a>
           </div>  
 
         </div>
@@ -28,28 +28,26 @@
 </template>
 
 <script>
+
 import AppHeader from '../components/AppHeader.vue';
     export default {
       components:{
         AppHeader
       },
-
-      methods:{
-        head(){
-            return{
-            title: 'Homepage',
-            meta: [
-                { hid: 'description',
-                name: 'description',   
-                content: 'Inventory System'
-                }
-            ]
+    head(){
+        return{
+        title: 'Introduction',
+        meta: [
+            { hid: 'description',
+            name: 'description',   
+            content: 'Inventory System'
             }
+        ]
         }
-
-      }
-        
     }
+
+}    
+
 </script>
 
 <style>
@@ -118,6 +116,29 @@ import AppHeader from '../components/AppHeader.vue';
   border-width: 100px;
   font-size: 22px;    
 }
+.page-enter-active {
+    animation: acrossIn .50s ease-out both;
+} 
+.page-leave-active {
+    animation: acrossOut .50s ease-in both;
+} 
+@keyframes acrossIn {
+    0% {
+        transform: translate3d(-100%, 0, 0);
+    }
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+    }
+    @keyframes acrossOut {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(100%, 0, 0);
+      }
+    }
+
 
 </style>
 
