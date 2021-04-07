@@ -2,7 +2,7 @@
   "user": 
     { 
       "userId": "123456",
-      "command": "allowed",
+      "command": "denied",
       "data": "true"
       }
 } 
