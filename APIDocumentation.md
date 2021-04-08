@@ -61,6 +61,7 @@ Accept: application/json
 GET /api/v1/withdraw
 Accept: application/json
 Data: # Options {all, userID, ItemID} 
+ex. api.iot2.mcmullin.org/api/withdraw?command=itemID&value=2
 ```
 ### Data Format in Header
 ```

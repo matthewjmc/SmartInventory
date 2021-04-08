@@ -1,8 +1,7 @@
-
 const express = require('express');
 const app = express();
+require("dotenv").config()
 
-var config = require('./config');
 
 //Preconfigured Routes
 var api = require("./routes/api");
@@ -14,10 +13,10 @@ app.use("/auth",auth)
 app.use(clientErrorHandler)
 
 app.get('/', function(req, res) {
-  res.json('This is an API Backend');
+  res.sendStatus(403);
 });
 
-const port = config.PORT;
+const port = process.env.PORT;
 app.listen(port , () => console.log('App listening on port ' + port));
 
 

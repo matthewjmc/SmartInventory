@@ -1,116 +1,76 @@
-
-const express = require('express');
-const app = express();
-const session = require('express-session');
-const jwt = require('jsonwebtoken');
+require("dotenv").config() //Load Up .env Variables for Secrets
+const ldap = require('ldapjs'); 
+const jwt = require("jsonwebtoken")
 const bodyParser = require('body-parser');
-const cookieParser = require("cookie-parser");
-
-var config = require('../config');
+var express = require('express');
 var router = express.Router()
 
+router.use(express.json())
 
-router.use(cookieParser());
-router.use(bodyParser.json());
-router.use(session({
-    resave: false,
-    saveUninitialized: true,
-    secret: 'SECRET' 
-  }));
-
-//App Secret Key
-const secretKey = config.SECRET;
-
-// app.use(bodyParser.json());
-// app.use(cookieParser());
-// app.use(session({
-//   resave: false,
-//   saveUninitialized: true,
-//   secret: 'SECRET' 
-// }));
-
-// const port = config.PORT;
-// app.listen(port , () => console.log('App listening on port ' + port));
-
-
-/*  PASSPORT SETUP  */
-const passport = require('passport');
-var userProfile;
-router.use(passport.initialize());
-router.use(passport.session());
-
-passport.serializeUser(function(user, cb) {
-  cb(null, user);
-});
-passport.deserializeUser(function(obj, cb) {
-  cb(null, obj);
-});
-
-
-/*  Google AUTH  */
- 
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const GOOGLE_CLIENT_ID = config.CLIENTID;
-const GOOGLE_CLIENT_SECRET = config.GOOGLESECRET;
-passport.use(new GoogleStrategy({
-    clientID: GOOGLE_CLIENT_ID,
-    clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://api.iot2.mcmullin.org/auth/google/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-      userProfile=profile;
-      return done(null, userProfile);
-  }
-));
- 
-const authenticateJWT = (req, res, next) => {
-  const authHeader = req.cookies;
-  if (authHeader['token']) {
-
-      jwt.verify(authHeader["token"], secretKey, (err, user) => {
-          if (err) {
-              return res.sendStatus(403);
-          }
-          req.user = user;
-          next();
-      });
-  } else {
-      res.sendStatus(401);
-  }
+var options = {
+    'rejectUnauthorized': false, //Allow Self-Signed Certificate for LDAPS
 };
-
-
-//Path for Authentication   
-router.get('/google', 
-  passport.authenticate('google', { scope : ['profile', 'email'] }));
-
-router.get('/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/auth/error' }),
-  function(req, res) {
-    // Successful authentication, redirect success.
-    res.redirect('/auth/success');
-  });
-
-// Send Cookie to Front end
-router.get('/success', (req, res) => {
-  const tokens = jwt.sign({user:userProfile["_json"]},secretKey);
-  var date = new Date()
-  date.setDate(date.getDate() + 2);
-  res.cookie('token', tokens, {
-    expires: date,
-    secure: false, // set to true if your using https
-    httpOnly: true,
-  });
-  res.redirect('http://iot2.mcmullin.org/');
+var client = ldap.createClient({ //Create Client to use for Server Authentication
+    url: 'ldaps://ipa.cielab.net:8443',
+    tlsOptions: options
 });
 
-// Retrieve User Information From Cookie
-router.get("/user/info",authenticateJWT,(req,res)=>{
-  var cookie = req.cookies;
-  var decoded = jwt.decode(cookie["token"]);
-  return res.json(decoded)
-});
+const authenticateUser = (req, res,next) =>{
+    client.bind(`uid=${req.body.username},cn=users,cn=accounts,dc=cielab,dc=net`, req.body.password, function (err) {
+        if (err) {
+            console.log("Error in new connetion " + err)
+            res.sendStatus(403)
+        } else {
+            next()
+        }
+    });
+}
+// Username test, pass= test12345
+function authenticateToken(req,res,next){ // API Side Middleware
+    const authHeader = req.headers['Authorization'];
+    const token = authHeader && authHeader.split(' ')[1]
+    if (token == null) return res.sendStatus(401)
+    jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,(err,user)=>{
+        if (err) return res.sendStatus(403)
+        req.user = user
+        next()
+    })
+}
 
-router.get('/error', (req, res) => res.send("error logging in"));
+function generateAccessToken(user){
+    return jwt.sign(user,process.env.ACCESS_TOKEN_SECRET,{expiresIn:'30m'});
+}
 
+router.delete('/logout',(req,res)=>{ //Deauthenticate Token
+    refreshTokens = refreshTokens.filter(token => token !== req.body.token);
+    res.sendStatus(204)
+})
+
+router.post('/login',authenticateUser,(req,res)=>{
+    console.log("test")
+    const username = req.body.username;
+    const user = {name:username};
+    const accessToken = generateAccessToken(user);
+    const refreshToken = jwt.sign(user,process.env.REFRESH_TOKEN_SECRET);
+    refreshTokens.push(refreshToken);
+    res.json({accessToken:accessToken,refreshToken:refreshToken});
+
+})
+
+let refreshTokens = [];
+router.post('/token',(req,res)=>{ //Refresh Token For User
+    const refreshToken = req.body.token
+    if (refreshToken==null) return res.sendStatus(401);
+    
+    if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403);
+    jwt.verify(refreshToken,process.env.REFRESH_TOKEN_SECRET,(err,user)=>{
+        if(err) return res.sendStatus(403)
+        const accessToken = generateAccessToken({name: user.name})
+        res.json({accessToken: accessToken})
+    })
+})
+
+router.get("/test",(req,res)=>{
+    res.json({State:"test"})
+})
 module.exports = router;
