@@ -5,7 +5,7 @@ import ClientOnly from 'vue-client-only'
 import NoSsr from 'vue-no-ssr'
 import { createRouter } from './router.js'
 import NuxtChild from './components/nuxt-child.js'
-import NuxtError from '../layouts/error.vue'
+import NuxtError from '..\\layouts\\error.vue'
 import Nuxt from './components/nuxt.js'
 import App from './App.js'
 import { setContext, getLocation, getRouteData, normalizeError } from './utils'
@@ -13,10 +13,10 @@ import { createStore } from './store.js'
 
 /* Plugins */
 
-import nuxt_plugin_plugin_7ff4dad8 from 'nuxt_plugin_plugin_7ff4dad8' // Source: ./components/plugin.js (mode: 'all')
-import nuxt_plugin_plugin_2d141816 from 'nuxt_plugin_plugin_2d141816' // Source: ./vuetify/plugin.js (mode: 'all')
-import nuxt_plugin_axios_0a2689ee from 'nuxt_plugin_axios_0a2689ee' // Source: ./axios.js (mode: 'all')
-import nuxt_plugin_plugin_75adecaa from 'nuxt_plugin_plugin_75adecaa' // Source: ./auth/plugin.js (mode: 'all')
+import nuxt_plugin_plugin_efbd218e from 'nuxt_plugin_plugin_efbd218e' // Source: .\\components\\plugin.js (mode: 'all')
+import nuxt_plugin_plugin_c03b814a from 'nuxt_plugin_plugin_c03b814a' // Source: .\\vuetify\\plugin.js (mode: 'all')
+import nuxt_plugin_axios_676330dc from 'nuxt_plugin_axios_676330dc' // Source: .\\axios.js (mode: 'all')
+import nuxt_plugin_plugin_5f4a0b8b from 'nuxt_plugin_plugin_5f4a0b8b' // Source: .\\auth\\plugin.js (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -45,7 +45,11 @@ Vue.component(Nuxt.name, Nuxt)
 
 Object.defineProperty(Vue.prototype, '$nuxt', {
   get() {
-    return this.$root.$options.$nuxt
+    const globalNuxt = this.$root.$options.$nuxt
+    if (process.client && !globalNuxt && typeof window !== 'undefined') {
+      return window.$nuxt
+    }
+    return globalNuxt
   },
   configurable: true
 })
@@ -209,20 +213,20 @@ async function createApp(ssrContext, config = {}) {
   }
   // Plugin execution
 
-  if (typeof nuxt_plugin_plugin_7ff4dad8 === 'function') {
-    await nuxt_plugin_plugin_7ff4dad8(app.context, inject)
+  if (typeof nuxt_plugin_plugin_efbd218e === 'function') {
+    await nuxt_plugin_plugin_efbd218e(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_plugin_2d141816 === 'function') {
-    await nuxt_plugin_plugin_2d141816(app.context, inject)
+  if (typeof nuxt_plugin_plugin_c03b814a === 'function') {
+    await nuxt_plugin_plugin_c03b814a(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_axios_0a2689ee === 'function') {
-    await nuxt_plugin_axios_0a2689ee(app.context, inject)
+  if (typeof nuxt_plugin_axios_676330dc === 'function') {
+    await nuxt_plugin_axios_676330dc(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_plugin_75adecaa === 'function') {
-    await nuxt_plugin_plugin_75adecaa(app.context, inject)
+  if (typeof nuxt_plugin_plugin_5f4a0b8b === 'function') {
+    await nuxt_plugin_plugin_5f4a0b8b(app.context, inject)
   }
 
   // Lock enablePreview in context
@@ -232,26 +236,26 @@ async function createApp(ssrContext, config = {}) {
     }
   }
 
-  // If server-side, wait for async component to be resolved first
-  if (process.server && ssrContext && ssrContext.url) {
-    await new Promise((resolve, reject) => {
-      router.push(ssrContext.url, resolve, (err) => {
-        // https://github.com/vuejs/vue-router/blob/v3.4.3/src/util/errors.js
-        if (!err._isRouter) return reject(err)
-        if (err.type !== 2 /* NavigationFailureType.redirected */) return resolve()
+  // Wait for async component to be resolved first
+  await new Promise((resolve, reject) => {
+    router.push(app.context.route.fullPath, resolve, (err) => {
+      // https://github.com/vuejs/vue-router/blob/v3.4.3/src/util/errors.js
+      if (!err._isRouter) return reject(err)
+      if (err.type !== 2 /* NavigationFailureType.redirected */) return resolve()
 
-        // navigated to a different route in router guard
-        const unregister = router.afterEach(async (to, from) => {
+      // navigated to a different route in router guard
+      const unregister = router.afterEach(async (to, from) => {
+        if (process.server && ssrContext && ssrContext.url) {
           ssrContext.url = to.fullPath
-          app.context.route = await getRouteData(to)
-          app.context.params = to.params || {}
-          app.context.query = to.query || {}
-          unregister()
-          resolve()
-        })
+        }
+        app.context.route = await getRouteData(to)
+        app.context.params = to.params || {}
+        app.context.query = to.query || {}
+        unregister()
+        resolve()
       })
     })
-  }
+  })
 
   return {
     store,

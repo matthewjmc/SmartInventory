@@ -4,13 +4,13 @@ import { normalizeURL, decode } from 'ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _066e31fc = () => interopDefault(import('../pages/deposit.vue' /* webpackChunkName: "pages/deposit" */))
-const _00e0cc3a = () => interopDefault(import('../pages/inventory.vue' /* webpackChunkName: "pages/inventory" */))
-const _031e3272 = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
-const _0d8f6eb4 = () => interopDefault(import('../pages/query.vue' /* webpackChunkName: "pages/query" */))
-const _6e41f594 = () => interopDefault(import('../pages/rental.vue' /* webpackChunkName: "pages/rental" */))
-const _19bf399c = () => interopDefault(import('../pages/withdraw.vue' /* webpackChunkName: "pages/withdraw" */))
-const _34c943b0 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _30d77b5a = () => interopDefault(import('..\\pages\\deposit.vue' /* webpackChunkName: "pages/deposit" */))
+const _361d3618 = () => interopDefault(import('..\\pages\\inventory.vue' /* webpackChunkName: "pages/inventory" */))
+const _1ab8efa5 = () => interopDefault(import('..\\pages\\login.vue' /* webpackChunkName: "pages/login" */))
+const _15805184 = () => interopDefault(import('..\\pages\\query.vue' /* webpackChunkName: "pages/query" */))
+const _35981818 = () => interopDefault(import('..\\pages\\rental.vue' /* webpackChunkName: "pages/rental" */))
+const _3c7f1bfe = () => interopDefault(import('..\\pages\\withdraw.vue' /* webpackChunkName: "pages/withdraw" */))
+const _51114c8e = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
 
 const emptyFn = () => {}
 
@@ -25,31 +25,31 @@ export const routerOptions = {
 
   routes: [{
     path: "/deposit",
-    component: _066e31fc,
+    component: _30d77b5a,
     name: "deposit"
   }, {
     path: "/inventory",
-    component: _00e0cc3a,
+    component: _361d3618,
     name: "inventory"
   }, {
     path: "/login",
-    component: _031e3272,
+    component: _1ab8efa5,
     name: "login"
   }, {
     path: "/query",
-    component: _0d8f6eb4,
+    component: _15805184,
     name: "query"
   }, {
     path: "/rental",
-    component: _6e41f594,
+    component: _35981818,
     name: "rental"
   }, {
     path: "/withdraw",
-    component: _19bf399c,
+    component: _3c7f1bfe,
     name: "withdraw"
   }, {
     path: "/",
-    component: _34c943b0,
+    component: _51114c8e,
     name: "index"
   }],
 
@@ -57,7 +57,7 @@ export const routerOptions = {
 }
 
 export function createRouter (ssrContext, config) {
-  const base = (config.app && config.app.basePath) || routerOptions.base
+  const base = (config._app && config._app.basePath) || routerOptions.base
   const router = new Router({ ...routerOptions, base  })
 
   // TODO: remove in Nuxt 3

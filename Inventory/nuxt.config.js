@@ -2,7 +2,7 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   server: {
-    host: '0.0.0.0' // default: localhost
+    host: '0.0.0.0' 
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -45,8 +45,36 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
   ],
-   
-    // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
+
+  auth: {
+    token:{
+      property: 'accessToken',
+      type: 'Bearer'
+    },
+    redirect:{
+      login: '/login'
+    },
+    strategies:{
+        local: {
+          endpoints:{
+            login: { 
+              headers: { 'Content-Type': 'application/json' },
+              url: 'https://api.iot2.mcmullin.org/auth/login', 
+              method: 'post', 
+              propertyName: 'accessToken' 
+            },
+            user:{
+              headers: { 'Content-Type': 'application/json'},
+              url: 'https://api.iot2.mcmullin.org/auth/user/info', 
+              method: 'post', 
+              propertyName: 'accessToken'
+            },
+          },
+        }
+      }
+  },
+
+  // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {

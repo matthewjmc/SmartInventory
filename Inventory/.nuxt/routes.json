@@ -2,50 +2,43 @@
   {
     "name": "deposit",
     "path": "/deposit",
-    "component": "/Project/pages/deposit.vue",
-    "chunkName": "pages/deposit",
-    "_name": "_066e31fc"
+    "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\deposit.vue",
+    "chunkName": "pages/deposit"
   },
   {
     "name": "inventory",
     "path": "/inventory",
-    "component": "/Project/pages/inventory.vue",
-    "chunkName": "pages/inventory",
-    "_name": "_00e0cc3a"
+    "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\inventory.vue",
+    "chunkName": "pages/inventory"
   },
   {
     "name": "login",
     "path": "/login",
-    "component": "/Project/pages/login.vue",
-    "chunkName": "pages/login",
-    "_name": "_031e3272"
+    "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\login.vue",
+    "chunkName": "pages/login"
   },
   {
     "name": "query",
     "path": "/query",
-    "component": "/Project/pages/query.vue",
-    "chunkName": "pages/query",
-    "_name": "_0d8f6eb4"
+    "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\query.vue",
+    "chunkName": "pages/query"
   },
   {
     "name": "rental",
     "path": "/rental",
-    "component": "/Project/pages/rental.vue",
-    "chunkName": "pages/rental",
-    "_name": "_6e41f594"
+    "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\rental.vue",
+    "chunkName": "pages/rental"
   },
   {
     "name": "withdraw",
     "path": "/withdraw",
-    "component": "/Project/pages/withdraw.vue",
-    "chunkName": "pages/withdraw",
-    "_name": "_19bf399c"
+    "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\withdraw.vue",
+    "chunkName": "pages/withdraw"
   },
   {
     "name": "index",
     "path": "/",
-    "component": "/Project/pages/index.vue",
-    "chunkName": "pages/index",
-    "_name": "_34c943b0"
+    "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\index.vue",
+    "chunkName": "pages/index"
   }
 ]

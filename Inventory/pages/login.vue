@@ -1,67 +1,119 @@
-<---https://api.iot2.mcmullin.org/auth/google--->
-
-
 <template>
-<div>
-    <AppHeader class="container"/>
-        <div class="flex-container">
-          <div> 
-            <img class="img" src='~assets/CIElogo.png' > 
+  <div>
+    <AppHeader class="container" />
+    <div class="flex-container">
+      <div>
+        <img src="~assets/CIElogo.png" />
+      </div>
+      <div class="box">
+        <!-- <form>
+          <div class="infoEntry">
+            <div class="entryName">
+              <label>Student ID</label>
+            </div>
+            <div class="inputEntry">
+              <input
+                v-model="username"
+                type="text"
+                id="username"
+                name="username"
+              />
+            </div>
           </div>
 
-          <div class="box"> 
-              <header class="dispTitle"> 
-                CIE INVENTORY SYSTEM
-              </header>
-              <h1>
-                <p>
-                Press the button to login using KMITL account.
-                </p>
-              <a class='loginButton' href="https://api.iot2.mcmullin.org/auth/google">LOGIN</a>
-              </h1>-
-          </div>  
+          <div class="infoEntry">
+            <div class="entryName">
+              <label>Password</label>
+            </div>
+            <div class="inputEntry">
+              <input
+                v-model="password"
+                type="password"
+                id="password"
+                name="password"
+              />
+            </div>
+          </div>
 
-        </div>
-</div>    
+          <div class="submitButton">
+            <input @click="handleLoginClicked" type="submit" value="LOGIN" />
+          </div>
+        </form> -->
+        <v-text-field v-model="username" label="username"></v-text-field>
+        <v-text-field v-model="password" label="password" type="password"></v-text-field>
+        <v-btn @click="handleLoginClicked"> LOGIN </v-btn>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import AppHeader from "../components/AppHeader.vue";
+export default {
+  components: {
+    AppHeader
+  },
+  data(){
+    return {
+      username: '',
+      password: ''
+    }
+  },
+  methods:{
+    async handleLoginClicked(){
+      try {
+        const response = await this.$auth.loginWith('local', { 
+          data: { username: this.username, password: this.password }
+        })
+        console.log(response)
+      } catch (err) {
 
-import AppHeader from '../components/AppHeader.vue';
-    export default {
-      components:{
-        AppHeader
-      },
-    
-      head(){
-            return{
-            title: 'Login',
-            meta: [
-                { hid: 'description',
-                name: 'description',   
-                content: 'Inventory System'
-                }
-            ]
-            }
-        }
+      }
+    }
+  },
+  head() {
+    return {
+      title: "Login",
+      meta: [
+        { hid: "description", name: "description", content: "Inventory System" }
+      ]
+    };
+  },
 
-      }    
-
+};
 </script>
 
 <style>
+.center {
+  align-items: center;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
 
-.flex-container  {
-  flex: 0 0 25em;
+.flex-container {
+  flex: 100 0 25em;
   padding-top: 1%;
-  text-align: justify;
+  text-align: center;
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: center;
 }
 
-.img {
+.infoEntry {
+  color: white;
+  font-weight: 700;
+  flex: auto;
+  padding-top: 0.25%;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
+
+img {
   padding-top: 40%;
   width: 250px;
   align-items: center;
@@ -73,72 +125,120 @@ import AppHeader from '../components/AppHeader.vue';
   text-align: center;
   justify-content: center;
   width: 700px;
-  height: 180px;
+  height: 200px;
   margin: -1.5rem;
   overflow: hidden;
   background: #ffa959;
   border-radius: 50px;
 }
 
-.box > .dispTitle {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 700;
-  text-justify: center;
-  justify-content: center;
-  padding-top: 30px;
-  font-size: 26px;
-  color: #FFF;
-}
-
-.box h1 > p {
-  font-family: Arial, Helvetica, sans-serif;
+.submitButton {
   font-weight: 600;
-  text-align: center;
-  justify-content: center;
-  padding: 20px;
-  padding-left: 25px;
-  padding-right: 25px;
-  font-size: 21px;
-  color: #FFF;
-}
-
-.loginButton {
   text-align: center;
   justify-content: center;
   display: inline-block;
-  background: #D77113;
-  font-weight: 600;
+  background: #d77113;
   color: #fff;
-  padding-top: 17px;
-  padding: 0.6rem 6rem;
+  padding: 0.5rem 5rem;
+  margin-top: 12px;
   border-radius: 20px;
-  border-width: 100px;
-  font-size: 22px;    
+  border-width: 50px;
+  font-size: 25px;
 }
+
+form {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
 .page-enter-active {
-    animation: acrossIn .50s ease-out both;
-} 
+  animation: acrossIn 0.5s ease-out both;
+}
+
 .page-leave-active {
-    animation: acrossOut .50s ease-in both;
-} 
+  animation: acrossOut 0.5s ease-in both;
+}
+
 @keyframes acrossIn {
-    0% {
-        transform: translate3d(-100%, 0, 0);
-    }
-    100% {
-        transform: translate3d(0, 0, 0);
-    }
-    }
-    @keyframes acrossOut {
-    0% {
-        transform: translate3d(0, 0, 0);
-    }
-    100% {
-        transform: translate3d(100%, 0, 0);
-      }
-    }
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes acrossOut {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(100%, 0, 0);
+  }
+}
 
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+  color: #d77113;
+}
 
+input[type="password"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+  color: #d77113;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type="submit"] {
+  color: white;
+  padding-top: 10px;
+  padding: 1px 3px;
+  border: none;
+  border-radius: 4px;
+}
+
+.entryName {
+  color: #fff;
+  float: left;
+  width: 20%;
+  margin-top: 6px;
+}
+.inputEntry {
+  background: #fff;
+  float: left;
+  width: 75%;
+  margin-top: 3px;
+}
+.row {
+  padding-left: 5%;
+  display: table;
+  clear: both;
+}
+@media screen and (max-width: 800px) {
+  .entryName,
+  .inputEntry,
+  input[type="submit"] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
 </style>
-
-
