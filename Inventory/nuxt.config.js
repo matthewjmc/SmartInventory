@@ -45,29 +45,42 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
   ],
-
+  axios: {
+    baseURL: 'https://api.iot2.mcmullin.org/'
+  },
   auth: {
-    token:{
-      property: 'accessToken',
-      type: 'Bearer'
-    },
     redirect:{
-      login: '/login'
+      login: '/login',
+      logout: '/',
+      home: '/inventory'
     },
     strategies:{
         local: {
+          token:{
+            property: 'accessToken',
+            type: 'Bearer'
+          },
           endpoints:{
+            user: {
+              property: false, // here should be `false`, as you defined in user endpoint `propertyName`
+              autoFetch: true
+            },
             login: { 
               headers: { 'Content-Type': 'application/json' },
-              url: 'https://api.iot2.mcmullin.org/auth/login', 
-              method: 'post', 
-              propertyName: 'accessToken' 
+              url: '/auth/login', 
+              method: 'post',  
+              propertyName: 'accessToken'
+            },
+            logout: {
+              headers: { 'Content-Type': 'application/json' },
+              url: '/auth/logout',
+              method: 'delete'
             },
             user:{
               headers: { 'Content-Type': 'application/json'},
-              url: 'https://api.iot2.mcmullin.org/auth/user/info', 
+              url: '/auth/user/info', 
               method: 'post', 
-              propertyName: 'accessToken'
+              propertyName: 'userInfo'
             },
           },
         }

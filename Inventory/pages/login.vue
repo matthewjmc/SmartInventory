@@ -66,8 +66,12 @@ export default {
           data: { username: this.username, password: this.password }
         })
         console.log(response)
+        if(response.data.success){
+          this.$store.dispatch({text: ' Login Completed '})
+          this.$router.replace({name:'inventory'})
+        }
       } catch (err) {
-
+        console.log(err)
       }
     }
   },

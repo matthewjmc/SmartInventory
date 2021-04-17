@@ -8,14 +8,14 @@
       </div>
       <div class="buttonGroup">
         <div class="square">
-          <a class="loginButton" href="https://iot2.mcmullin.org/inventory"
+          <a class="loginButton" href="http://192.168.1.100:3000/inventory"
             >INVENTORY</a
           >
           <a class="currentButton">WITHDRAW</a>
-          <a class="loginButton" href="https://iot2.mcmullin.org/deposit"
+          <a class="loginButton" href="http://192.168.1.100:3000/deposit"
             >DEPOSIT</a
           >
-          <a class="loginButton" href="https://iot2.mcmullin.org/rental"
+          <a class="loginButton" href="http://192.168.1.100:3000g/rental"
             >RENTAL</a
           >
         </div>
@@ -60,6 +60,7 @@ export default {
   async created() {
     const config = {
       headers: {
+        authorization: this.$auth.$storage._state['_token.local'],
         Accept: "application/json"
       }
     };
