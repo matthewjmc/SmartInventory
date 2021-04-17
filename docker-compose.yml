@@ -1,0 +1,92 @@
+---
+version: "3.7"
+services:
+####################################
+###########   NGINX   ##############
+####################################
+  nginx:
+    build:
+      dockerfile: Dockerfile
+      context: ./SWAG
+    container_name: nginx
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - URL=iot2.mcmullin.org
+      - SUBDOMAINS=www,api,portainer
+      - VALIDATION=http
+      - EMAIL= matthew@mcmullin.one
+      - STAGING=false #optional
+    ports:
+      - 443:443
+      - 80:80 
+    restart: unless-stopped
+
+
+####################################
+#########   Portainer   ############
+####################################
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    command: -H unix:///var/run/docker.sock
+    ports:
+      - "9000:9000"
+      - "8000:8000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - portainer_data:/data
+
+
+####################################
+##########   MariaDB   #############
+####################################
+  mariadb:
+    image: linuxserver/mariadb:version-110.4.18mariabionic
+    container_name: mariadb
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ}
+      - PUID=1000 
+      - PGID=1000 
+      - MYSQL_USER=${MYSQLUSR}
+      - MYSQL_ROOT_PASSWORD=${ROOTPASS}
+      - MYSQL_PASSWORD=${MYSQLUSRPASS}
+    volumes:
+      - ./MariaDB/config:/config
+    ports:
+      - 3306:3306
+
+
+####################################
+##########   Backend   #############
+####################################
+  backend:
+    build:
+      dockerfile: Dockerfile.development
+      context: ./Backend
+    container_name: backend
+    restart: unless-stopped
+    volumes: 
+      - ./Backend:/Project
+      - /Project/node_modules
+    ports:
+      - 3000:3000
+
+
+####################################
+############   MQTT   ##############
+####################################
+  mosquitto:
+    build:
+      dockerfile: Dockerfile
+      context: ./Mosquitto
+    restart: unless-stopped
+    container_name: mosquitto
+    ports: 
+      - 1883:1883
