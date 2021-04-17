@@ -3,9 +3,20 @@ const ldap = require('ldapjs');
 const jwt = require("jsonwebtoken")
 const fs = require("fs")
 var express = require('express');
+const { decode } = require("punycode");
 var router = express.Router()
 
 router.use(express.json())
+router.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-type,Accept,X-Access-Token,X-Key,authorization');
+    res.header('Access-Control-Allow-Origin', '*');
+    if (req.method === 'OPTIONS') {
+        res.status(200).end();
+    } else {
+        next();
+        }
+})
 
 var privateKey = fs.readFileSync('key.pem','utf-8');
 var publicKey = fs.readFileSync('public.pem','utf-8');
@@ -15,7 +26,7 @@ var issuer = process.env.ISSUER;
 var subject = process.env.SUBJECT;
 var audience = process.env.AUDIENCE;
 var algorithm = 'ES256';
-var expiresIn = '30m'
+var expiresIn = '1d'
 
 var signOptions = {
     issuer,
@@ -32,6 +43,7 @@ var signRefresh = {
 }
 
 let refreshTokens = [];
+let tokens = [];
 
 var options = {
     'rejectUnauthorized': false, //Allow Self-Signed Certificate for LDAPS
@@ -51,7 +63,6 @@ const authenticateUser = (req, res,next) =>{
             console.log("Error in new connetion " + err)
             res.sendStatus(403)
         } else {
-            console.log("User Authenticated")
             next()
         }
     });
@@ -62,7 +73,6 @@ const findUser = async (username,callback)=>{ // Get User info from LDAP Databas
         filter: `uid=${username}`,
         scope: 'sub'
     };
-    console.log("Finding User Info in LDAP DB")
     client.search('cn=users,cn=accounts,dc=cielab,dc=net', opts, function(err, res) {
         res.on('searchEntry', function(entry) {
             const userData = {
@@ -91,7 +101,8 @@ function generateAccessToken(user){
 }
 
 router.delete('/logout',(req,res)=>{ //Deauthenticate Token
-    refreshTokens = refreshTokens.filter(token => token !== req.body.token);
+    //refreshTokens = refreshTokens.filter(token => token !== req.body.token);
+    tokens = tokens.filter(token => token !== req.body.token);
     res.sendStatus(204)
 })
 
@@ -99,8 +110,9 @@ router.post('/login',authenticateUser,(req,res)=>{
     findUser(req.body.username,function(userData){
         const accessToken = generateAccessToken(userData);
         const refreshToken = jwt.sign(userData,privateKey,signRefresh);
+        tokens.push(accessToken)
         refreshTokens.push(refreshToken);
-        res.json({accessToken,refreshToken});
+        res.json({accessToken});
     })
 })
 
@@ -120,7 +132,13 @@ router.post('/user/info',authenticateToken,(req, res) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]
     var decoded = jwt.decode(token);
-    return res.json(decoded)
+    var userInfo = {
+        username: decoded.username,
+        displayName: decoded.displayName,
+        email: decoded.email
+    }
+    // console.log("Type of Decoded JWT:",typeof decoded.username)
+    return res.json({userInfo})
   });
 
 module.exports = router;

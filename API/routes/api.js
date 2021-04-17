@@ -10,7 +10,16 @@ var router = express.Router()
 
 router.use(cookieParser());
 router.use(bodyParser.json());
-
+router.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-type,Accept,X-Access-Token,X-Key,authorization');
+  res.header('Access-Control-Allow-Origin', '*');
+  if (req.method === 'OPTIONS') {
+      res.status(200).end();
+  } else {
+      next();
+      }
+})
 
 //DB Connection
 var db = mysql.createPool({
@@ -26,7 +35,7 @@ var issuer = process.env.ISSUER;
 var subject = process.env.SUBJECT;
 var audience = process.env.AUDIENCE;
 var algorithm = 'ES256';
-var expiresIn = '30m'
+var expiresIn = '1d'
 
 var signOptions = {
     issuer,
@@ -38,6 +47,7 @@ var signOptions = {
 
 var publicKey = fs.readFileSync('public.pem');
 function authenticateToken(req,res,next){ // API Side Middleware
+  //console.log("MiddleWare Request:",req.headers)
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
   if (token == null) return res.sendStatus(401)

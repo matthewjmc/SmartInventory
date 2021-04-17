@@ -63,7 +63,6 @@ services:
       - 443:443
       - 80:80 
       - 1883:1883
-      - 3306:3306
     restart: unless-stopped
 
   mosquitto:
