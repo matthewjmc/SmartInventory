@@ -1,7 +1,6 @@
 require("dotenv").config() //Load Up .env Variables for Secrets
 const ldap = require('ldapjs'); 
 const jwt = require("jsonwebtoken")
-const fs = require("fs")
 var express = require('express');
 const { decode } = require("punycode");
 var router = express.Router()
@@ -17,29 +16,25 @@ router.use(function(req, res, next) {
         next();
         }
 })
-
-var privateKey = fs.readFileSync('key.pem','utf-8');
-var publicKey = fs.readFileSync('public.pem','utf-8');
+var tokenAcc = process.env.TOKENSECRET
 
 /* Signing Options */
 var issuer = process.env.ISSUER;
 var subject = process.env.SUBJECT;
 var audience = process.env.AUDIENCE;
-var algorithm = 'ES256';
 var expiresIn = '1d'
 
 var signOptions = {
     issuer,
     subject,
     audience,
-    algorithm,
     expiresIn
 }
 var signRefresh = {
     issuer,
     subject,
     audience,
-    algorithm
+    
 }
 
 let refreshTokens = [];
@@ -89,7 +84,7 @@ function authenticateToken(req,res,next){ // API Side Middleware
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     if (token == null) return res.sendStatus(401)
-    jwt.verify(token,publicKey,(err,user)=>{
+    jwt.verify(token,tokenAcc,(err,user)=>{
         if (err) return res.sendStatus(403)
         req.user = user
         next()
@@ -97,7 +92,7 @@ function authenticateToken(req,res,next){ // API Side Middleware
 }
 
 function generateAccessToken(user){
-    return jwt.sign(user,privateKey,signOptions);
+    return jwt.sign(user,tokenAcc,signOptions);
 }
 
 router.delete('/logout',(req,res)=>{ //Deauthenticate Token
@@ -109,7 +104,7 @@ router.delete('/logout',(req,res)=>{ //Deauthenticate Token
 router.post('/login',authenticateUser,(req,res)=>{
     findUser(req.body.username,function(userData){
         const accessToken = generateAccessToken(userData);
-        const refreshToken = jwt.sign(userData,privateKey,signRefresh);
+        const refreshToken = jwt.sign(userData,tokenAcc,signRefresh);
         tokens.push(accessToken)
         refreshTokens.push(refreshToken);
         res.json({accessToken});

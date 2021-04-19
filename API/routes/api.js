@@ -8,6 +8,8 @@ var express = require("express");
 var mysql = require("mysql");
 var router = express.Router()
 
+var tokenAcc = process.env.TOKENSECRET
+
 router.use(cookieParser());
 router.use(bodyParser.json());
 router.use(function(req, res, next) {
@@ -34,24 +36,21 @@ var db = mysql.createPool({
 var issuer = process.env.ISSUER;
 var subject = process.env.SUBJECT;
 var audience = process.env.AUDIENCE;
-var algorithm = 'ES256';
 var expiresIn = '1d'
 
 var signOptions = {
     issuer,
     subject,
     audience,
-    algorithm,
     expiresIn
 }
 
-var publicKey = fs.readFileSync('public.pem');
 function authenticateToken(req,res,next){ // API Side Middleware
   //console.log("MiddleWare Request:",req.headers)
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
   if (token == null) return res.sendStatus(401)
-  jwt.verify(token,publicKey,signOptions,(err,user)=>{
+  jwt.verify(token,tokenAcc,signOptions,(err,user)=>{
       if (err) return res.sendStatus(403)
       req.user = user
       next()
