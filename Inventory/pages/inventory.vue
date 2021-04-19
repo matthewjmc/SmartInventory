@@ -10,13 +10,7 @@
         <div class="square">
           <a class="currentButton">INVENTORY</a>
           <a class="loginButton" href="http://192.168.1.100:3000/withdraw"
-            >WITHDRAW</a
-          >
-          <a class="loginButton" href="http://192.168.1.100:3000/deposit"
-            >DEPOSIT</a
-          >
-          <a class="loginButton" href="http://192.168.1.100:3000/rental"
-            >RENTAL</a
+            >WITHDRAWAL HISTORY</a
           >
         </div>
       </div>
@@ -56,7 +50,7 @@ export default {
   async created() {
     const config = {
       headers: {
-        authorization: this.$auth.$storage._state['_token.local'],
+        authorization: this.$auth.$storage._state["_token.local"],
         Accept: "application/json"
       }
     };
@@ -214,6 +208,4 @@ export default {
     transform: translate3d(100%, 0, 0);
   }
 }
-
-
 </style>

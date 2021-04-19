@@ -11,13 +11,7 @@
           <a class="loginButton" href="http://192.168.1.100:3000/inventory"
             >INVENTORY</a
           >
-          <a class="currentButton">WITHDRAW</a>
-          <a class="loginButton" href="http://192.168.1.100:3000/deposit"
-            >DEPOSIT</a
-          >
-          <a class="loginButton" href="http://192.168.1.100:3000g/rental"
-            >RENTAL</a
-          >
+          <a class="currentButton">WITHDRAWAL HISTORY</a>
         </div>
       </div>
     </div>
@@ -40,9 +34,9 @@
         :date_borrowed="record.date_borrowed"
         :expected_return_date="record.expected_return_date"
       />
+      </div>
       <!-- props: ['userID','firstname','lastname','item_name','date_borrowed','expected_return_date'] -->
     </div>
-  </div>
 </template>
 
 <script>
@@ -179,7 +173,7 @@ export default {
   width: 12%;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 1rem;
+  margin-left: 8.25rem;
   padding-top: 5px;
   padding-bottom: 5px;
 }

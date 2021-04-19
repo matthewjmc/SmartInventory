@@ -1,20 +1,22 @@
 
 <template>
     
-    <div class='withdraw'>
-        <div class='idDisp'>{{ userID }} </div>
-        <div class='nameDisp'>{{ firstname }}  {{ lastname }} </div>
-        <div class='nameDisp'>{{ item_name }} </div>
-        <div class='dateDisp'>{{ date_borrowed }} </div>
-        <div class='dateDisp'>{{ expected_return_date }} </div>
-    </div>
-
+        <div class='withdraw'>
+            <button @click="searchItem"> <img src="~assets/itemIcon.png" /> </button>
+            <button @click="searchUser"> <img src="~assets/userIcon.png" /> </button>
+            <div class='idDisp'>{{ userID }} </div>
+            <div class='nameDisp'>{{ firstname }}  {{ lastname }} </div>
+            <div class='nameDisp'>{{ item_name }} </div>
+            <div class='dateDisp'>{{ date_borrowed }} </div>
+            <div class='dateDisp'>{{ expected_return_date }} </div>
+        </div>
+    
 </template>
 
 <script>
 export default {
     name: 'withdrawalTable',
-    props: ['userID','firstname','lastname','item_name','date_borrowed','expected_return_date']
+    props: ['userID','itemID','firstname','lastname','item_name','date_borrowed','expected_return_date']
 }
 </script>
 
@@ -61,4 +63,13 @@ export default {
         padding-top: 5px;
         padding-bottom: 5px;
     }
+
+button img {
+    width: 2rem;
+}
+button {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+}
+
 </style>

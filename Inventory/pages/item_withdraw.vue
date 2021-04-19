@@ -12,12 +12,8 @@
             >INVENTORY</a
           >
           <a class="loginButton" href="http://192.168.1.100:3000/withdraw"
-            >WITHDRAW</a
+            >WITHDRAWAL HISTORY</a
           >
-          <a class="loginButton" href="http://192.168.1.100:3000/deposit"
-            >DEPOSIT</a
-          >
-          <a class="currentButton">RENTAL</a>
         </div>
       </div>
     </div>
