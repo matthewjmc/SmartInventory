@@ -2,7 +2,7 @@
   <header class="header">
     <h1 class="title">CIE Inventory System</h1>
     <ul>
-      <div v-if="$auth.loggedIn">{{ $auth.user.email }}</div>
+      <div v-if="$auth.loggedIn" class="dispEmail">{{ $auth.user.displayName }}</div>
       <li><v-btn @click="logout"> LOGOUT </v-btn></li>
     </ul>
   </header>
@@ -38,7 +38,10 @@ export default {
 }
 .header ul {
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
+
 .header a {
   font-weight: 600;
   display: inline-block;
@@ -55,4 +58,16 @@ export default {
   padding: 1rem 2rem;
   background: #ff8d24;
 }
+
+.dispEmail {
+  justify-content: center;
+  align-items: center;
+  padding-right: 1rem;
+  color: #fff;
+  font-weight: 600;
+  font-family:Arial, Helvetica, sans-serif;
+  letter-spacing: 0.5px;
+  font-size: 24px;
+}
+
 </style>

@@ -130,7 +130,7 @@ import AppHeader from '../components/AppHeader.vue';
         transform: translate3d(0, 0, 0);
     }
     }
-    @keyframes acrossOut {
+@keyframes acrossOut {
     0% {
         transform: translate3d(0, 0, 0);
     }
