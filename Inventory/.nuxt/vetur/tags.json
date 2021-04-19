@@ -8,6 +8,12 @@
   "LoginHeader": {
     "description": "Auto imported from components/LoginHeader.vue"
   },
+  "SearchByItem": {
+    "description": "Auto imported from components/SearchByItem.vue"
+  },
+  "SearchByUser": {
+    "description": "Auto imported from components/SearchByUser.vue"
+  },
   "UserAuthForm": {
     "description": "Auto imported from components/UserAuthForm.vue"
   },

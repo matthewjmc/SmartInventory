@@ -1,6 +1,5 @@
 
 <template>
-    
     <div class='inv'>
         <div class='itemDisp'> {{ item_name }} </div>
         <div class='descDisp'>{{ description }} </div>
@@ -34,7 +33,7 @@ export default {
     .disp {
         width: 25%;
         flex-direction: column;
-        align-item: flex-start;
+        align-items: flex-start;
         margin-left: 1rem;
         padding-top: 5px;
         padding-bottom: 5px;
@@ -42,7 +41,7 @@ export default {
     .descDisp {
         width: 70%;
         flex-direction: column;
-        align-item: flex-start;
+        align-items: flex-start;
         margin-left: 1rem;
         padding-right: 30px;
         padding-top: 5px;
@@ -52,7 +51,7 @@ export default {
         width: 35%;
         font-weight: 600px;
         flex-direction: column;
-        align-item: flex-start;
+        align-items: flex-start;
         margin-left: 1rem;
         padding-top: 5px;
         padding-bottom: 5px;

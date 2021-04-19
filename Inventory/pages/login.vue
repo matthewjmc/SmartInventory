@@ -6,8 +6,8 @@
         <img src="~assets/CIElogo.png" />
       </div>
       <div class="box">
-        <!-- <v-text-field class="entry" v-model="username" label="Username"> </v-text-field> -->
-        <!-- <v-text-field class="entry" v-model="password" label="Password" type="password"> </v-text-field> -->
+        <v-text-field class="entry" v-model="username" label="Username"> </v-text-field>
+        <v-text-field class="entry" v-model="password" label="Password" type="password"> </v-text-field>
         <v-btn @click="handleLoginClicked"> LOGIN </v-btn>
       </div>
     </div>

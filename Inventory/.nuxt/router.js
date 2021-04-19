@@ -4,11 +4,11 @@ import { normalizeURL, decode } from 'ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _30d77b5a = () => interopDefault(import('..\\pages\\deposit.vue' /* webpackChunkName: "pages/deposit" */))
 const _361d3618 = () => interopDefault(import('..\\pages\\inventory.vue' /* webpackChunkName: "pages/inventory" */))
 const _1ab8efa5 = () => interopDefault(import('..\\pages\\login.vue' /* webpackChunkName: "pages/login" */))
 const _15805184 = () => interopDefault(import('..\\pages\\query.vue' /* webpackChunkName: "pages/query" */))
 const _35981818 = () => interopDefault(import('..\\pages\\rental.vue' /* webpackChunkName: "pages/rental" */))
+const _2f522eba = () => interopDefault(import('..\\pages\\user_withdraw.vue' /* webpackChunkName: "pages/user_withdraw" */))
 const _3c7f1bfe = () => interopDefault(import('..\\pages\\withdraw.vue' /* webpackChunkName: "pages/withdraw" */))
 const _51114c8e = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
 
@@ -24,10 +24,6 @@ export const routerOptions = {
   scrollBehavior,
 
   routes: [{
-    path: "/deposit",
-    component: _30d77b5a,
-    name: "deposit"
-  }, {
     path: "/inventory",
     component: _361d3618,
     name: "inventory"
@@ -43,6 +39,10 @@ export const routerOptions = {
     path: "/rental",
     component: _35981818,
     name: "rental"
+  }, {
+    path: "/user_withdraw",
+    component: _2f522eba,
+    name: "user_withdraw"
   }, {
     path: "/withdraw",
     component: _3c7f1bfe,

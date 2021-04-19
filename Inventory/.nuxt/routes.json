@@ -1,12 +1,5 @@
 [
   {
-    "name": "deposit",
-    "path": "/deposit",
-    "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\deposit.vue",
-    "chunkName": "pages/deposit",
-    "_name": "_30d77b5a"
-  },
-  {
     "name": "inventory",
     "path": "/inventory",
     "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\inventory.vue",
@@ -33,6 +26,13 @@
     "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\rental.vue",
     "chunkName": "pages/rental",
     "_name": "_35981818"
+  },
+  {
+    "name": "user_withdraw",
+    "path": "/user_withdraw",
+    "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\user_withdraw.vue",
+    "chunkName": "pages/user_withdraw",
+    "_name": "_2f522eba"
   },
   {
     "name": "withdraw",
