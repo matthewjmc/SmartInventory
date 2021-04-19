@@ -6,4 +6,4 @@ RUN rm -rf /etc/nginx
 COPY ./Config/nginx /etc/nginx
 
 RUN rm /defaults/dns-conf/cloudflare.ini
-COPY ./cloudflare.ini /defaults/dns-conf/cloudflare.ini
+COPY ./Config/cloudflare.ini /defaults/dns-conf/cloudflare.ini
