@@ -1,0 +1,110 @@
+{
+    "AWSEBDockerrunVersion":2,
+    "containerDefinitions":[
+        {
+            "name":"nginx",
+            "image":"matthew1999/inventory-nginx:latest",
+            "hostname":"nginx",
+            "essential":true,
+            "portMappings":[
+                {
+                    "hostPort":80,
+                    "clientPort":80
+                },
+                {
+                    "hostPort":443,
+                    "clientPort":443
+                }
+            ],
+            "environment": [
+                {
+                    "name": "PUID",
+                    "value": "1000"
+                },
+                {
+                    "name": "PGID",
+                    "value": "1000"
+                },
+                {
+                    "name": "TZ",
+                    "value": "Asia/Bangkok"
+                },
+                {
+                    "name": "URL",
+                    "value": "iot3.mcmullin.org"
+                },
+                {
+                    "name": "SUBDOMAINS",
+                    "value": "www,api,portainer"
+                },
+                {
+                    "name": "VALIDATION",
+                    "value": "http"
+                },
+                {
+                    "name": "EMAIL",
+                    "value": "matthew@mcmullin.one"
+                },
+                {
+                    "name": "STAGING",
+                    "value": "false"
+                }
+            ],
+            "links":["portainer","backend"],
+            "memory":100
+        },
+        {
+            "name":"backend",
+            "image":"matthew1999/backend:dev",
+            "hostname":"backend",
+            "environment": [
+                {
+                    "name": "SQLUSER",
+                    "value": "root"
+                },
+                {
+                    "name": "SQLPASS",
+                    "value": "123456789"
+                },
+                {
+                    "name": "SQLADDR",
+                    "value": "mariadb"
+                },
+                {
+                    "name": "PORT",
+                    "value": "3000"
+                },
+                {
+                    "name": "ISSUER",
+                    "value": "CIE Identity Management"
+                },
+                {
+                    "name": "SUBJECT",
+                    "value": "kmitcie@gmail.com"
+                },
+                {
+                    "name": "AUDIENCE",
+                    "value": "http://iot2.mcmullin.org"
+                },
+                {
+                    "name": "LDAPURL",
+                    "value": "ldaps://161.246.157.38:8443"
+                },
+                {
+                    "name": "TOKENSECRET",
+                    "value": "b7d52b59b19010f218be205c059bbd5cbd151bef49be76a70a44a804ec2779ec2240ca270c0ed71c72e4adce82f77a75c0acda920c81f51e7bdac4facdc8c2ae"
+                }
+            ],
+            "essential":false,
+            "memory":300
+        },
+        {
+            "name":"portainer",
+            "image":"portainer/portainer-ce:latest",
+            "hostname":"portainer",
+            "essential":false,
+            "memory":200,
+            "command":"-H unix:///var/run/docker.sock"
+        }
+    ]
+}
