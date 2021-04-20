@@ -1,0 +1,14 @@
+version: '3'
+services:
+    inventory:              # name of the service provided.
+        build:
+            context: .
+            dockerfile: Dockerfile.development
+            
+        ports: 
+            - '4500:3000'           # ports allowed for connection.
+
+        volumes:
+            - .:inventory_app                 # the docker's working directory.
+            - /inventory_app/node_modules     # to prevent mapping unnecessary to the container.
+        
