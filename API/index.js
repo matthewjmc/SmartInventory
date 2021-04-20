@@ -13,7 +13,7 @@ app.use("/auth",auth)
 app.use(clientErrorHandler)
 
 app.get('/', function(req, res) {
-  res.sendStatus(403);
+  res.json({Invalid:"Request to API Backend"});
 });
 
 const port = process.env.PORT;
