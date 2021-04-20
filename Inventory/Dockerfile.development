@@ -1,18 +1,11 @@
-
-# where alpine is the base container.
 FROM node:alpine     
 
-# select the working directory within the container.
 WORKDIR '/inventory_app'
 
-# update the front-end application dependencies.
 COPY package.json .  
-
-# run this specific command within the container.
 RUN npm install
 
-# copy every files within this folder into the docker.
 COPY . .
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev"]
 

@@ -8,10 +8,10 @@
       </div>
       <div class="buttonGroup">
         <div class="square">
-          <a class="loginButton" href="http://192.168.1.100:3000/inventory"
+          <a class="loginButton" href="/inventory"
             >INVENTORY</a
           >
-          <a class="loginButton" href="http://192.168.1.100:3000/withdraw"
+          <a class="loginButton" href="/withdraw"
             >WITHDRAWAL HISTORY</a
           >
           
