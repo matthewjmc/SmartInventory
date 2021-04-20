@@ -90,3 +90,24 @@ services:
     container_name: mosquitto
     ports: 
       - 1883:1883
+
+  nginxBUILD:
+    image: ghcr.io/linuxserver/swag
+    container_name: nginxBUILD
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - URL=iot2.mcmullin.org
+      - SUBDOMAINS=www,api,portainer
+      - VALIDATION=http
+      - EMAIL= matthew@mcmullin.one
+      - STAGING=false #optional
+    ports:
+      - 443:443
+      - 80:80 
+    restart: unless-stopped
+    volumes:
+      - ./DockerDIR/nginx/config:/config
