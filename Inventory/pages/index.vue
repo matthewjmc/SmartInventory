@@ -19,7 +19,7 @@
                 This system is a tracking systems for items in CIE storage room
                 which is a part of Internet of Things and Smart Systems project.
                 </p>
-              <a class='loginButton' href="/login">Proceed to Login Page</a>
+              <v-btn color="#D77113" href="/login"> PROCEED TO LOGIN </v-btn>
               </h1>
           </div>  
 
@@ -86,7 +86,7 @@ import AppHeader from '../components/AppHeader.vue';
   font-weight: 700;
   text-justify: center;
   justify-content: center;
-  padding-top: 30px;
+  padding-top: 0.75rem;
   font-size: 26px;
   color: #FFF;
 }

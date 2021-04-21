@@ -11,43 +11,44 @@
           <a class="loginButton" href="/inventory"
             >INVENTORY</a
           >
-          <a class="loginButton" href="/withdraw"
-            >WITHDRAWAL HISTORY</a
-          >
-          
+          <a class="currentButton">WITHDRAWAL HISTORY</a>
         </div>
       </div>
     </div>
 
     <div class="items-container">
       <div class="queryHeader">
-        <div class="itemHeader">Item Names</div>
-        <div class="descHeader">Description</div>
-        <div class="numberHeader">Total</div>
-        <div class="numberHeader">In-Stock</div>
+        <div class="idHeader">Student ID</div>
+        <div class="nameHeader">Full Name</div>
+        <div class="nameHeader">Withdrawn Item</div>
+        <div class="dateHeader">Withdrawn Date</div>
+        <div class="dateHeader">Expected Return</div>
       </div>
-      <Items
-        v-for="item in items"
-        :key="item.item_name"
-        :item_name="item.item_name"
-        :description="item.description"
-        :amount="item.amount"
-        :availability="item.availability"
+      <withdrawalTable
+        v-for="record in withdrawn"
+        :key="record.item_name"
+        :userID="record.userID"
+        :firstname="record.firstname"
+        :lastname="record.lastname"
+        :item_name="record.item_name"
+        :date_borrowed="record.date_borrowed"
+        :expected_return_date="record.expected_return_date"
       />
+      </div>
+      <!-- props: ['userID','firstname','lastname','item_name','date_borrowed','expected_return_date'] -->
     </div>
-  </div>
 </template>
 
 <script>
 import axios from "axios";
-import Items from "../components/InventoryQuery";
+import withdrawalTable from "../components/WithdrawQuery";
 import LoginHeader from "../components/LoginHeader.vue";
 
 export default {
   middleware: "auth",
   data() {
     return {
-      items: []
+      withdrawn: []
     };
   },
   async created() {
@@ -59,17 +60,17 @@ export default {
     };
     try {
       const res = await axios.get(
-        "https://api.iot2.mcmullin.org/api/inventory",
+        "https://api.iot2.mcmullin.org/api/withdraw?command=all",
         config
       );
       console.log(res.data);
-      this.items = res.data;
+      this.withdrawn = res.data;
     } catch (err) {
       console.log(err);
     }
   },
   components: {
-    Items,
+    withdrawalTable,
     LoginHeader
   },
   head() {
@@ -149,7 +150,7 @@ export default {
 
 .items-container {
   background-color: #ff8d24;
-  width: 70%;
+  width: 90%;
   margin: 1rem auto;
   padding: 1rem;
   border-radius: 10px;
@@ -157,7 +158,7 @@ export default {
 
 .queryHeader {
   font-size: 26px;
-  font-weight: bold;
+  font-weight: 600;
   color: #000;
   width: 100%;
   display: flex;
@@ -168,33 +169,33 @@ export default {
   padding-bottom: 2px;
   padding-bottom: 3px;
 }
-.numberHeader {
-  width: 25%;
+.idHeader {
+  width: 12%;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 1rem;
+  margin-left: 8.25rem;
   padding-top: 5px;
   padding-bottom: 5px;
 }
-.descHeader {
-  width: 70%;
+.dateHeader {
+  width: 23%;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 1rem;
+  margin-left: 2rem;
+  padding-left: 10px;
   padding-right: 30px;
   padding-top: 5px;
   padding-bottom: 5px;
 }
-.itemHeader {
-  width: 35%;
-  font-weight: 600px;
+.nameHeader {
+  width: 18%;
+  font-weight: 500px;
   flex-direction: column;
   align-items: flex-start;
   margin-left: 1rem;
   padding-top: 5px;
   padding-bottom: 5px;
 }
-
 
 @keyframes acrossIn {
   0% {

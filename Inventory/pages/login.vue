@@ -6,9 +6,28 @@
         <img src="~assets/CIElogo.png" />
       </div>
       <div class="box">
-        <v-text-field class="entry" v-model="username" label="Username"> </v-text-field>
-        <v-text-field class="entry" v-model="password" label="Password" type="password"> </v-text-field>
-        <a> <v-btn @click="handleLoginClicked"> LOGIN </v-btn> </a>
+        <form>
+          <div class="infoEntry">
+            <div class="entryName">
+              <label>Username</label>
+            </div>
+            <div class="inputEntry">
+              <input type="username" v-model="username" label="Username" />
+            </div>
+          </div>
+
+          <div class="infoEntry">
+            <div class="entryName">
+              <label>Password</label>
+            </div>
+            <div class="inputEntry">
+              <input type="password" v-model="password" label="Password" />
+            </div>
+          </div>
+        </form>
+        <!-- <v-text-field class="entry" v-model="username" label="Username"> </v-text-field>
+        <v-text-field class="entry" v-model="password" label="Password" type="password"> </v-text-field> -->
+        <v-btn color="#D77113" @click="handleLoginClicked"> LOGIN </v-btn>
       </div>
     </div>
   </div>
@@ -73,7 +92,16 @@ img {
 }
 
 a {
-  color: #000
+  color: #000;
+}
+
+form {
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding-top: 3%;   
 }
 
 .box {
@@ -83,7 +111,7 @@ a {
   align-items: center;
   justify-content: justify;
   width: 700px;
-  height: 250px;
+  height: 12rem;
   overflow: hidden;
   background: #ffa959;
   border-radius: 50px;
@@ -104,9 +132,51 @@ a {
   align-items: center;
 }
 
-.v-text-field {
-  font-size: 16px;
-  max-width: 80%;
+.infoEntry  {
+  color: white;
+  font-weight: 700;
+  padding-top: 0.25%;
+  padding-bottom: 2%;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
+
+.entryName {
+  color: #fff;
+  float: left;
+  width: 20%;
+}
+
+.inputEntry {
+  float: left;
+  width: 50%;
+  margin-top: 3px;
+}
+
+v-btn {
+  padding-top: 1rem;
+}
+
+input[type=username], select, textarea{
+  width: 150%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: #fbeed4;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+input[type=password], select, textarea{
+  width: 150%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: #fbeed4;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
 }
 
 @keyframes acrossIn {

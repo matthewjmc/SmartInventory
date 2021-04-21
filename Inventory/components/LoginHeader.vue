@@ -3,7 +3,7 @@
     <h1 class="title">CIE Inventory System</h1>
     <ul>
       <div v-if="$auth.loggedIn" class="dispEmail">{{ $auth.user.displayName }}</div>
-      <li><v-btn @click="logout"> LOGOUT </v-btn></li>
+      <li><v-btn @click="logout" color="#D77113"> LOGOUT </v-btn></li>
     </ul>
   </header>
 </template>
