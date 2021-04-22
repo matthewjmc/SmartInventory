@@ -86,7 +86,7 @@ import AppHeader from '../components/AppHeader.vue';
   font-weight: 700;
   text-justify: center;
   justify-content: center;
-  padding-top: 0.75rem;
+  padding-top: 2rem;
   font-size: 26px;
   color: #FFF;
 }

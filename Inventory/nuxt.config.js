@@ -52,7 +52,7 @@ export default {
     redirect:{
       login: '/login',
       logout: '/',
-      home: '/inventory'
+      home: '/inventory',
     },
     strategies:{
         local: {

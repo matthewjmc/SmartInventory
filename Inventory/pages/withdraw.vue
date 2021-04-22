@@ -27,13 +27,14 @@
       <withdrawalTable
         v-for="record in withdrawn"
         :key="record.item_name"
+        :itemID="record.itemID"
         :userID="record.userID"
         :firstname="record.firstname"
         :lastname="record.lastname"
         :item_name="record.item_name"
         :date_borrowed="record.date_borrowed"
         :expected_return_date="record.expected_return_date"
-      />
+      /> 
       </div>
       <!-- props: ['userID','firstname','lastname','item_name','date_borrowed','expected_return_date'] -->
     </div>
@@ -65,6 +66,7 @@ export default {
       );
       console.log(res.data);
       this.withdrawn = res.data;
+      console.log(this.withdrawn)
     } catch (err) {
       console.log(err);
     }

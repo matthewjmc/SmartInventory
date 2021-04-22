@@ -57,6 +57,7 @@ export default {
           this.$router.replace({ name: "inventory" });
         }
       } catch (err) {
+        console.log(this.username,this.password)
         console.log(err);
       }
     }
