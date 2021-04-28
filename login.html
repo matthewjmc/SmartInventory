@@ -1,1 +1,56 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"><title>login</title><link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700"><link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css"><link rel="stylesheet" href="assets/css/Footer-Clean.css"><link rel="stylesheet" href="assets/css/Footer-LFBITS.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"><link rel="stylesheet" href="assets/css/Login-Form-Clean.css"><link rel="stylesheet" href="assets/css/styles.css"></head><body><section class="login-clean" style="background: rgb(249,166,27);height: 402px;margin: 0px;"><form method="post" style="width: 215;height: 451;padding: 15px;background: rgb(255,255,255);"><h2 class="sr-only">Login Form</h2><div class="illustration" style="height: 216px;padding: 28px;margin: -22px;"><h1 style="color: rgb(82,82,82);height: 7px;font-size: 24px;">Scan to Login</h1><header></header><header></header><header></header><header></header><i class="fas fa-fingerprint" data-bss-hover-animate="bounce" style="color: rgb(123,123,123);height: 114px;padding: 11px;"></i><header></header></div><a class="forgot" href="register" style="padding: -4px;">Register</a></form></section><script src="assets/js/jquery.min.js"></script><script src="assets/bootstrap/js/bootstrap.min.js"></script><script src="assets/js/bs-init.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>
+            login
+        </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'bootstrap/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'fonts/fontawesome-all.min.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/Footer-Clean.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/Footer-LFBITS.css')}}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/Login-Form-Clean.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/styles.css')}}">
+
+    </head>
+    <body>
+        <section class="login-clean" style="background: rgb(249,166,27);height: 402px;margin: 0px;">
+            <form method="post" style="width: 215;height: 451;padding: 15px;background: rgb(255,255,255);">
+                <h2 class="sr-only">
+                    Login Form
+                </h2>
+                <div class="illustration" style="height: 216px;padding: 28px;margin: -22px;">
+                    <h1 style="color: rgb(82,82,82);height: 7px;font-size: 24px;">
+                        Scan to Login
+                    </h1>
+                    
+                    <i class="fas fa-fingerprint" data-bss-hover-animate="bounce" style="color: rgb(123,123,123);height: 114px;padding: 11px;">
+                    </i>
+                    
+                </div>
+                <a class="forgot" href="register" style="padding: -4px;">
+                    Register
+                </a>
+            </form>
+        </section>
+        <script src="static/js/jquery.min.js">
+        </script>
+        <script src="static/bootstrap/js/bootstrap.min.js">
+        </script>
+        <script src="static/js/bs-init.js">
+        </script>
+        <script>
+            const url = 'http://localhost:5000'
+            const socket = io(url);
+            socket.on('redirect', (data) => {
+                alert(data)
+                window.location.href = data
+            })
+        </script>
+    </body>
+</html>
