@@ -2,9 +2,10 @@
 <template>
     
     <div class='withdraw'>
+        <div class='idDisp'>{{ itemID }} </div>
+        <div class='nameDisp'>{{ item_name }} </div>
         <div class='idDisp'>{{ userID }} </div>
         <div class='nameDisp'>{{ firstname }}  {{ lastname }} </div>
-        <div class='nameDisp'>{{ item_name }} </div>
         <div class='dateDisp'>{{ date_borrowed }} </div>
         <div class='dateDisp'>{{ expected_return_date }} </div>
     </div>
@@ -13,8 +14,8 @@
 
 <script>
 export default {
-    name: 'withdrawalTable',
-    props: ['userID','firstname','lastname','item_name','date_borrowed','expected_return_date']
+    name: 'itemWithdrawalTable',
+    props: ['userID','itemID','firstname','lastname','item_name','date_borrowed','expected_return_date']
 }
 </script>
 

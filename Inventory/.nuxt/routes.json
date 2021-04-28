@@ -3,36 +3,42 @@
     "name": "inventory",
     "path": "/inventory",
     "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\inventory.vue",
-    "chunkName": "pages/inventory"
+    "chunkName": "pages/inventory",
+    "_name": "_361d3618"
   },
   {
     "name": "login",
     "path": "/login",
     "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\login.vue",
-    "chunkName": "pages/login"
+    "chunkName": "pages/login",
+    "_name": "_1ab8efa5"
   },
   {
     "name": "withdraw",
     "path": "/withdraw",
     "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\withdraw\\\\index.vue",
-    "chunkName": "pages/withdraw/index"
+    "chunkName": "pages/withdraw/index",
+    "_name": "_5a195ec4"
   },
   {
     "name": "withdraw-itemQuery-id",
     "path": "/withdraw/itemQuery/:id?",
     "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\withdraw\\\\itemQuery\\\\_id.vue",
-    "chunkName": "pages/withdraw/itemQuery/_id"
+    "chunkName": "pages/withdraw/itemQuery/_id",
+    "_name": "_0fbbf6e3"
   },
   {
     "name": "withdraw-userQuery-id",
     "path": "/withdraw/userQuery/:id?",
     "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\withdraw\\\\userQuery\\\\_id.vue",
-    "chunkName": "pages/withdraw/userQuery/_id"
+    "chunkName": "pages/withdraw/userQuery/_id",
+    "_name": "_919c74ca"
   },
   {
     "name": "index",
     "path": "/",
     "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_51114c8e"
   }
 ]

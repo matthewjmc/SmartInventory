@@ -13,7 +13,7 @@
 
 <script>
 export default {
-    name: 'withdrawalTable',
+    name: 'userWithdrawalTable',
     props: ['userID','firstname','lastname','item_name','date_borrowed','expected_return_date']
 }
 </script>
