@@ -1,12 +1,16 @@
 <template>
   <div class="withdraw">
-    <v-btn @click="setStateItem" color="#D77113"
-      ><img src="~assets/itemIcon.png"
-    /></v-btn>
+    <nuxt-link :to="'withdraw/itemQuery/'+itemID">
+      <v-btn @click="setStateItem" color="#D77113"
+        ><img src="~assets/itemIcon.png"
+      /></v-btn>
+    </nuxt-link>
 
-    <v-btn @click="setStateUser" color="#D77113"
-      ><img src="~assets/userIcon.png"
-    /></v-btn>
+    <nuxt-link :to="'withdraw/userQuery/'+userID">
+      <v-btn @click="setStateUser" color="#D77113"
+        ><img src="~assets/userIcon.png"
+      /></v-btn>
+    </nuxt-link>
 
     <div class="idDisp">{{ userID }}</div>
     <div class="nameDisp">{{ firstname }} {{ lastname }}</div>
@@ -27,23 +31,7 @@ export default {
     "item_name",
     "date_borrowed",
     "expected_return_date"
-  ],
-  methods: {
-    async setStateUser() {
-      console.log(
-        "Changing the global targeted user ID to the chosen item.",
-        this.userID
-      );
-      this.$store.commit("SET_USER_ID", this.userID);
-    },
-    async setStateItem() {
-      console.log(
-        "Changing the global targeted item ID to the chosen item.",
-        this.itemID
-      );
-      this.$store.commit("SET_ITEM_ID", this.itemID);
-    }
-  }
+  ]
 };
 </script>
 
@@ -90,7 +78,7 @@ export default {
   padding-bottom: 5px;
 }
 
-button img {
+img {
   width: 2rem;
 }
 button {

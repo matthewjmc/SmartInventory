@@ -15,8 +15,8 @@
         </div>
       </div>
     </div>
-
-    <div class="items-container">
+    <div> itemid {{ $route.params.id }} </div>
+    <!-- <div class="items-container">
       <div class="queryHeader">
         <div class="idHeader">Student ID</div>
         <div class="nameHeader">Full Name</div>
@@ -34,15 +34,15 @@
         :date_borrowed="record.date_borrowed"
         :expected_return_date="record.expected_return_date"
       />
-      </div>
+      </div> -->
       <!-- props: ['userID','firstname','lastname','item_name','date_borrowed','expected_return_date'] -->
     </div>
 </template>
 
 <script>
 import axios from "axios";
-import withdrawalTable from "../components/WithdrawQuery";
-import LoginHeader from "../components/LoginHeader.vue";
+import withdrawalTable from "../../../components/WithdrawQuery";
+import LoginHeader from "../../../components/LoginHeader.vue";
 
 export default {
   middleware: "auth",

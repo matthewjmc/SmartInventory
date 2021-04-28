@@ -5,10 +5,10 @@ import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
 const _361d3618 = () => interopDefault(import('..\\pages\\inventory.vue' /* webpackChunkName: "pages/inventory" */))
-const _a2f5ec9e = () => interopDefault(import('..\\pages\\itemQuery.vue' /* webpackChunkName: "pages/itemQuery" */))
 const _1ab8efa5 = () => interopDefault(import('..\\pages\\login.vue' /* webpackChunkName: "pages/login" */))
-const _cb32300e = () => interopDefault(import('..\\pages\\userQuery.vue' /* webpackChunkName: "pages/userQuery" */))
-const _3c7f1bfe = () => interopDefault(import('..\\pages\\withdraw.vue' /* webpackChunkName: "pages/withdraw" */))
+const _5a195ec4 = () => interopDefault(import('..\\pages\\withdraw\\index.vue' /* webpackChunkName: "pages/withdraw/index" */))
+const _0fbbf6e3 = () => interopDefault(import('..\\pages\\withdraw\\itemQuery\\_id.vue' /* webpackChunkName: "pages/withdraw/itemQuery/_id" */))
+const _919c74ca = () => interopDefault(import('..\\pages\\withdraw\\userQuery\\_id.vue' /* webpackChunkName: "pages/withdraw/userQuery/_id" */))
 const _51114c8e = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
 
 const emptyFn = () => {}
@@ -27,21 +27,21 @@ export const routerOptions = {
     component: _361d3618,
     name: "inventory"
   }, {
-    path: "/itemQuery",
-    component: _a2f5ec9e,
-    name: "itemQuery"
-  }, {
     path: "/login",
     component: _1ab8efa5,
     name: "login"
   }, {
-    path: "/userQuery",
-    component: _cb32300e,
-    name: "userQuery"
-  }, {
     path: "/withdraw",
-    component: _3c7f1bfe,
+    component: _5a195ec4,
     name: "withdraw"
+  }, {
+    path: "/withdraw/itemQuery/:id?",
+    component: _0fbbf6e3,
+    name: "withdraw-itemQuery-id"
+  }, {
+    path: "/withdraw/userQuery/:id?",
+    component: _919c74ca,
+    name: "withdraw-userQuery-id"
   }, {
     path: "/",
     component: _51114c8e,

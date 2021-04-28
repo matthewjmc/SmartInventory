@@ -1,7 +1,7 @@
 
 export const state = () => ({
-    itemID: 0,
-    userID: 0
+    itemID: null,
+    userID: null
   })
   
 export const mutations = {

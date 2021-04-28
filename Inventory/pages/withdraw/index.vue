@@ -42,8 +42,8 @@
 
 <script>
 import axios from "axios";
-import withdrawalTable from "../components/WithdrawQuery";
-import LoginHeader from "../components/LoginHeader.vue";
+import withdrawalTable from "../../components/WithdrawQuery";
+import LoginHeader from "../../components/LoginHeader.vue";
 
 export default {
   middleware: "auth",
@@ -60,13 +60,16 @@ export default {
       }
     };
     try {
+      if( this.$store.userID == null && this.$store.itemID == null ) {
       const res = await axios.get(
         "https://api.iot2.mcmullin.org/api/withdraw?command=all",
         config
       );
       console.log(res.data);
       this.withdrawn = res.data;
-      console.log(this.withdrawn)
+      console.log(this.withdrawn)}
+
+
     } catch (err) {
       console.log(err);
     }
