@@ -3,11 +3,11 @@ const app = express();
 require("dotenv").config()
 const fs = require("fs")
 
-//HTTPS Configuration
-const https = require("https")
-var privKey = fs.readFileSync("./sslcert/cert.key","utf-8")
-var certificate = fs.readFileSync("./sslcert/cert.crt","utf-8")
-var credentials = {key: privKey, cert: certificate};
+// //HTTPS Configuration
+// const https = require("https")
+// var privKey = fs.readFileSync("./sslcert/cert.key","utf-8")
+// var certificate = fs.readFileSync("./sslcert/cert.crt","utf-8")
+// var credentials = {key: privKey, cert: certificate};
 
 
 //Preconfigured Routes
@@ -31,7 +31,7 @@ function clientErrorHandler (err, req, res, next) {
   }
 }
 
-// const port = process.env.PORT;
-// app.listen(port , () => console.log('App listening on port ' + port));
-var httpsServer = https.createServer(credentials, app);
-httpsServer.listen(8443)
+const port = process.env.PORT;
+app.listen(port , () => console.log('App listening on port ' + port));
+// var httpsServer = https.createServer(credentials, app);
+// httpsServer.listen(8443)
