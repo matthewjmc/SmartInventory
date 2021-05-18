@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+    api:
+        image: node:latest
+        container_name: api
+        command: bash -c "npm install && nodemon index.js"
+        restart: unless-stopped
+        volumes: 
+            - ./API:/Project
+        env_file: 
+            - ./api.env
+        ports:
+            - 3000:3000

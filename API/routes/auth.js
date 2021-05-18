@@ -74,6 +74,7 @@ const findUser = async (username,callback)=>{ // Get User info from LDAP Databas
                 username : entry.object.uid,
                 displayName : entry.object.displayName,
                 email : entry.object.mail,
+                uid: entry.object.uidNumber
             };
             if (entry.object.gidNumber == 1000005){
                 userData["role"] = "admin"
@@ -137,7 +138,8 @@ router.post('/user/info',authenticateToken,(req, res) => {
         username: decoded.username,
         displayName: decoded.displayName,
         email: decoded.email,
-        role: decoded.role
+        role: decoded.role,
+        uid: decoded.uid
     }
     // console.log("Type of Decoded JWT:",typeof decoded.username)
     return res.json({userInfo})

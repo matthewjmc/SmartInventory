@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . . 
 
-CMD ["node","index.js"]
+CMD ["nodemon","index.js"]
 
 
