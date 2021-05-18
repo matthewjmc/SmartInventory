@@ -46,7 +46,7 @@ export default {
     '@nuxtjs/auth',
   ],
   axios: {
-    baseURL: 'https://api.iot2.mcmullin.org/'
+    baseURL: 'https://api.iotdev.mcmullin.org/'
   },
   auth: {
     redirect:{

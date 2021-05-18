@@ -68,7 +68,7 @@ export default {
     try {
       console.log(this.$route.params.id);
       const temp = await axios.get(
-        `https://api.iot2.mcmullin.org/api/withdraw?command=itemID&value=${this.$route.params.id}`,
+        `https://api.iotdev.mcmullin.org/api/withdraw?command=itemID&value=${this.$route.params.id}`,
         config
       );
       console.log(temp.data);
@@ -210,7 +210,7 @@ export default {
   width: 12%;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 0.75rem;
+  margin-left: 0.25rem;
   padding-top: 5px;
   padding-bottom: 5px;
 }
@@ -218,9 +218,7 @@ export default {
   width: 23%;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 2.1rem;
-  padding-left: 10px;
-  padding-right: 30px;
+  margin-left: 1rem;
   padding-top: 5px;
   padding-bottom: 5px;
 }
@@ -229,7 +227,7 @@ export default {
   font-weight: 500px;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 0.75rem;
+  margin-left: 0.25rem;
   padding-top: 5px;
   padding-bottom: 5px;
 }
