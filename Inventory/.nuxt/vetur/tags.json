@@ -14,6 +14,9 @@
   "SearchByUser": {
     "description": "Auto imported from components/SearchByUser.vue"
   },
+  "UserHistory": {
+    "description": "Auto imported from components/userHistory.vue"
+  },
   "VuetifyLogo": {
     "description": "Auto imported from components/VuetifyLogo.vue"
   },

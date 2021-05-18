@@ -1,6 +1,8 @@
 
 <template>
+    
     <div class='withdraw'>
+        <div class='idDisp'>{{ userID }} </div>
         <div class='nameDisp'>{{ firstname }}  {{ lastname }} </div>
         <div class='nameDisp'>{{ item_name }} </div>
         <div class='dateDisp'>{{ date_borrowed }} </div>
@@ -11,7 +13,7 @@
 
 <script>
 export default {
-    name: 'userWithdrawalTable',
+    name: 'userHistory',
     props: ['userID','firstname','lastname','item_name','date_borrowed','expected_return_date']
 }
 </script>

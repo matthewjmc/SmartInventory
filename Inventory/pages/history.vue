@@ -18,13 +18,12 @@
     </div>
     <div class="items-container2">
       <div class="queryHeader2">
-        <div class="idHeader2">Student ID</div>
         <div class="nameHeader2">Full Name</div>
         <div class="nameHeader2">Withdrawn Item</div>
         <div class="dateHeader2">Withdrawn Date</div>
         <div class="dateHeader2">Expected Return</div>
       </div>
-      <userWithdrawalTable
+      <UserHistory
         v-for="record in userQuery"
         :key="record.item_name"
         :userID="record.userID"
@@ -41,7 +40,7 @@
 
 <script>
 import axios from "axios";
-import userWithdrawalTable from "../components/SearchByUser.vue";
+import userHistory from "../components/userHistory.vue";
 import LoginHeader from "../components/LoginHeader.vue";
 
 export default {
@@ -61,7 +60,7 @@ export default {
     try {
       console.log(this.$route.params.id);
       const temp = await axios.get(
-          `https://api.iotdev.mcmullin.org/api/withdraw?command=userID&value=61011004`,
+          `https://api.iotdev.mcmullin.org/api/withdraw?command=userID&value=${this.$auth.user.uid}`,
         // `https://api.iotdev.mcmullin.org/api/withdraw?command=userID&value=${this.$route.params.id}`,
         config
       );
@@ -72,7 +71,7 @@ export default {
     }
   },
   components: {
-    userWithdrawalTable,
+    userHistory,
     LoginHeader
   },
   head() {
@@ -200,21 +199,14 @@ export default {
   padding-top: 0.5rem;
   padding-bottom: 2px;
 }
-.idHeader2 {
-  width: 12%;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-left: 0.75rem;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
+
 .dateHeader2 {
-  width: 23%;
+  width: 24%;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 2.1rem;
-  padding-left: 10px;
-  padding-right: 30px;
+  margin-left: 1.5rem;
+  padding-left: 20px;
+  padding-right: 35px;
   padding-top: 5px;
   padding-bottom: 5px;
 }
@@ -224,6 +216,7 @@ export default {
   flex-direction: column;
   align-items: flex-start;
   margin-left: 0.75rem;
+  margin-right: 1.5rem;
   padding-top: 5px;
   padding-bottom: 5px;
 }

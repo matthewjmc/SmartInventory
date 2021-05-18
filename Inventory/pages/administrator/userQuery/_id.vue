@@ -8,7 +8,10 @@
       </div>
       <div class="buttonGroup">
         <div class="square">
-          <a class="loginButton" href="/inventory">INVENTORY</a>
+          <a class="unselectedButton" href="/inventory">INVENTORY</a>
+          <a class="unselectedButton" href="/history"
+            >YOUR HISTORY</a
+          >
           <a class="currentButton">ADMINISTRATIVE</a>
         </div>
       </div>
@@ -125,7 +128,7 @@ export default {
   border-radius: 25px;
   background-color: #ff8d24;
 }
-.loginButton {
+.unselectedButton {
   text-align: center;
   justify-content: center;
   display: inline-block;
