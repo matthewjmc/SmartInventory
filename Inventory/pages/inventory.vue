@@ -9,8 +9,11 @@
       <div class="buttonGroup">
         <div class="square">
           <a class="currentButton">INVENTORY</a>
-          <a class="loginButton" href="/withdraw"
-            >WITHDRAWAL HISTORY</a
+          <a class="unselectedButton" href="/history"
+            >YOUR HISTORY</a
+          >
+          <a class="unselectedButton" href="/administrator" v-if="$auth.user.role=='admin'"
+            >ADMINISTRATIVE</a
           >
         </div>
       </div>
@@ -115,7 +118,7 @@ export default {
   border-radius: 25px;
   background-color: #ff8d24;
 }
-.loginButton {
+.unselectedButton {
   text-align: center;
   justify-content: center;
   display: inline-block;

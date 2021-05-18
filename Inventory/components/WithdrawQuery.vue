@@ -1,12 +1,12 @@
 <template>
   <div class="withdraw">
-    <nuxt-link :to="'../../withdraw/itemQuery/'+itemID">
+    <nuxt-link :to="'administrator/itemQuery/'+itemID">
       <v-btn color="#D77113"
         ><img src="~assets/itemIcon.png"
       /></v-btn>
     </nuxt-link>
 
-    <nuxt-link :to="'../../withdraw/userQuery/'+userID">
+    <nuxt-link :to="'administrator/userQuery/'+userID">
       <v-btn color="#D77113"
         ><img src="~assets/userIcon.png"
       /></v-btn>

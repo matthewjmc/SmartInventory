@@ -83,6 +83,10 @@ export default {
               propertyName: 'userInfo'
             },
           },
+          cookie: {
+            options: {
+              secure: false
+          }
         }
       }
   },
@@ -109,4 +113,4 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   }
-}
+}}

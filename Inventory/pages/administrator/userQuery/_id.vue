@@ -9,32 +9,30 @@
       <div class="buttonGroup">
         <div class="square">
           <a class="loginButton" href="/inventory">INVENTORY</a>
-          <a class="currentButton">WITHDRAWAL HISTORY</a>
+          <a class="currentButton">ADMINISTRATIVE</a>
         </div>
       </div>
     </div>
     <div class="items-container2">
       <div class="queryResultBar">
-        <a class="backButton" href="/withdraw">
+        <a class="backButton" href="/administrator">
           BACK
         </a>
         <div class="searchUserNotify">
-          Search By Item ID : {{ $route.params.id }}
+          Search By Student ID : {{ $route.params.id }}
         </div>
       </div>
-      <div class="queryHeader3">
-        <div class="idHeader3">Item ID</div>
-        <div class="nameHeader3">Withdrawn Item</div>
-        <div class="idHeader3">Student ID</div>
-        <div class="nameHeader3">Full Name</div>
-        <div class="dateHeader3">Withdrawn Date</div>
-        <div class="dateHeader3">Expected Return</div>
+      <div class="queryHeader2">
+        <div class="idHeader2">Student ID</div>
+        <div class="nameHeader2">Full Name</div>
+        <div class="nameHeader2">Withdrawn Item</div>
+        <div class="dateHeader2">Withdrawn Date</div>
+        <div class="dateHeader2">Expected Return</div>
       </div>
-      <itemWithdrawalTable
-        v-for="record in itemQuery"
+      <userWithdrawalTable
+        v-for="record in userQuery"
         :key="record.item_name"
         :userID="record.userID"
-        :itemID="record.itemID"
         :firstname="record.firstname"
         :lastname="record.lastname"
         :item_name="record.item_name"
@@ -48,14 +46,14 @@
 
 <script>
 import axios from "axios";
-import itemWithdrawalTable from "../../../components/SearchByItem.vue";
+import userWithdrawalTable from "../../../components/SearchByUser.vue";
 import LoginHeader from "../../../components/LoginHeader.vue";
 
 export default {
-  middleware: "auth",
+  middleware: "auth-admin",
   data() {
     return {
-      itemQuery: []
+      userQuery: []
     };
   },
   async created() {
@@ -68,22 +66,22 @@ export default {
     try {
       console.log(this.$route.params.id);
       const temp = await axios.get(
-        `https://api.iotdev.mcmullin.org/api/withdraw?command=itemID&value=${this.$route.params.id}`,
+        `https://api.iotdev.mcmullin.org/api/withdraw?command=userID&value=${this.$route.params.id}`,
         config
       );
       console.log(temp.data);
-      this.itemQuery = temp.data;
+      this.userQuery = temp.data;
     } catch (err) {
       console.log(err);
     }
   },
   components: {
-    itemWithdrawalTable,
+    userWithdrawalTable,
     LoginHeader
   },
   head() {
     return {
-      title: "Item Query",
+      title: "User Query",
       meta: [
         { hid: "description", name: "description", content: "Inventory System" }
       ]
@@ -185,7 +183,7 @@ export default {
   width: 10%;
 }
 
-.items-container3 {
+.items-container2 {
   background-color: #ff8d24;
   width: 90%;
   margin: 1rem auto;
@@ -193,7 +191,7 @@ export default {
   border-radius: 10px;
 }
 
-.queryHeader3 {
+.queryHeader2 {
   font-size: 26px;
   font-weight: 600;
   color: #000;
@@ -206,28 +204,30 @@ export default {
   padding-top: 0.5rem;
   padding-bottom: 2px;
 }
-.idHeader3 {
+.idHeader2 {
   width: 12%;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 0.25rem;
+  margin-left: 0.75rem;
   padding-top: 5px;
   padding-bottom: 5px;
 }
-.dateHeader3 {
+.dateHeader2 {
   width: 23%;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 1rem;
+  margin-left: 2.1rem;
+  padding-left: 10px;
+  padding-right: 30px;
   padding-top: 5px;
   padding-bottom: 5px;
 }
-.nameHeader3 {
+.nameHeader2 {
   width: 18%;
   font-weight: 500px;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 0.25rem;
+  margin-left: 0.75rem;
   padding-top: 5px;
   padding-bottom: 5px;
 }

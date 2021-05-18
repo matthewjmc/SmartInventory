@@ -7,7 +7,6 @@ const components = {
   LoginHeader: () => import('../..\\components\\LoginHeader.vue' /* webpackChunkName: "components/login-header" */).then(c => wrapFunctional(c.default || c)),
   SearchByItem: () => import('../..\\components\\SearchByItem.vue' /* webpackChunkName: "components/search-by-item" */).then(c => wrapFunctional(c.default || c)),
   SearchByUser: () => import('../..\\components\\SearchByUser.vue' /* webpackChunkName: "components/search-by-user" */).then(c => wrapFunctional(c.default || c)),
-  UserAuthForm: () => import('../..\\components\\UserAuthForm.vue' /* webpackChunkName: "components/user-auth-form" */).then(c => wrapFunctional(c.default || c)),
   VuetifyLogo: () => import('../..\\components\\VuetifyLogo.vue' /* webpackChunkName: "components/vuetify-logo" */).then(c => wrapFunctional(c.default || c)),
   WithdrawQuery: () => import('../..\\components\\WithdrawQuery.vue' /* webpackChunkName: "components/withdraw-query" */).then(c => wrapFunctional(c.default || c))
 }

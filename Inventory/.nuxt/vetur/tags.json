@@ -14,9 +14,6 @@
   "SearchByUser": {
     "description": "Auto imported from components/SearchByUser.vue"
   },
-  "UserAuthForm": {
-    "description": "Auto imported from components/UserAuthForm.vue"
-  },
   "VuetifyLogo": {
     "description": "Auto imported from components/VuetifyLogo.vue"
   },

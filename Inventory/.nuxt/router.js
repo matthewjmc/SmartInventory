@@ -4,11 +4,12 @@ import { normalizeURL, decode } from 'ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
+const _679c3b59 = () => interopDefault(import('..\\pages\\administrator\\index.vue' /* webpackChunkName: "pages/administrator/index" */))
+const _55cc5e50 = () => interopDefault(import('..\\pages\\history.vue' /* webpackChunkName: "pages/history" */))
 const _361d3618 = () => interopDefault(import('..\\pages\\inventory.vue' /* webpackChunkName: "pages/inventory" */))
 const _1ab8efa5 = () => interopDefault(import('..\\pages\\login.vue' /* webpackChunkName: "pages/login" */))
-const _5a195ec4 = () => interopDefault(import('..\\pages\\withdraw\\index.vue' /* webpackChunkName: "pages/withdraw/index" */))
-const _0fbbf6e3 = () => interopDefault(import('..\\pages\\withdraw\\itemQuery\\_id.vue' /* webpackChunkName: "pages/withdraw/itemQuery/_id" */))
-const _919c74ca = () => interopDefault(import('..\\pages\\withdraw\\userQuery\\_id.vue' /* webpackChunkName: "pages/withdraw/userQuery/_id" */))
+const _606f71ee = () => interopDefault(import('..\\pages\\administrator\\itemQuery\\_id.vue' /* webpackChunkName: "pages/administrator/itemQuery/_id" */))
+const _07e540a6 = () => interopDefault(import('..\\pages\\administrator\\userQuery\\_id.vue' /* webpackChunkName: "pages/administrator/userQuery/_id" */))
 const _51114c8e = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
 
 const emptyFn = () => {}
@@ -23,6 +24,14 @@ export const routerOptions = {
   scrollBehavior,
 
   routes: [{
+    path: "/administrator",
+    component: _679c3b59,
+    name: "administrator"
+  }, {
+    path: "/history",
+    component: _55cc5e50,
+    name: "history"
+  }, {
     path: "/inventory",
     component: _361d3618,
     name: "inventory"
@@ -31,17 +40,13 @@ export const routerOptions = {
     component: _1ab8efa5,
     name: "login"
   }, {
-    path: "/withdraw",
-    component: _5a195ec4,
-    name: "withdraw"
+    path: "/administrator/itemQuery/:id?",
+    component: _606f71ee,
+    name: "administrator-itemQuery-id"
   }, {
-    path: "/withdraw/itemQuery/:id?",
-    component: _0fbbf6e3,
-    name: "withdraw-itemQuery-id"
-  }, {
-    path: "/withdraw/userQuery/:id?",
-    component: _919c74ca,
-    name: "withdraw-userQuery-id"
+    path: "/administrator/userQuery/:id?",
+    component: _07e540a6,
+    name: "administrator-userQuery-id"
   }, {
     path: "/",
     component: _51114c8e,
