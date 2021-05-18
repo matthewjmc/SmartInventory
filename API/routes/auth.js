@@ -68,14 +68,20 @@ const findUser = async (username,callback)=>{ // Get User info from LDAP Databas
         filter: `uid=${username}`,
         scope: 'sub'
     };
-    client.search('cn=users,cn=accounts,dc=cielab,dc=net', opts, function(err, res) {
+    client.search('cn=users,cn=accounts,dc=cielab,dc=net', opts, function(err, res) { // cieusers: 1000003, cieadmin: 1000005
         res.on('searchEntry', function(entry) {
             const userData = {
                 username : entry.object.uid,
                 displayName : entry.object.displayName,
-                email : entry.object.mail
+                email : entry.object.mail,
             };
-            callback(userData);
+            if (entry.object.gidNumber == 1000005){
+                userData["role"] = "admin"
+            }
+            else if (entry.object.gidNumber == 1000003){
+                userData["role"] = "student"
+            }
+            callback(entry.object);
         });
     });
 }
