@@ -53,7 +53,7 @@ client.on('error', (err) => {
   })
 
 const authenticateUser = (req, res,next) =>{
-    client.bind(`uid=${req.body.username},cn=users,cn=accounts,dc=cielab,dc=net`, req.body.password, function (err) {
+    client.bind(`uid=${req.body.username},`+ process.env.FILTER, req.body.password, function (err) {
         if (err) {
             console.log("Error in new connetion " + err)
             res.sendStatus(403)
@@ -68,7 +68,7 @@ const findUser = async (username,callback)=>{ // Get User info from LDAP Databas
         filter: `uid=${username}`,
         scope: 'sub'
     };
-    client.search('cn=users,cn=accounts,dc=cielab,dc=net', opts, function(err, res) { // cieusers: 1000003, cieadmin: 1000005
+    client.search(process.env.FILTER, opts, function(err, res) { // cieusers: 1000003, cieadmin: 1000005
         res.on('searchEntry', function(entry) {
             const userData = {
                 username : entry.object.uid,
