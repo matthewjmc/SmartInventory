@@ -46,7 +46,7 @@ export default {
     '@nuxtjs/auth',
   ],
   axios: {
-    baseURL: 'https://api.iotdev.mcmullin.org/'
+    baseURL: 'https://api.balemoh.tech/'
   },
   auth: {
     redirect:{

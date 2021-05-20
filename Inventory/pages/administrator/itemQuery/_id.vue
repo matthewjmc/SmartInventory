@@ -68,7 +68,7 @@ export default {
     try {
       console.log(this.$route.params.id);
       const temp = await axios.get(
-        `https://api.iotdev.mcmullin.org/api/withdraw?command=itemID&value=${this.$route.params.id}`,
+        `https://api.balemoh.tech/api/withdraw?command=itemID&value=${this.$route.params.id}`,
         config
       );
       console.log(temp.data);

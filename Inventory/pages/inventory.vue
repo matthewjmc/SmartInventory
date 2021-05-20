@@ -59,7 +59,7 @@ export default {
     };
     try {
       const res = await axios.get(
-        "https://api.iotdev.mcmullin.org/api/inventory",
+        "https://api.balemoh.tech/api/inventory",
         config
       );
       console.log(res.data);

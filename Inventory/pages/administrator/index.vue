@@ -65,7 +65,7 @@ export default {
     try {
       if( this.$store.userID == null && this.$store.itemID == null ) {
       const res = await axios.get(
-        "https://api.iotdev.mcmullin.org/api/withdraw?command=all",
+        "https://api.balemoh.tech/api/withdraw?command=all",
         config
       );
       console.log(res.data);

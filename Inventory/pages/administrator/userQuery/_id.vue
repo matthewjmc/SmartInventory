@@ -26,7 +26,6 @@
         </div>
       </div>
       <div class="queryHeader2">
-        <div class="idHeader2">Student ID</div>
         <div class="nameHeader2">Full Name</div>
         <div class="nameHeader2">Withdrawn Item</div>
         <div class="dateHeader2">Withdrawn Date</div>
@@ -69,7 +68,7 @@ export default {
     try {
       console.log(this.$route.params.id);
       const temp = await axios.get(
-        `https://api.iotdev.mcmullin.org/api/withdraw?command=userID&value=${this.$route.params.id}`,
+        `https://api.balemoh.tech/api/withdraw?command=userID&value=${this.$route.params.id}`,
         config
       );
       console.log(temp.data);
@@ -219,7 +218,7 @@ export default {
   width: 23%;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 2.1rem;
+  margin-left: 3rem;
   padding-left: 10px;
   padding-right: 30px;
   padding-top: 5px;
@@ -230,7 +229,7 @@ export default {
   font-weight: 500px;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 0.75rem;
+  margin-left: 1.5rem;
   padding-top: 5px;
   padding-bottom: 5px;
 }
