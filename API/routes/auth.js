@@ -3,8 +3,22 @@ const ldap = require('ldapjs');
 const jwt = require("jsonwebtoken")
 var express = require('express');
 const { decode } = require("punycode");
-var router = express.Router()
+var router = express.Router();
 
+/* Redis */
+// const redis = require('redis')
+// const redisClient = redis.createClient({
+//     port: 6379,
+//     host: process.env.REDISURL,
+//     password: process.env.REDISPW
+// });
+// redisClient.on('error', err => {
+//     console.log('Error ' + err);
+// });
+// console.log("Connected to Redis")
+
+
+/* Enable CORS and Require application/json Data Type */
 router.use(express.json())
 router.use(function(req, res, next) {
     res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS');
@@ -16,6 +30,7 @@ router.use(function(req, res, next) {
         next();
         }
 })
+/* Options and Token Secrets */
 var tokenAcc = process.env.TOKENSECRET
 
 /* Signing Options */
@@ -51,6 +66,8 @@ var client = ldap.createClient({ //Create Client to use for Server Authenticatio
 client.on('error', (err) => {
     console.log("LDAP Error:",err)
   })
+console.log("Connected to LDAP")
+
 
 const authenticateUser = (req, res,next) =>{
     client.bind(`uid=${req.body.username},`+ process.env.FILTER, req.body.password, function (err) {
@@ -87,6 +104,7 @@ const findUser = async (username,callback)=>{ // Get User info from LDAP Databas
     });
 }
 
+
 function authenticateToken(req,res,next){ // API Side Middleware
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -98,9 +116,11 @@ function authenticateToken(req,res,next){ // API Side Middleware
     })
 }
 
+
 function generateAccessToken(user){
     return jwt.sign(user,tokenAcc,signOptions);
 }
+
 
 router.delete('/logout',(req,res)=>{ //Deauthenticate Token
     //refreshTokens = refreshTokens.filter(token => token !== req.body.token);
@@ -108,27 +128,29 @@ router.delete('/logout',(req,res)=>{ //Deauthenticate Token
     res.sendStatus(204)
 })
 
+
 router.post('/login',authenticateUser,(req,res)=>{
     findUser(req.body.username,function(userData){
         const accessToken = generateAccessToken(userData);
-        const refreshToken = jwt.sign(userData,tokenAcc,signRefresh);
+        // const refreshToken = jwt.sign(userData,tokenAcc,signRefresh);
         tokens.push(accessToken)
-        refreshTokens.push(refreshToken);
+        // refreshTokens.push(refreshToken);
         res.json({accessToken});
     })
 })
 
 
-router.post('/token',(req,res)=>{ //Refresh Token For User
-    const refreshToken = req.body.token
-    if (refreshToken==null) return res.sendStatus(401);
-    if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403);
-    jwt.verify(refreshToken,publicKey,signRefresh,(err,user)=>{
-        if(err) return res.sendStatus(403)
-        const accessToken = generateAccessToken({name: user.name})
-        res.json({accessToken})
-    })
-})
+// router.post('/token',(req,res)=>{ //Refresh Token For User
+//     const refreshToken = req.body.token
+//     if (refreshToken==null) return res.sendStatus(401);
+//     if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403);
+//     jwt.verify(refreshToken,publicKey,signRefresh,(err,user)=>{
+//         if(err) return res.sendStatus(403)
+//         const accessToken = generateAccessToken({name: user.name})
+//         res.json({accessToken})
+//     })
+// })
+
 
 router.post('/user/info',authenticateToken,(req, res) => {
     const authHeader = req.headers['authorization'];

@@ -94,7 +94,9 @@ router.get("/withdraw",authenticateToken,(req,res)=>{
         console.log("Error Connecting to DB")
         return res.sendStatus(500)
       }
-      connection.query(`SELECT Items.itemID,Items.item_name,Users.userID,Users.firstname,Users.lastname,Borrow_Record.date_borrowed,Borrow_Record.expected_return_date FROM Borrow_Record INNER JOIN Users ON Borrow_Record.userID=Users.userID INNER JOIN Items ON Items.itemID=Borrow_Record.itemID WHERE Users.userID=${val};`,
+      connection.query(`SELECT Items.itemID,Items.item_name,Users.userID,Users.firstname,Users.lastname,Borrow_Record.date_borrowed,Borrow_Record.expected_return_date FROM Borrow_Record INNER JOIN Users ON Borrow_Record.userID=Users.userID INNER JOIN Items ON Items.itemID=Borrow_Record.itemID WHERE Users.userID= ?`,[
+        val,
+      ],
         (err,rows)=>{
         if(err) throw err;
         connection.release(err => { if (err) console.error(err) });
@@ -107,7 +109,9 @@ router.get("/withdraw",authenticateToken,(req,res)=>{
           console.log("Error Connecting to DB")
           return res.sendStatus(500)
         }
-        connection.query(`SELECT Items.itemID,Items.item_name,Users.userID,Users.firstname,Users.lastname,Borrow_Record.date_borrowed,Borrow_Record.expected_return_date FROM Borrow_Record INNER JOIN Users ON Borrow_Record.userID=Users.userID INNER JOIN Items ON Items.itemID=Borrow_Record.itemID WHERE Items.itemID= ${val};`,
+        connection.query(`SELECT Items.itemID,Items.item_name,Users.userID,Users.firstname,Users.lastname,Borrow_Record.date_borrowed,Borrow_Record.expected_return_date FROM Borrow_Record INNER JOIN Users ON Borrow_Record.userID=Users.userID INNER JOIN Items ON Items.itemID=Borrow_Record.itemID WHERE Items.itemID= ?`,[
+          val
+        ],
         (err,rows)=>{
         if(err) throw err;
         connection.release(err => { if (err) console.error(err) });
