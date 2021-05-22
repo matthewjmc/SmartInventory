@@ -4,18 +4,17 @@ const jwt = require("jsonwebtoken")
 var express = require('express');
 const { decode } = require("punycode");
 var router = express.Router();
+var mysql = require("mysql");
 
-/* Redis */
-// const redis = require('redis')
-// const redisClient = redis.createClient({
-//     port: 6379,
-//     host: process.env.REDISURL,
-//     password: process.env.REDISPW
-// });
-// redisClient.on('error', err => {
-//     console.log('Error ' + err);
-// });
-// console.log("Connected to Redis")
+/* Connect To MySQL */
+var db = mysql.createPool({
+    connectionLimit: 15,
+    host:process.env.SQLADDR,
+    user:process.env.SQLUSER,
+    password:process.env.SQLPASS,
+    database:"Inventory",
+    multipleStatements: true
+  });
 
 
 /* Enable CORS and Require application/json Data Type */
@@ -52,7 +51,7 @@ var signRefresh = {
     
 }
 
-let refreshTokens = [];
+// let refreshTokens = [];
 let tokens = [];
 
 var options = {
@@ -121,6 +120,9 @@ function generateAccessToken(user){
     return jwt.sign(user,tokenAcc,signOptions);
 }
 
+function checkExist(){
+
+}
 
 router.delete('/logout',(req,res)=>{ //Deauthenticate Token
     //refreshTokens = refreshTokens.filter(token => token !== req.body.token);
@@ -136,6 +138,31 @@ router.post('/login',authenticateUser,(req,res)=>{
         tokens.push(accessToken)
         // refreshTokens.push(refreshToken);
         res.json({accessToken});
+
+        db.getConnection((err, connection)=>{
+            var name = userData.displayName.split(' ')
+            if(err){
+                console.log("Error Connecting to DB");
+                return 
+            }
+            connection.query(`INSERT IGNORE INTO Users(userID,firstname,lastname,role)
+                VALUES 
+                (?,?,?,?);`,[userData.uid,name[0],name[1],userData.role],(err)=>{
+                    if(err){
+                        console.log(err)
+                        return 
+                    }
+                }) //Check if this query works
+            connection.query("INSERT INTO loginStat(time,userID) VALUES (UNIX_TIMESTAMP(),?);",[
+                userData.uid
+            ],(err)=>{
+                if(err) {
+                    console.log(err)
+                    return 
+                };
+                connection.release(err => { if (err) console.error(err) });
+            })
+        })
     })
 })
 

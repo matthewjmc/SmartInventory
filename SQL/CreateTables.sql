@@ -57,3 +57,11 @@ CREATE TABLE `Stock` (
   PRIMARY KEY (`stockID`),
   FOREIGN KEY (itemID) references Items(itemID)
 );
+
+CREATE TABLE `loginStat`(
+  `statID` INT NOT NULL AUTO_INCREMENT,
+  `time` INT NOT NULL,
+  `userID` INT NOT NULL,
+  FOREIGN KEY(userID) references Users(userID),
+  PRIMARY KEY (`statID`)
+);

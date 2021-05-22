@@ -65,7 +65,9 @@ router.get("/inventory",authenticateToken,(req,res)=>{
       return res.sendStatus(500)
     }
     connection.query("SELECT Items.item_name, Items.description, Stock.availability, Stock.amount FROM Stock INNER JOIN Items ON Stock.itemID=Items.itemID;",(err,rows)=>{
-    if (err) throw err;
+    if (err) {
+      return res.sendStatus(500)
+    };
     connection.release(err => { if (err) console.error(err) });
     return res.json(rows)
     });
@@ -83,7 +85,9 @@ router.get("/withdraw",authenticateToken,(req,res)=>{
       }
       connection.query("SELECT Items.itemID,Items.item_name,Users.userID,Users.firstname,Users.lastname,Borrow_Record.date_borrowed,Borrow_Record.expected_return_date FROM Borrow_Record INNER JOIN Users ON Borrow_Record.userID=Users.userID INNER JOIN Items ON Items.itemID=Borrow_Record.itemID;",
       (err,rows)=>{
-        if(err) throw err;
+        if(err) {
+          return res.sendStatus(500)
+        };
         connection.release(err => { if (err) console.error(err) });
         return res.json(rows)
     });
@@ -98,7 +102,9 @@ router.get("/withdraw",authenticateToken,(req,res)=>{
         val,
       ],
         (err,rows)=>{
-        if(err) throw err;
+        if(err) {
+          return res.sendStatus(500)
+        };
         connection.release(err => { if (err) console.error(err) });
         return res.json(rows)
     })
@@ -113,12 +119,34 @@ router.get("/withdraw",authenticateToken,(req,res)=>{
           val
         ],
         (err,rows)=>{
-        if(err) throw err;
+        if(err) {
+          return res.sendStatus(500)
+        };
         connection.release(err => { if (err) console.error(err) });
         return res.json(rows)
     })
       })
     }
+});
+
+router.get("/loginstat",authenticateToken,(req,res)=>{
+  var userid = req.query.userid;
+  db.getConnection((err,connection)=>{
+    if(err){
+      console.log("Error Connecting to DB");
+      return res.sendStatus(500)
+    }
+    connection.query(`SELECT userID, FROM_UNIXTIME(time,'%D %M %Y %h:%i:%s') AS TimeLogin FROM loginStat WHERE userID=?;`,[userid],
+    (err,rows)=>{
+      if(err){
+        console.log("Error Query from DB")
+        return res.sendStatus(500)
+      }
+      connection.release(err => { if (err) console.error(err) });
+      return res.json(rows)
+    }
+    )
+  })
 });
 
 module.exports = router;
