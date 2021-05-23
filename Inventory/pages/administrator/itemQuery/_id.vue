@@ -9,7 +9,8 @@
       <div class="buttonGroup">
         <div class="square">
           <a class="unselectedButton" href="/inventory">INVENTORY</a>
-          <a class="currentButton">ADMINISTRATIVE</a>
+          <a class="unselectedButton" href="/history">HISTORY</a>
+          <a class="unselectedButton" href="/statistics">ADMINISTRATIVE</a>
         </div>
       </div>
     </div>
@@ -210,7 +211,7 @@ export default {
   width: 12%;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 0.75rem;
+  margin-left: 1rem;
   padding-top: 5px;
   padding-bottom: 5px;
 }
@@ -218,18 +219,16 @@ export default {
   width: 23%;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 2.1rem;
-  padding-left: 10px;
-  padding-right: 30px;
+  margin-left: 2.2rem;
+  padding-left: 13px;
   padding-top: 5px;
   padding-bottom: 5px;
 }
 .nameHeader3 {
-  width: 18%;
+  width: 16%;
   font-weight: 500px;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 0.75rem;
   padding-top: 5px;
   padding-bottom: 5px;
 }

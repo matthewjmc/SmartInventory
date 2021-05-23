@@ -9,9 +9,12 @@
       <div class="buttonGroup">
         <div class="square">
           <a class="unselectedButton" href="/inventory">INVENTORY</a>
-          <a class="currentButton" href="/history">YOUR HISTORY</a>
+          <a class="currentButton" href="/history">HISTORY</a>
           <a class="unselectedButton" href="/administrator" v-if="$auth.user.role=='admin'"
             >ADMINISTRATIVE</a
+          >
+          <a class="unselectedButton" href="/statistics" v-if="$auth.user.role=='admin'"
+            >STATISTICS</a
           >
         </div>
       </div>
@@ -221,11 +224,11 @@ export default {
   padding-bottom: 5px;
 }
 .idHeader2 {
-  width: 15%;
+  width: 13.5%;
   font-weight: 500px;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 0.75rem;
+  margin-left: 0.5rem;
   padding-top: 5px;
   padding-bottom: 5px;
 }

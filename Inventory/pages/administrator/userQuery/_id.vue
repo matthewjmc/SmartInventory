@@ -10,9 +10,9 @@
         <div class="square">
           <a class="unselectedButton" href="/inventory">INVENTORY</a>
           <a class="unselectedButton" href="/history"
-            >YOUR HISTORY</a
+            >HISTORY</a
           >
-          <a class="currentButton">ADMINISTRATIVE</a>
+          <a class="unselectedButton" href="/statistics">ADMINISTRATIVE</a>
         </div>
       </div>
     </div>

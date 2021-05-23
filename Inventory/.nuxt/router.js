@@ -8,6 +8,7 @@ const _679c3b59 = () => interopDefault(import('..\\pages\\administrator\\index.v
 const _55cc5e50 = () => interopDefault(import('..\\pages\\history.vue' /* webpackChunkName: "pages/history" */))
 const _361d3618 = () => interopDefault(import('..\\pages\\inventory.vue' /* webpackChunkName: "pages/inventory" */))
 const _1ab8efa5 = () => interopDefault(import('..\\pages\\login.vue' /* webpackChunkName: "pages/login" */))
+const _142f33ea = () => interopDefault(import('..\\pages\\statistics\\index.vue' /* webpackChunkName: "pages/statistics/index" */))
 const _606f71ee = () => interopDefault(import('..\\pages\\administrator\\itemQuery\\_id.vue' /* webpackChunkName: "pages/administrator/itemQuery/_id" */))
 const _07e540a6 = () => interopDefault(import('..\\pages\\administrator\\userQuery\\_id.vue' /* webpackChunkName: "pages/administrator/userQuery/_id" */))
 const _51114c8e = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
@@ -39,6 +40,10 @@ export const routerOptions = {
     path: "/login",
     component: _1ab8efa5,
     name: "login"
+  }, {
+    path: "/statistics",
+    component: _142f33ea,
+    name: "statistics"
   }, {
     path: "/administrator/itemQuery/:id?",
     component: _606f71ee,

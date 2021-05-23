@@ -8,83 +8,74 @@
       </div>
       <div class="buttonGroup">
         <div class="square">
-          <a class="unselectedButton" href="/inventory"
-            >INVENTORY</a
-          >
+          <a class="unselectedButton" href="/inventory">INVENTORY</a>
           <a class="unselectedButton" href="/history"
             >HISTORY</a
           >
-          <a class="currentButton">ADMINISTRATIVE</a>
-          <a class="unselectedButton" href="/statistics">ADMINISTRATIVE</a>
+          <a class="unselectedButton" href="/administrator" v-if="$auth.user.role=='admin'"
+            >ADMINISTRATIVE</a
+          >
+          <a class="currentButton" 
+            >STATISTICS</a
+          >
         </div>
       </div>
     </div>
 
     <div class="items-container">
       <div class="queryHeader">
-        <div class="idHeader">Student ID</div>
-        <div class="nameHeader">Full Name</div>
-        <div class="nameHeader">Withdrawn Item</div>
-        <div class="dateHeader">Withdrawn Date</div>
-        <div class="dateHeader">Expected Return</div>
+        <div class="monthHeader">Month</div>
+        <div class="requiredItemHeader">Most required item within the month</div>
       </div>
-      <withdrawalTable
-        v-for="record in withdrawn"
-        :key="record.item_name"
-        :itemID="record.itemID"
-        :userID="record.userID"
-        :firstname="record.firstname"
-        :lastname="record.lastname"
-        :item_name="record.item_name"
-        :date_borrowed="record.date_borrowed"
-        :expected_return_date="record.expected_return_date"
-      /> 
-      </div>
-      <!-- props: ['userID','firstname','lastname','item_name','date_borrowed','expected_return_date'] -->
+      <currentInv
+        v-for="item in currInv"
+        :key="item.item_name"
+        :item_name="item.item_name"
+        :description="item.description"
+        :amount="item.amount"
+        :availability="item.availability"
+      />
     </div>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
-import withdrawalTable from "../../components/WithdrawQuery";
+import currentInv from "../../components/StatisticsQuery.vue";
 import LoginHeader from "../../components/LoginHeader.vue";
 
 export default {
   middleware: "auth-admin",
   data() {
     return {
-      withdrawn: []
+      currInv: []
     };
   },
   async created() {
     const config = {
       headers: {
-        authorization: this.$auth.$storage._state['_token.local'],
+        authorization: this.$auth.$storage._state["_token.local"],
         Accept: "application/json"
       }
     };
     try {
-      if( this.$store.userID == null && this.$store.itemID == null ) {
       const res = await axios.get(
-        "https://api.balemoh.tech/api/withdraw?command=all",
+        "https://api.balemoh.tech/api/inventory",
         config
       );
       console.log(res.data);
-      this.withdrawn = res.data;
-      console.log(this.withdrawn)}
-
-
+      this.currInv = res.data;
     } catch (err) {
       console.log(err);
     }
   },
   components: {
-    withdrawalTable,
+    currentInv,
     LoginHeader
   },
   head() {
     return {
-      title: "Tracking",
+      title: "Statistics",
       meta: [
         { hid: "description", name: "description", content: "Inventory System" }
       ]
@@ -159,7 +150,7 @@ export default {
 
 .items-container {
   background-color: #ff8d24;
-  width: 90%;
+  width: 70%;
   margin: 1rem auto;
   padding: 1rem;
   border-radius: 10px;
@@ -167,7 +158,7 @@ export default {
 
 .queryHeader {
   font-size: 26px;
-  font-weight: 600;
+  font-weight: bold;
   color: #000;
   width: 100%;
   display: flex;
@@ -178,31 +169,22 @@ export default {
   padding-bottom: 2px;
   padding-bottom: 3px;
 }
-.idHeader {
-  width: 12%;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-left: 8.25rem;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-.dateHeader {
-  width: 23%;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-left: 2rem;
-  padding-left: 10px;
-  padding-right: 30px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-.nameHeader {
-  width: 18%;
-  font-weight: 500px;
+
+.monthHeader {
+  width: 20%;
+  font-weight: 600px;
   flex-direction: column;
   align-items: flex-start;
   margin-left: 1rem;
-  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.requiredItemHeader {
+  width: 80%;
+  font-weight: 600px;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 2.75rem;
   padding-bottom: 5px;
 }
 
@@ -222,5 +204,4 @@ export default {
     transform: translate3d(100%, 0, 0);
   }
 }
-
 </style>

@@ -11,6 +11,7 @@ You can directly use them in pages and other components without the need to impo
 - `<LoginHeader>` | `<login-header>` (components/LoginHeader.vue)
 - `<SearchByItem>` | `<search-by-item>` (components/SearchByItem.vue)
 - `<SearchByUser>` | `<search-by-user>` (components/SearchByUser.vue)
+- `<StatisticsQuery>` | `<statistics-query>` (components/StatisticsQuery.vue)
 - `<UserHistory>` | `<user-history>` (components/userHistory.vue)
 - `<VuetifyLogo>` | `<vuetify-logo>` (components/VuetifyLogo.vue)
 - `<WithdrawQuery>` | `<withdraw-query>` (components/WithdrawQuery.vue)

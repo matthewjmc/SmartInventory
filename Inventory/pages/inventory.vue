@@ -10,10 +10,13 @@
         <div class="square">
           <a class="currentButton">INVENTORY</a>
           <a class="unselectedButton" href="/history"
-            >YOUR HISTORY</a
+            >HISTORY</a
           >
           <a class="unselectedButton" href="/administrator" v-if="$auth.user.role=='admin'"
             >ADMINISTRATIVE</a
+          >
+          <a class="unselectedButton" href="/statistics" v-if="$auth.user.role=='admin'"
+            >STATISTICS</a
           >
         </div>
       </div>
