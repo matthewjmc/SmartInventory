@@ -33,13 +33,13 @@ INSERT INTO Borrow_Record(userID,itemID,amount,date_borrowed,expected_return_dat
     (61011005,7,1,"2021-03-7","2021-03-21");
     
 
-INSERT INTO Return_Record(userID,itemID,expected_return_date,check_status)
+INSERT INTO Return_Record(userID,itemID,amount,date_borrowed,remaining_date,expected_return_date,check_status)
 	VALUES
-    (61011005,7,"2021-03-12",false),
-    (61011006,4,"2021-02-10",true),
-    (61011007,6,"2021-02-22",true),
-    (61011008,1,"2021-02-27",true),
-    (61011009,5,"2021-02-19",true);
+    (61011005,7,1,"2021-03-1",11,"2021-03-12",false),
+    (61011006,4,2,"2021-02-1",9,"2021-02-10",true),
+    (61011007,6,1,"2021-02-10",12,"2021-02-22",true),
+    (61011008,1,2,"2021-02-12",15,"2021-02-27",true),
+    (61011009,5,1,"2021-02-10",9,"2021-02-19",true);
     
 
 INSERT INTO Overdue(userID,itemID,amount)

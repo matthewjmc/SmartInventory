@@ -131,22 +131,41 @@ router.get("/withdraw",authenticateToken,(req,res)=>{
 
 router.get("/loginstat",authenticateToken,(req,res)=>{
   var userid = req.query.userid;
-  db.getConnection((err,connection)=>{
-    if(err){
-      console.log("Error Connecting to DB");
-      return res.sendStatus(500)
-    }
-    connection.query(`SELECT userID, FROM_UNIXTIME(time,'%D %M %Y %h:%i:%s') AS TimeLogin FROM loginStat WHERE userID=?;`,[userid],
-    (err,rows)=>{
+  if(userid == "all"){
+    db.getConnection((err,connection)=>{
       if(err){
-        console.log("Error Query from DB")
+        console.log(err)
         return res.sendStatus(500)
       }
-      connection.release(err => { if (err) console.error(err) });
-      return res.json(rows)
-    }
-    )
-  })
+      connection.query(`SELECT userID, FROM_UNIXTIME(time,'%D %M %Y %h:%i:%s') AS TimeLogin FROM loginStat;`,
+      (err,rows)=>{
+        if(err){
+          return res.sendStatus(500)
+        }
+        connection.release(err => { if (err) console.error(err) });
+        return res.json(rows)
+      }
+      )
+    })
+  }
+  else{
+    db.getConnection((err,connection)=>{
+      if(err){
+        console.log("Error Connecting to DB");
+        return res.sendStatus(500)
+      }
+      connection.query(`SELECT userID, FROM_UNIXTIME(time,'%D %M %Y %h:%i:%s') AS TimeLogin FROM loginStat WHERE userID=?;`,[userid],
+      (err,rows)=>{
+        if(err){
+          console.log("Error Query from DB")
+          return res.sendStatus(500)
+        }
+        connection.release(err => { if (err) console.error(err) });
+        return res.json(rows)
+      }
+      )
+    })
+  }
 });
 
 module.exports = router;
