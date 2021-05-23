@@ -198,16 +198,14 @@ router.get('/borrowstats',authenticateToken,(req,res)=>{
   db.getConnection((err,connection)=>{
     if(err){console.log("Error Connecting to DB");return res.sendStatus(500)}
     connection.query(`
-          SELECT 
-            MONTHNAME(Borrow_Record.date_borrowed) AS Month,
-              YEAR(Borrow_Record.date_borrowed) AS Year,
-              Items.item_name AS Name,
-              COUNT(Items.itemID) AS AmountBorrowed
-          
-          FROM Borrow_Record
-          INNER JOIN Items
-          ON Borrow_Record.itemID=Items.itemID
-          GROUP BY MONTH(Borrow_Record.date_borrowed),Items.item_name;`,
+        SELECT 
+        Items.item_name AS Name,
+        COUNT(Items.itemID) AS AmountBorrowed
+
+        FROM Borrow_Record
+        INNER JOIN Items
+        ON Borrow_Record.itemID=Items.itemID
+        GROUP BY Items.itemID;`,
         (err,row)=>{
           if(err){return res.sendStatus(500)}
           connection.release(err => { if (err) console.error(err) });
