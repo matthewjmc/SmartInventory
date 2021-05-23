@@ -12,7 +12,10 @@
           <a class="unselectedButton" href="/history"
             >HISTORY</a
           >
-          <a class="unselectedButton" href="/statistics">ADMINISTRATIVE</a>
+          <a class="unselectedButton" href="/administrator">PENDING</a>
+           <a class="unselectedButton" href="/statistics/login_history" v-if="$auth.user.role=='admin'"
+            >STATISTICS</a
+          >
         </div>
       </div>
     </div>

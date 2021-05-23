@@ -14,7 +14,7 @@
 
     <div class="idDisp">{{ userID }}</div>
     <div class="nameDisp">{{ firstname }} {{ lastname }}</div>
-    <div class="nameDisp">{{ item_name }}</div>
+    <div class="itemDisp">{{ item_name }}</div>
     <div class="dateDisp">{{ date_borrowed }}</div>
     <div class="dateDisp">{{ expected_return_date }}</div>
   </div>
@@ -69,11 +69,20 @@ export default {
   padding-bottom: 5px;
 }
 .nameDisp {
-  width: 19%;
+  width: 30%;
   font-weight: 500px;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 1rem;
+  margin-left: 2.25rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.itemDisp {
+  width: 20%;
+  font-weight: 500px;
+  flex-direction: column;
+  align-items: flex-start;
   padding-top: 5px;
   padding-bottom: 5px;
 }

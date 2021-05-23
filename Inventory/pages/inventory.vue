@@ -13,9 +13,9 @@
             >HISTORY</a
           >
           <a class="unselectedButton" href="/administrator" v-if="$auth.user.role=='admin'"
-            >ADMINISTRATIVE</a
+            >PENDING</a
           >
-          <a class="unselectedButton" href="/statistics" v-if="$auth.user.role=='admin'"
+          <a class="unselectedButton" href="/statistics/login_history" v-if="$auth.user.role=='admin'"
             >STATISTICS</a
           >
         </div>

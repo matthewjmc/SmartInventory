@@ -20,23 +20,71 @@
             <a class="currentButton">STATISTICS</a>
           </div>
         </div>
+
           <div class="buttonGroup2">
             <div class="square">
-              <a class="unselectedButton" href="/statistics/login_history">USER LOGIN HISTORY</a>
+              <a class="currentButton" href="/statistics/login_history">USER LOGIN HISTORY</a>
               <a class="unselectedButton" href="/statistics/item_stat">WITHDRAWN ITEM HISTORY</a>
             </div>
           </div>
           </div>
     </div>
+    <div class="items-container">
+      <div class="queryHeader">
+        <div class="loginHist_userId">User ID</div>
+        <div class="loginHist_userFullname">
+          Full Name
+        </div>
+        <div class="loginHist_loggedInTime">
+          Recent Logged-in time
+        </div>
+      </div>
+
+      <loginHist
+        v-for="item in loginHistory"
+        :key="item.item_name"
+        :item_name="item.item_name"
+        :description="item.description"
+        :amount="item.amount"
+        :availability="item.availability"
+      />
+
+    </div>
   </div>
 </template>
 
 <script>
-import LoginHeader from "../../components/LoginHeader.vue";
+import axios from "axios";
+import loginHist from "../../../components/loginHistory.vue";
+import LoginHeader from "../../../components/LoginHeader.vue";
 
 export default {
   middleware: "auth-admin",
+  data() {
+    return {
+      loginHistory: []
+    };
+  },
+  async created() {
+    const config = {
+      headers: {
+        authorization: this.$auth.$storage._state["_token.local"],
+        Accept: "application/json"
+      }
+    };
+    try {
+      const res = await axios.get(
+        "https://api.balemoh.tech/api/inventory",
+        config
+      );
+      console.log(res.data);
+      this.loginHistory = res.data;
+    } catch (err) {
+      console.log(err);
+    }
+  },
   components: {
+    loginHist,
     LoginHeader
   },
   head() {
@@ -87,7 +135,7 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 450%;
+  width: 75%;
   height: 60px;
   border-radius: 25px;
   background-color: #ff8d24;
@@ -142,7 +190,7 @@ export default {
 
 .items-container {
   background-color: #ff8d24;
-  width: 70%;
+  width: 50%;
   margin: 1rem auto;
   padding: 1rem;
   border-radius: 10px;
@@ -162,22 +210,33 @@ export default {
   padding-bottom: 3px;
 }
 
-.monthHeader {
+.loginHist_userId {
   width: 20%;
   font-weight: 600px;
+  justify-content: center;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
   margin-left: 1rem;
   padding-bottom: 5px;
 }
 
-.requiredItemHeader {
-  width: 80%;
+.loginHist_loggedInTime {
+  width: 50%;
   font-weight: 600px;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 2.75rem;
+  justify-content: center;
   padding-bottom: 5px;
+}
+
+.loginHist_userFullname {
+  width: 50%;
+  justify-content: center;
+  font-weight: 600px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .centralGrid {
   display: flex;

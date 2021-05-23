@@ -10,7 +10,13 @@
         <div class="square">
           <a class="unselectedButton" href="/inventory">INVENTORY</a>
           <a class="unselectedButton" href="/history">HISTORY</a>
-          <a class="unselectedButton" href="/statistics">ADMINISTRATIVE</a>
+          <a class="unselectedButton" href="/administrator">PENDING</a>
+          <a
+            class="unselectedButton"
+            href="/statistics/login_history"
+            v-if="$auth.user.role == 'admin'"
+            >STATISTICS</a
+          >
         </div>
       </div>
     </div>
@@ -24,9 +30,9 @@
         </div>
       </div>
       <div class="queryHeader3">
-        <div class="idHeader3">Item ID</div>
+        <div class="itemIdHeader3">Item ID</div>
         <div class="nameHeader3">Withdrawn Item</div>
-        <div class="idHeader3">Student ID</div>
+        <div class="userIdHeader3">Student ID</div>
         <div class="nameHeader3">Full Name</div>
         <div class="dateHeader3">Withdrawn Date</div>
         <div class="dateHeader3">Expected Return</div>
@@ -207,8 +213,17 @@ export default {
   padding-top: 0.5rem;
   padding-bottom: 2px;
 }
-.idHeader3 {
-  width: 12%;
+
+.itemIdHeader3 {
+  width: 6%;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 1rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.userIdHeader3 {
+  width: 10%;
   flex-direction: column;
   align-items: flex-start;
   margin-left: 1rem;
@@ -216,23 +231,24 @@ export default {
   padding-bottom: 5px;
 }
 .dateHeader3 {
-  width: 23%;
+  width: 24%;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 2.2rem;
-  padding-left: 13px;
+  margin-left: 2rem;
+  padding-left: 10px;
+  padding-right: 30px;
   padding-top: 5px;
   padding-bottom: 5px;
 }
 .nameHeader3 {
-  width: 16%;
+  width: 15%;
   font-weight: 500px;
   flex-direction: column;
   align-items: flex-start;
+  margin-left: 1rem;
   padding-top: 5px;
   padding-bottom: 5px;
 }
-
 .searchUserNotify {
   text-align: center;
   justify-content: center;

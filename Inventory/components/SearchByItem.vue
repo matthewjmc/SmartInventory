@@ -2,12 +2,12 @@
 <template>
     
     <div class='withdraw'>
-        <div class='idDisp'>{{ itemID }} </div>
-        <div class='nameDisp'>{{ item_name }} </div>
-        <div class='idDisp'>{{ userID }} </div>
-        <div class='nameDisp'>{{ firstname }}  {{ lastname }} </div>
-        <div class='dateDisp'>{{ date_borrowed }} </div>
-        <div class='dateDisp'>{{ expected_return_date }} </div>
+        <div class='itemIdDispSbi'>{{ itemID }} </div>
+        <div class='nameDispSbi'>{{ item_name }} </div>
+        <div class='userIdDispSbi'>{{ userID }} </div>
+        <div class='nameDispSbi'>{{ firstname }}  {{ lastname }} </div>
+        <div class='dateDispSbi'>{{ date_borrowed }} </div>
+        <div class='dateDispSbi'>{{ expected_return_date }} </div>
     </div>
 
 </template>
@@ -35,15 +35,23 @@ export default {
         
     }
 
-.idDisp {
-        width: 12%;
+.itemIdDispSbi {
+        width: 6%;
         flex-direction: column;
         align-items: flex-start;
         margin-left: 1rem;
         padding-top: 5px;
         padding-bottom: 5px;
     }
-.dateDisp {
+    .userIdDispSbi {
+        width: 10%;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 1rem;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+.dateDispSbi {
         width: 24%;
         flex-direction: column;
         align-items: flex-start;
@@ -53,8 +61,8 @@ export default {
         padding-top: 5px;
         padding-bottom: 5px;
     }
-.nameDisp {
-        width: 19%;
+.nameDispSbi {
+        width: 15%;
         font-weight: 500px;
         flex-direction: column;
         align-items: flex-start;

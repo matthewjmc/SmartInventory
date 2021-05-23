@@ -8,14 +8,17 @@
   "LoginHeader": {
     "description": "Auto imported from components/LoginHeader.vue"
   },
+  "LoginHistory": {
+    "description": "Auto imported from components/loginHistory.vue"
+  },
+  "MostWithdrawnItem": {
+    "description": "Auto imported from components/mostWithdrawnItem.vue"
+  },
   "SearchByItem": {
     "description": "Auto imported from components/SearchByItem.vue"
   },
   "SearchByUser": {
     "description": "Auto imported from components/SearchByUser.vue"
-  },
-  "StatisticsQuery": {
-    "description": "Auto imported from components/StatisticsQuery.vue"
   },
   "UserHistory": {
     "description": "Auto imported from components/userHistory.vue"

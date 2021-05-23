@@ -14,8 +14,8 @@
           <a class="unselectedButton" href="/history"
             >HISTORY</a
           >
-          <a class="currentButton">ADMINISTRATIVE</a>
-          <a class="unselectedButton" href="/statistics">ADMINISTRATIVE</a>
+          <a class="currentButton">PENDING</a>
+          <a class="unselectedButton" href="/statistics/login_history">STATISTICS</a>
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@
       <div class="queryHeader">
         <div class="idHeader">Student ID</div>
         <div class="nameHeader">Full Name</div>
-        <div class="nameHeader">Withdrawn Item</div>
+        <div class="itemHeader">Withdrawn Item</div>
         <div class="dateHeader">Withdrawn Date</div>
         <div class="dateHeader">Expected Return</div>
       </div>
@@ -179,7 +179,7 @@ export default {
   padding-bottom: 3px;
 }
 .idHeader {
-  width: 12%;
+  width: 11%;
   flex-direction: column;
   align-items: flex-start;
   margin-left: 8.25rem;
@@ -190,8 +190,7 @@ export default {
   width: 23%;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 2rem;
-  padding-left: 10px;
+  margin-left: 1.5rem;
   padding-right: 30px;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -201,7 +200,15 @@ export default {
   font-weight: 500px;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 1rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.itemHeader {
+  width: 18%;
+  font-weight: 500px;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 4.5rem;
   padding-top: 5px;
   padding-bottom: 5px;
 }

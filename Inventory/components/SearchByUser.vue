@@ -1,8 +1,8 @@
 
 <template>
     <div class='withdraw'>
-        <div class='nameDisp'>{{ firstname }}  {{ lastname }} </div>
-        <div class='nameDisp'>{{ item_name }} </div>
+        <div class='nameDispIdx'>{{ firstname }}  {{ lastname }} </div>
+        <div class='nameDispIdx'>{{ item_name }} </div>
         <div class='dateDisp'>{{ date_borrowed }} </div>
         <div class='dateDisp'>{{ expected_return_date }} </div>
     </div>
@@ -33,7 +33,7 @@ export default {
     }
 
 .idDisp {
-        width: 12%;
+        width: 10%;
         flex-direction: column;
         align-items: flex-start;
         margin-left: 1rem;
@@ -50,7 +50,7 @@ export default {
         padding-top: 5px;
         padding-bottom: 5px;
     }
-.nameDisp {
+.nameDispIdx {
         width: 19%;
         font-weight: 500px;
         flex-direction: column;
