@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const fs = require('fs')
 var express = require("express");
 var mysql = require("mysql");
+const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require("constants");
 var router = express.Router()
 
 var tokenAcc = process.env.TOKENSECRET
@@ -83,7 +84,7 @@ router.get("/withdraw",authenticateToken,(req,res)=>{
         console.log("Error Connecting to DB")
         return res.sendStatus(500)
       }
-      connection.query("SELECT Items.itemID,Items.item_name,Users.userID,Users.firstname,Users.lastname,Borrow_Record.date_borrowed,Borrow_Record.expected_return_date FROM Borrow_Record INNER JOIN Users ON Borrow_Record.userID=Users.userID INNER JOIN Items ON Items.itemID=Borrow_Record.itemID;",
+      connection.query("SELECT Items.itemID,Items.item_name,Users.userID,Users.firstname,Users.lastname,DATE_FORMAT(Borrow_Record.date_borrowed,'%D %M %Y %h:%i:%s') AS DateBorrowed ,DATE_FORMAT(Borrow_Record.expected_return_date,'%D %M %Y %h:%i:%s') AS ExpectedReturn FROM Borrow_Record INNER JOIN Users ON Borrow_Record.userID=Users.userID INNER JOIN Items ON Items.itemID=Borrow_Record.itemID;",
       (err,rows)=>{
         if(err) {
           return res.sendStatus(500)
@@ -98,7 +99,7 @@ router.get("/withdraw",authenticateToken,(req,res)=>{
         console.log("Error Connecting to DB")
         return res.sendStatus(500)
       }
-      connection.query(`SELECT Items.itemID,Items.item_name,Users.userID,Users.firstname,Users.lastname,Borrow_Record.date_borrowed,Borrow_Record.expected_return_date FROM Borrow_Record INNER JOIN Users ON Borrow_Record.userID=Users.userID INNER JOIN Items ON Items.itemID=Borrow_Record.itemID WHERE Users.userID= ?`,[
+      connection.query(`SELECT Items.itemID,Items.item_name,Users.userID,Users.firstname,Users.lastname,DATE_FORMAT(Borrow_Record.date_borrowed,'%D %M %Y %h:%i:%s') AS DateBorrowed ,DATE_FORMAT(Borrow_Record.expected_return_date,'%D %M %Y %h:%i:%s') AS ExpectedReturn FROM Borrow_Record INNER JOIN Users ON Borrow_Record.userID=Users.userID INNER JOIN Items ON Items.itemID=Borrow_Record.itemID WHERE Users.userID= ?`,[
         val,
       ],
         (err,rows)=>{
@@ -115,7 +116,7 @@ router.get("/withdraw",authenticateToken,(req,res)=>{
           console.log("Error Connecting to DB")
           return res.sendStatus(500)
         }
-        connection.query(`SELECT Items.itemID,Items.item_name,Users.userID,Users.firstname,Users.lastname,Borrow_Record.date_borrowed,Borrow_Record.expected_return_date FROM Borrow_Record INNER JOIN Users ON Borrow_Record.userID=Users.userID INNER JOIN Items ON Items.itemID=Borrow_Record.itemID WHERE Items.itemID= ?`,[
+        connection.query(`SELECT Items.itemID,Items.item_name,Users.userID,Users.firstname,Users.lastname,DATE_FORMAT(Borrow_Record.date_borrowed,'%D %M %Y %h:%i:%s') AS DateBorrowed ,DATE_FORMAT(Borrow_Record.expected_return_date,'%D %M %Y %h:%i:%s') AS ExpectedReturn FROM Borrow_Record INNER JOIN Users ON Borrow_Record.userID=Users.userID INNER JOIN Items ON Items.itemID=Borrow_Record.itemID WHERE Items.itemID= ?`,[
           val
         ],
         (err,rows)=>{
@@ -167,6 +168,53 @@ router.get("/loginstat",authenticateToken,(req,res)=>{
     })
   }
 });
+
+function getElem(obj){
+  var months = [];
+  for(var items = 0; items < obj.length; items++){
+    months.push(obj[items].Month);
+  }
+  return Array.from(new Set(months))
+}
+
+function getMaxDates(months,obj){
+  temp = [];
+  for(var i=0; i<months.length; i++){
+    curMax = {};
+    for(var j=0; j<obj.length; j++){
+      if(Object.keys(curMax).length == 0 && obj[j].Month == months[i]){
+        curMax = obj[j];
+      }
+      else if(obj[j].Month == months[i] && obj[j].AmountBorrowed>curMax.AmountBorrowed){
+        curMax = obj[j]
+      }
+    }
+    temp.push(curMax)
+  }
+  return temp
+}
+
+router.get('/borrowstats',authenticateToken,(req,res)=>{
+  db.getConnection((err,connection)=>{
+    if(err){console.log("Error Connecting to DB");return res.sendStatus(500)}
+    connection.query(`
+          SELECT 
+            MONTHNAME(Borrow_Record.date_borrowed) AS Month,
+              YEAR(Borrow_Record.date_borrowed) AS Year,
+              Items.item_name AS Name,
+              COUNT(Items.itemID) AS AmountBorrowed
+          
+          FROM Borrow_Record
+          INNER JOIN Items
+          ON Borrow_Record.itemID=Items.itemID
+          GROUP BY MONTH(Borrow_Record.date_borrowed),Items.item_name;`,
+        (err,row)=>{
+          if(err){return res.sendStatus(500)}
+          connection.release(err => { if (err) console.error(err) });
+          return res.json(row)
+        })
+  })
+})
 
 module.exports = router;
   
