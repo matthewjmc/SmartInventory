@@ -109,8 +109,6 @@ def update_stocks(data):
 # borrow items (one or multiple items at once) and update stock
 def borrow_items(data):
     print(data['ItemID'])
-    # items = dict(Counter(data['ItemID']))
-    # print(items)
     for i in data['ItemID']:
         kursor = con.cursor()
         sql = "SELECT stockID FROM Items WHERE itemID = %s"
@@ -123,9 +121,9 @@ def borrow_items(data):
         sql1 = """INSERT INTO Borrow_Record (`userID`,`itemID`,`amount`,`date_borrowed`,`expected_return_date`) 
                 VALUES(%s,%s,1,NOW(),(SELECT ADDDATE(NOW(), (SELECT `Stock`.`lending_period`FROM `Stock` WHERE `stockID` =%s))));"""
         kursor.execute(sql1, (data['UserID'], i, stockID))
-        sql2 = """INSERT INTO Return_Record (`userID`,`itemID`,`amount`,`date_borrowed`,`expected_return_date`,`remaining_date`,`check_status`) 
-                VALUES(%s,%s,1,NOW(),(SELECT ADDDATE(NOW(), (SELECT `lending_period`FROM `Stock` WHERE `stockID` =%s))),(SELECT `Stock`.`lending_period` FROM `Stock` WHERE `stockID` =%s), False);"""
-        kursor.execute(sql2, (data['UserID'], i,stockID,stockID))    
+        sql2 = """INSERT INTO Return_Record (`userID`,`itemID`,`amount`,`date_borrowed`,`expected_return_date`,`check_status`,`overdueID`) 
+                VALUES(%s,%s,1,NOW(),(SELECT ADDDATE(NOW(), (SELECT `lending_period`FROM `Stock` WHERE `stockID` =%s))), False, 0);"""
+        kursor.execute(sql2, (data['UserID'], i,stockID))    
         sql_get = "SELECT amount FROM Stock WHERE stockID = %s"
         kursor.execute(sql_get, stockID)
         amount = kursor.fetchall()
