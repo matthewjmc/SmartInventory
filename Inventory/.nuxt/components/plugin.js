@@ -6,6 +6,7 @@ const components = {
   InventoryQuery: () => import('../..\\components\\InventoryQuery.vue' /* webpackChunkName: "components/inventory-query" */).then(c => wrapFunctional(c.default || c)),
   LoginHeader: () => import('../..\\components\\LoginHeader.vue' /* webpackChunkName: "components/login-header" */).then(c => wrapFunctional(c.default || c)),
   LoginHistory: () => import('../..\\components\\loginHistory.vue' /* webpackChunkName: "components/login-history" */).then(c => wrapFunctional(c.default || c)),
+  LoginHistoryUser: () => import('../..\\components\\loginHistory_user.vue' /* webpackChunkName: "components/login-history-user" */).then(c => wrapFunctional(c.default || c)),
   MostWithdrawnItem: () => import('../..\\components\\mostWithdrawnItem.vue' /* webpackChunkName: "components/most-withdrawn-item" */).then(c => wrapFunctional(c.default || c)),
   SearchByItem: () => import('../..\\components\\SearchByItem.vue' /* webpackChunkName: "components/search-by-item" */).then(c => wrapFunctional(c.default || c)),
   SearchByUser: () => import('../..\\components\\SearchByUser.vue' /* webpackChunkName: "components/search-by-user" */).then(c => wrapFunctional(c.default || c)),

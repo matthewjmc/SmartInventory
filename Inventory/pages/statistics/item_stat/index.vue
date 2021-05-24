@@ -24,7 +24,7 @@
           <div class="buttonGroup2">
             <div class="square">
               <a class="unselectedButton" href="/statistics/login_history">USER LOGIN HISTORY</a>
-              <a class="currentButton">WITHDRAWN ITEM HISTORY</a>
+              <a class="currentButton">ITEM WITHDRAWN HISTORY</a>
             </div>
           </div>
           </div>
@@ -32,20 +32,17 @@
 
     <div class="items-container">
       <div class="queryHeader">
-        <div class="itemStat_itemId">Item ID</div>
         <div class="itemStat_itemName">Item Name</div>
         <div class="itemStat_amount">
-          Number of Withdrawns
+         Times Withdrawn
         </div>
       </div>
 
       <popularItems
         v-for="item in popular_items"
-        :key="item.item_name"
-        :item_name="item.item_name"
-        :description="item.description"
-        :amount="item.amount"
-        :availability="item.availability"
+        :key="item.Name"
+        :Name="item.Name"
+        :Amount="item.AmountBorrowed"
       />
 
     </div>
@@ -73,7 +70,7 @@ export default {
     };
     try {
       const res = await axios.get(
-        "https://api.balemoh.tech/api/inventory",
+        "https://api.balemoh.tech/api//borrowstats",
         config
       );
       console.log(res.data);
@@ -189,7 +186,7 @@ export default {
 
 .items-container {
   background-color: #ff8d24;
-  width: 50%;
+  width: 40%;
   margin: 1rem auto;
   padding: 1rem;
   border-radius: 10px;
@@ -209,19 +206,8 @@ export default {
   padding-bottom: 3px;
 }
 
-.itemStat_itemId {
-  width: 20%;
-  font-weight: 600px;
-  justify-content: center;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  margin-left: 1rem;
-  padding-bottom: 5px;
-}
-
 .itemStat_amount {
-  width: 40%;
+  width: 45%;
   font-weight: 600px;
   flex-direction: column;
   align-items: flex-start;
@@ -235,6 +221,7 @@ export default {
   font-weight: 600px;
   justify-content: center;
   flex-direction: column;
+   margin-left: 1rem;
   align-items: flex-start;
 }
 .centralGrid {

@@ -23,7 +23,7 @@
           <div class="buttonGroup2">
             <div class="square">
               <a class="unselectedButton" href="/statistics/login_history">USER LOGIN HISTORY</a>
-              <a class="unselectedButton" href="/statistics/item_stat">WITHDRAWN ITEM HISTORY</a>
+              <a class="unselectedButton" href="/statistics/item_stat">ITEM WITHDRAWN HISTORY</a>
             </div>
           </div>
           </div>

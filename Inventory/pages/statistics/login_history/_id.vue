@@ -6,59 +6,73 @@
       <div>
         <img class="icon" src="~assets/CIElogo.png" />
       </div>
-      <div class="buttonGroup">
-        <div class="square">
-          <a class="unselectedButton" href="/inventory">INVENTORY</a>
-          <a class="unselectedButton" href="/history"
-            >HISTORY</a
-          >
-          <a class="unselectedButton" href="/administrator">PENDING</a>
-           <a class="unselectedButton" href="/statistics/login_history" v-if="$auth.user.role=='admin'"
-            >STATISTICS</a
-          >
+      <div class="centralGrid">
+        <div class="buttonGroup">
+          <div class="square">
+            <a class="unselectedButton" href="/inventory">INVENTORY</a>
+            <a class="unselectedButton" href="/history">HISTORY</a>
+            <a
+              class="unselectedButton"
+              href="/administrator"
+              v-if="$auth.user.role == 'admin'"
+              >PENDING</a
+            >
+            <a class="unselectedButton"  href="/statistics/login_history">STATISTICS</a>
+          </div>
+        </div>
+
+        <div class="buttonGroup2">
+          <div class="square">
+            <a class="currentButton" href="/statistics/login_history"
+              >USER LOGIN HISTORY</a
+            >
+            <a class="unselectedButton" href="/statistics/item_stat"
+              >ITEM WITHDRAWN HISTORY</a
+            >
+          </div>
         </div>
       </div>
     </div>
-    <div class="items-container2">
-      <div class="queryResultBar">
-        <a class="backButton" href="/administrator">
+    <div class="items-container">
+      <div class="queryResultBar2">
+        <a class="backButton2" href="/statistics/login_history">
           BACK
         </a>
-        <div class="searchUserNotify">
+        <div class="searchUserNotify2">
           Search By Student ID : {{ $route.params.id }}
         </div>
       </div>
-      <div class="queryHeader2">
-        <div class="nameHeader2">Full Name</div>
-        <div class="nameHeader2">Withdrawn Item</div>
-        <div class="dateHeader2">Withdrawn Date</div>
-        <div class="dateHeader2">Expected Return</div>
+      <div class="queryHeader">
+        <div class="loginHist_userId">User ID</div>
+        <div class="loginHist_userFullname">
+          Full Name
+        </div>
+        <div class="loginHist_loggedInTime">
+          Recent Logged-in time
+        </div>
       </div>
-      <userWithdrawalTable
-        v-for="record in userQuery"
-        :key="record.item_name"
+
+      <loginHist
+        v-for="record in loginHistory"
+        :key="record.userID"
         :userID="record.userID"
-        :firstname="record.firstname"
-        :lastname="record.lastname"
-        :item_name="record.item_name"
-        :date_borrowed="record.DateBorrowed"
-        :expected_return_date="record.ExpectedReturn"
+        :FullName="record.FullName"
+        :TimeLogin="record.TimeLogin"
       />
     </div>
-    <!-- props: ['userID','firstname','lastname','item_name','date_borrowed','expected_return_date'] -->
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import userWithdrawalTable from "../../../components/SearchByUser.vue";
+import loginHist from "../../../components/loginHistory_user.vue";
 import LoginHeader from "../../../components/LoginHeader.vue";
 
 export default {
   middleware: "auth-admin",
   data() {
     return {
-      userQuery: []
+      loginHistory: []
     };
   },
   async created() {
@@ -69,26 +83,29 @@ export default {
       }
     };
     try {
-      console.log(this.$route.params.id);
-      const temp = await axios.get(
-        `https://api.balemoh.tech/api/withdraw?command=userID&value=${this.$route.params.id}`,
+      const res = await axios.get(
+        `https://api.balemoh.tech/api//loginstat?userid=${this.$route.params.id}`,
         config
       );
-      console.log(temp.data);
-      this.userQuery = temp.data;
+      console.log(res.data);
+      this.loginHistory = res.data;
     } catch (err) {
       console.log(err);
     }
   },
   components: {
-    userWithdrawalTable,
+    loginHist,
     LoginHeader
   },
   head() {
     return {
-      title: "User Query",
+      title: "Statistics",
       meta: [
-        { hid: "description", name: "description", content: "Inventory System" }
+        {
+          hid: "description",
+          name: "description",
+          content: "Inventory System"
+        }
       ]
     };
   }
@@ -112,6 +129,28 @@ export default {
   align-items: center;
   justify-content: center;
 }
+.buttonGroup2 {
+  display: flex;
+  width: 70%;
+  height: 20%;
+  border-radius: 15%;
+  flex-direction: row;
+  margin-top: 1%;
+  align-items: center;
+  justify-content: center;
+}
+.buttonGroup2 .square {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 75%;
+  height: 60px;
+  border-radius: 25px;
+  background-color: #ff8d24;
+}
+
 .icon {
   padding-top: 10%;
   width: 250px;
@@ -159,7 +198,35 @@ export default {
   margin: 0 10px;
 }
 
-.queryResultBar {
+.items-container {
+  background-color: #ff8d24;
+  width: 50%;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.queryHeader {
+  font-size: 26px;
+  font-weight: bold;
+  color: #000;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  color: #fff;
+  justify-content: left;
+  text-align: justify;
+  padding-bottom: 2px;
+  padding-bottom: 3px;
+}
+
+.centralGrid {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+.queryResultBar2 {
   font-size: 26px;
   font-weight: 600;
   color: #000;
@@ -169,11 +236,11 @@ export default {
   color: #fff;
   justify-content: left;
   text-align: justify;
-  padding-top: 0.2rem;
-  padding-bottom: 2px;
+  padding-top: 0.1rem;
+  padding-bottom: 0.75rem;
 }
 
-.backButton {
+.backButton2 {
   text-align: center;
   justify-content: center;
   display: center;
@@ -187,57 +254,7 @@ export default {
   margin: 0 10px;
   width: 10%;
 }
-
-.items-container2 {
-  background-color: #ff8d24;
-  width: 90%;
-  margin: 1rem auto;
-  padding: 1rem;
-  border-radius: 10px;
-}
-
-.queryHeader2 {
-  font-size: 26px;
-  font-weight: 600;
-  color: #000;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  color: #fff;
-  justify-content: left;
-  text-align: justify;
-  padding-top: 0.5rem;
-  padding-bottom: 2px;
-}
-.idHeader2 {
-  width: 12%;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-left: 0.75rem;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-.dateHeader2 {
-  width: 25%;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-left: 3rem;
-  padding-left: 10px;
-  padding-right: 30px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-.nameHeader2 {
-  width: 18%;
-  font-weight: 500px;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-left: 1.5rem;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-.searchUserNotify {
+.searchUserNotify2 {
   text-align: center;
   justify-content: center;
   display: center;
@@ -252,7 +269,6 @@ export default {
   margin: 0 10px;
   width: 90%;
 }
-
 @keyframes acrossIn {
   0% {
     transform: translate3d(-100%, 0, 0);

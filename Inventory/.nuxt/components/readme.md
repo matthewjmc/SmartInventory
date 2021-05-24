@@ -10,6 +10,7 @@ You can directly use them in pages and other components without the need to impo
 - `<InventoryQuery>` | `<inventory-query>` (components/InventoryQuery.vue)
 - `<LoginHeader>` | `<login-header>` (components/LoginHeader.vue)
 - `<LoginHistory>` | `<login-history>` (components/loginHistory.vue)
+- `<LoginHistoryUser>` | `<login-history-user>` (components/loginHistory_user.vue)
 - `<MostWithdrawnItem>` | `<most-withdrawn-item>` (components/mostWithdrawnItem.vue)
 - `<SearchByItem>` | `<search-by-item>` (components/SearchByItem.vue)
 - `<SearchByUser>` | `<search-by-user>` (components/SearchByUser.vue)

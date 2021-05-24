@@ -4,6 +4,7 @@ export { default as AppHeader } from '../..\\components\\AppHeader.vue'
 export { default as InventoryQuery } from '../..\\components\\InventoryQuery.vue'
 export { default as LoginHeader } from '../..\\components\\LoginHeader.vue'
 export { default as LoginHistory } from '../..\\components\\loginHistory.vue'
+export { default as LoginHistoryUser } from '../..\\components\\loginHistory_user.vue'
 export { default as MostWithdrawnItem } from '../..\\components\\mostWithdrawnItem.vue'
 export { default as SearchByItem } from '../..\\components\\SearchByItem.vue'
 export { default as SearchByUser } from '../..\\components\\SearchByUser.vue'
@@ -15,6 +16,7 @@ export const LazyAppHeader = import('../..\\components\\AppHeader.vue' /* webpac
 export const LazyInventoryQuery = import('../..\\components\\InventoryQuery.vue' /* webpackChunkName: "components/inventory-query" */).then(c => wrapFunctional(c.default || c))
 export const LazyLoginHeader = import('../..\\components\\LoginHeader.vue' /* webpackChunkName: "components/login-header" */).then(c => wrapFunctional(c.default || c))
 export const LazyLoginHistory = import('../..\\components\\loginHistory.vue' /* webpackChunkName: "components/login-history" */).then(c => wrapFunctional(c.default || c))
+export const LazyLoginHistoryUser = import('../..\\components\\loginHistory_user.vue' /* webpackChunkName: "components/login-history-user" */).then(c => wrapFunctional(c.default || c))
 export const LazyMostWithdrawnItem = import('../..\\components\\mostWithdrawnItem.vue' /* webpackChunkName: "components/most-withdrawn-item" */).then(c => wrapFunctional(c.default || c))
 export const LazySearchByItem = import('../..\\components\\SearchByItem.vue' /* webpackChunkName: "components/search-by-item" */).then(c => wrapFunctional(c.default || c))
 export const LazySearchByUser = import('../..\\components\\SearchByUser.vue' /* webpackChunkName: "components/search-by-user" */).then(c => wrapFunctional(c.default || c))

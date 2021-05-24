@@ -1,8 +1,7 @@
 <template>
   <div class="inv">
-    <div class="itemStat_itemId">{{ item_name }}</div>
-    <div class="itemStat_itemName">{{ description }}</div>
-    <div class="itemStat_amount">Amt</div>
+    <div class="itemStat_itemName">{{ Name }}</div>
+    <div class="itemStat_amount">{{ Amount }}</div>
     <!-- this will be the amount -->
   </div>
 </template>
@@ -10,7 +9,7 @@
 <script>
 export default {
   name: "popularItems",
-  props: ["item_name", "description", "amount", "availability"]
+  props: ["Name","Amount"]
 };
 </script>
 

@@ -24,14 +24,14 @@
           <div class="buttonGroup2">
             <div class="square">
               <a class="currentButton" href="/statistics/login_history">USER LOGIN HISTORY</a>
-              <a class="unselectedButton" href="/statistics/item_stat">WITHDRAWN ITEM HISTORY</a>
+              <a class="unselectedButton" href="/statistics/item_stat">ITEM WITHDRAWN HISTORY</a>
             </div>
           </div>
           </div>
     </div>
     <div class="items-container">
       <div class="queryHeader">
-        <div class="loginHist_userId">User ID</div>
+        <div class="loginHist_userId_idx">User ID</div>
         <div class="loginHist_userFullname">
           Full Name
         </div>
@@ -41,12 +41,11 @@
       </div>
 
       <loginHist
-        v-for="item in loginHistory"
-        :key="item.item_name"
-        :item_name="item.item_name"
-        :description="item.description"
-        :amount="item.amount"
-        :availability="item.availability"
+        v-for="record in loginHistory"
+        :key="record.userID"
+        :userID="record.userID"
+        :FullName="record.FullName"
+        :TimeLogin="record.TimeLogin"
       />
 
     </div>
@@ -74,7 +73,7 @@ export default {
     };
     try {
       const res = await axios.get(
-        "https://api.balemoh.tech/api/inventory",
+        "https://api.balemoh.tech/api//loginstat?userid=all",
         config
       );
       console.log(res.data);
@@ -210,32 +209,35 @@ export default {
   padding-bottom: 3px;
 }
 
-.loginHist_userId {
+.loginHist_userId_idx {
   width: 20%;
   font-weight: 600px;
   justify-content: center;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  margin-left: 1rem;
+  margin-left: 5rem;
+  padding-top: 5px;
   padding-bottom: 5px;
 }
 
 .loginHist_loggedInTime {
-  width: 50%;
+  width: 55%;
   font-weight: 600px;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  padding-top: 5px;
   padding-bottom: 5px;
 }
 
 .loginHist_userFullname {
-  width: 50%;
+  width: 45%;
   justify-content: center;
   font-weight: 600px;
   justify-content: center;
   flex-direction: column;
+  padding-top: 5px;
   align-items: flex-start;
 }
 .centralGrid {

@@ -11,6 +11,9 @@
   "LoginHistory": {
     "description": "Auto imported from components/loginHistory.vue"
   },
+  "LoginHistoryUser": {
+    "description": "Auto imported from components/loginHistory_user.vue"
+  },
   "MostWithdrawnItem": {
     "description": "Auto imported from components/mostWithdrawnItem.vue"
   },

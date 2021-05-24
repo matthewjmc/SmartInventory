@@ -1,11 +1,6 @@
 
 <template>
   <div class="inv">
-    <nuxt-link :to="'login_history/'+userID">
-      <v-btn color="#D77113"
-        ><img src="~assets/userIcon.png"
-      /></v-btn>
-    </nuxt-link>
     <div class="loginHist_userId">{{ userID }}</div>
     <div class="loginHist_userFullname">{{ FullName }}</div>
     <div class="loginHist_loggedInTime">{{ TimeLogin }}</div>
@@ -15,7 +10,7 @@
 <script>
 export default {
   name: "loginHist",
-  props: ["userID", "TimeLogin", "FullName"]
+  props: ["FullName","userID", "TimeLogin"]
 };
 </script>
 
@@ -33,7 +28,17 @@ export default {
   justify-content: left;
   text-align: left;
 }
-
+.loginHist_userId {
+  width: 20%;
+  font-weight: 600px;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: 1rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
 
 img {
   width: 2rem;

@@ -34,8 +34,8 @@
         :firstname="record.firstname"
         :lastname="record.lastname"
         :item_name="record.item_name"
-        :date_borrowed="record.date_borrowed"
-        :expected_return_date="record.expected_return_date"
+        :date_borrowed="record.DateBorrowed"
+        :expected_return_date="record.ExpectedReturn"
       />
     </div>
     <!-- props: ['userID','firstname','lastname','item_name','date_borrowed','expected_return_date'] -->

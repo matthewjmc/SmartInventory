@@ -63,6 +63,13 @@
     "_name": "_07e540a6"
   },
   {
+    "name": "statistics-login_history-id",
+    "path": "/statistics/login_history/:id",
+    "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\statistics\\\\login_history\\\\_id.vue",
+    "chunkName": "pages/statistics/login_history/_id",
+    "_name": "_3a0939d3"
+  },
+  {
     "name": "index",
     "path": "/",
     "component": "C:\\\\Users\\\\Tagun Jivasitthikul\\\\KMITL\\\\3rd Year\\\\2nd Semester\\\\Internet of Things and Smart Systems\\\\SmartInventory\\\\Inventory\\\\pages\\\\index.vue",

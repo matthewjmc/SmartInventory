@@ -36,8 +36,8 @@
         :firstname="record.firstname"
         :lastname="record.lastname"
         :item_name="record.item_name"
-        :date_borrowed="record.date_borrowed"
-        :expected_return_date="record.expected_return_date"
+        :date_borrowed="record.DateBorrowed"
+        :expected_return_date="record.ExpectedReturn"
       /> 
       </div>
       <!-- props: ['userID','firstname','lastname','item_name','date_borrowed','expected_return_date'] -->
@@ -187,16 +187,15 @@ export default {
   padding-bottom: 5px;
 }
 .dateHeader {
-  width: 23%;
+  width: 28%;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 1.5rem;
   padding-right: 30px;
   padding-top: 5px;
   padding-bottom: 5px;
 }
 .nameHeader {
-  width: 18%;
+  width: 24%;
   font-weight: 500px;
   flex-direction: column;
   align-items: flex-start;
@@ -208,7 +207,6 @@ export default {
   font-weight: 500px;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 4.5rem;
   padding-top: 5px;
   padding-bottom: 5px;
 }

@@ -12,11 +12,11 @@
       /></v-btn>
     </nuxt-link>
 
-    <div class="idDisp">{{ userID }}</div>
-    <div class="nameDisp">{{ firstname }} {{ lastname }}</div>
-    <div class="itemDisp">{{ item_name }}</div>
-    <div class="dateDisp">{{ date_borrowed }}</div>
-    <div class="dateDisp">{{ expected_return_date }}</div>
+    <div class="idHeader_WithdrawQuery">{{ userID }}</div>
+    <div class="nameHeader">{{ firstname }} {{ lastname }}</div>
+    <div class="itemHeader">{{ item_name }}</div>
+    <div class="dateHeader">{{ date_borrowed }}</div>
+    <div class="dateHeader">{{ expected_return_date }}</div>
   </div>
 </template>
 
@@ -50,6 +50,17 @@ export default {
   text-align: left;
 }
 
+.idHeader_WithdrawQuery {
+  width: 11%;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 0.5rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+
+/* 
 .idDisp {
   width: 12%;
   flex-direction: column;
@@ -62,14 +73,13 @@ export default {
   width: 24%;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 2rem;
   padding-left: 10px;
   padding-right: 30px;
   padding-top: 5px;
   padding-bottom: 5px;
 }
 .nameDisp {
-  width: 30%;
+  width: 27%;
   font-weight: 500px;
   flex-direction: column;
   align-items: flex-start;
@@ -85,7 +95,7 @@ export default {
   align-items: flex-start;
   padding-top: 5px;
   padding-bottom: 5px;
-}
+} */
 
 img {
   width: 2rem;

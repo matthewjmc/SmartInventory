@@ -13,6 +13,7 @@ const _5c34aca9 = () => interopDefault(import('..\\pages\\statistics\\item_stat\
 const _0c8b08ab = () => interopDefault(import('..\\pages\\statistics\\login_history\\index.vue' /* webpackChunkName: "pages/statistics/login_history/index" */))
 const _606f71ee = () => interopDefault(import('..\\pages\\administrator\\itemQuery\\_id.vue' /* webpackChunkName: "pages/administrator/itemQuery/_id" */))
 const _07e540a6 = () => interopDefault(import('..\\pages\\administrator\\userQuery\\_id.vue' /* webpackChunkName: "pages/administrator/userQuery/_id" */))
+const _3a0939d3 = () => interopDefault(import('..\\pages\\statistics\\login_history\\_id.vue' /* webpackChunkName: "pages/statistics/login_history/_id" */))
 const _51114c8e = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
 
 const emptyFn = () => {}
@@ -62,6 +63,10 @@ export const routerOptions = {
     path: "/administrator/userQuery/:id?",
     component: _07e540a6,
     name: "administrator-userQuery-id"
+  }, {
+    path: "/statistics/login_history/:id",
+    component: _3a0939d3,
+    name: "statistics-login_history-id"
   }, {
     path: "/",
     component: _51114c8e,
