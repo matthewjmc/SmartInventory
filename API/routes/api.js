@@ -65,8 +65,9 @@ router.get("/inventory",authenticateToken,(req,res)=>{
       console.log("Error Connecting to BD")
       return res.sendStatus(500)
     }
-    connection.query("SELECT Items.item_name, Items.description, Stock.availability, Stock.amount FROM Stock INNER JOIN Items ON Stock.itemID=Items.itemID;",(err,rows)=>{
+    connection.query("SELECT Items.item_name, Items.description, Stock.availability, Stock.amount FROM Stock INNER JOIN Items ON Stock.stockID=Items.stockID;",(err,rows)=>{
     if (err) {
+      console.log(err)
       return res.sendStatus(500)
     };
     connection.release(err => { if (err) console.error(err) });
