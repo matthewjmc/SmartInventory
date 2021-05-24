@@ -2,8 +2,8 @@ FROM python:3.8
 
 WORKDIR /Project
 
-RUN pip3 install pymysql
-RUN pip3 install paho-mqtt
+RUN pip3 install --no-cache pymysql
+RUN pip3 install --no-cache paho-mqtt
 
 COPY Backend.py .
 
