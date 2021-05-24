@@ -189,7 +189,7 @@ def return_items(data):
 
 def update_overdue():
     kursor = con.cursor()
-    sql_get = "SELECT * FROM Return_Record WHERE check_status = False"
+    sql_get = "SELECT * FROM Return_Record WHERE check_status = False AND overdueID = 0"
     kursor.execute(sql_get)
     temp = kursor.fetchall()
     for i in temp:
@@ -202,25 +202,20 @@ def update_overdue():
             kursor.execute(sql, (i['userID'], i['itemID']))
             con.commit()
             print("Added into overdue")
+            sql_search = "SELECT overdueID FROM Overdue WHERE userID = %s AND itemID = %s"
+            kursor.execute(sql_search, (i['userID'], i['itemID']))
+            tempID = kursor.fetchall()
+            print(tempID)
+            for j in tempID:
+                sql1 = "UPDATE Return_Record SET overdueID = %s WHERE userID = %s AND itemID = %s"
+                kursor.execute(sql1, (j['overdueID'], i['userID'], i['itemID']) )
+                con.commit()
+            print("change overdueID in return record")        
         else:
-            print("No overdue")
-        
-        
-
-        
-        
-        
-        # sql = "UPDATE Return_Record SET remaining_date = %s WHERE userID = %s AND itemID = %s AND check_status = False"
-        # kursor.execute(sql, (remaining, i['userID'], i['itemID']))
-        # con.commit()
-    # sql = """INSERT INTO Overdue (`userID`,`itemID`,`amount`) VALUES(
-    #     (SELECT userID FROM Return_Record WHERE `expected_return_date` >= CURDATE() AND `check_status` = False), 
-    #     (SELECT itemID FROM Return_Record WHERE `expected_return_date` >= CURDATE() AND `check_status` = False), 
-    #     (SELECT amount FROM Borrow_Record WHERE `itemID` = `itemID` AND `userID` = `userID`))"""
-    # kursor.execute(sql)
-    # con.commit()
+            continue        
     print("overdue checked!")
-
+        
+        
 
 class ThreadTest():
     def loop1(self):
