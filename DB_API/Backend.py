@@ -2,7 +2,7 @@
 import paho.mqtt.client as mqtt
 import pymysql
 import json
-import time
+import time, datetime
 from collections import Counter
 from threading import Thread
 import os
@@ -65,32 +65,45 @@ def get_role(data):
     data_out = json.dumps(temp)
     print(data_out)
     client.publish("hardware", data_out)
+    client.publish("view's topic", data_out)
 
 
 # add new item to stock table (one-by-one)
 def add_items(data):
+    itemName = data['ItemName']
+    stockID = data['StockID']
+    lending = data['LendingPeriod']
     kursor = con.cursor()
-    sql = "INSERT INTO Stock (`stockID`,`item_name`,`amount`,`lending_period`,`availability`) VALUES (%s, %s, 0,%s,False);"
-    kursor.execute(sql, (data['StockID'], data['ItemName'], data['LendingPeriod']))
-    con.commit()
-    print(kursor.rowcount, 'Added item successfully!')
+    for i in range(len(itemName)):
+        temp = stockID[i].lstrip('0')
+        sql = "INSERT INTO Stock (`stockID`,`item_name`,`amount`,`lending_period`,`availability`) VALUES (%s, %s, 0,%s,False);"
+        kursor.execute(sql, (temp,itemName[i],lending[i]))
+        con.commit()
+    print('Added item successfully!')
 
 
 # update stock for already existed item
 def update_stocks(data):
+    items = data['ItemID']
+    print(len(items))
     kursor = con.cursor()
     sql_get = "SELECT amount, item_name FROM Stock WHERE stockID = %s" 
     kursor.execute(sql_get, data['StockID'])
     temp = kursor.fetchall()
-    for i in temp:
-        print(i['amount'])
+    for j in items:
+        for i in temp:
+            print(j,i['item_name'],data['StockID'])
+            sql1 = "INSERT INTO Items (itemID, item_name, stockID) VALUES (%s,%s,%s)"
+            kursor.execute(sql1, (j,i['item_name'],data['StockID']))
+            sql2 = "UPDATE Stock SET `amount` = %s, `availability` = True WHERE `stockID` = %s"
+            kursor.execute(sql2, (len(items),data['StockID']))
+            con.commit()
     # for old_amount in amount:
     #         for j in old_amount:
     #             #print(old_amount[j])
     #             sql = "UPDATE Stock SET `amount` = %s, `availability` = True WHERE `itemID` = %s"
     #             kursor.execute(sql, (old_amount[j]+data['Amount'],data['ItemID']))
-    # con.commit()
-    # print('Added stock successfully!')
+    print('Added stock successfully!')
 
 
 # borrow items (one or multiple items at once) and update stock
@@ -170,7 +183,7 @@ def return_items(data):
                 if new_amount != 0:
                     sql = "UPDATE Stock SET `availability` = True WHERE `stockID` = %s"
                     kursor.execute(sql, (stockID))
-        con.commit()
+                    con.commit()
     print('return success!')
 
 
@@ -179,14 +192,34 @@ def update_overdue():
     sql_get = "SELECT * FROM Return_Record WHERE check_status = False"
     kursor.execute(sql_get)
     temp = kursor.fetchall()
-    print(temp)
+    for i in temp:
+        expectedReturn = i['expected_return_date']
+        # print(expectedReturn)
+        today = datetime.datetime.today().date()
+        # print(today)
+        if today >= expectedReturn:
+            sql = "INSERT INTO Overdue (`userID`,`itemID`) VALUES(%s, %s)" 
+            kursor.execute(sql, (i['userID'], i['itemID']))
+            con.commit()
+            print("Added into overdue")
+        else:
+            print("No overdue")
+        
+        
+
+        
+        
+        
+        # sql = "UPDATE Return_Record SET remaining_date = %s WHERE userID = %s AND itemID = %s AND check_status = False"
+        # kursor.execute(sql, (remaining, i['userID'], i['itemID']))
+        # con.commit()
     # sql = """INSERT INTO Overdue (`userID`,`itemID`,`amount`) VALUES(
     #     (SELECT userID FROM Return_Record WHERE `expected_return_date` >= CURDATE() AND `check_status` = False), 
     #     (SELECT itemID FROM Return_Record WHERE `expected_return_date` >= CURDATE() AND `check_status` = False), 
     #     (SELECT amount FROM Borrow_Record WHERE `itemID` = `itemID` AND `userID` = `userID`))"""
     # kursor.execute(sql)
     # con.commit()
-    # print("overdue checked!")
+    print("overdue checked!")
 
 
 class ThreadTest():
@@ -199,7 +232,7 @@ class ThreadTest():
     def loop2(self):
         while True:
             update_overdue()
-            time.sleep(3)
+            time.sleep(5)
         
 
 if __name__ == '__main__':
