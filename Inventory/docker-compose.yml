@@ -1,8 +1,9 @@
 version: '3'
-services: 
-  webapp:
+services:
+  webapp:              # name of the service provided.
     build:
       context: .
-      dockerfile: Dockerfile
-    ports:
-      - '80:80'
+      dockerfile: Dockerfile      
+    ports: 
+      - '4500:3000'           # ports allowed for connection  
+    container_name: inventory

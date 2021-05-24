@@ -1,13 +1,18 @@
-FROM node:alpine   
+FROM node:alpine 
 
-WORKDIR '/app'
+WORKDIR /usr/src/app
 
-COPY package.json ./
+COPY . ./
 RUN npm install
 
-COPY . .
+
+EXPOSE 3000
+
+ENV HOST=0.0.0.0
+ENV PORT=3000
 
 RUN npm run build
 
-FROM nginx
-COPY --from=0 /app/.nuxt/dist /usr/share/nginx/html
+CMD [ "npm", "run", "start" ]
+
+
