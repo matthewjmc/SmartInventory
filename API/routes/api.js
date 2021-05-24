@@ -138,7 +138,13 @@ router.get("/loginstat",authenticateToken,(req,res)=>{
         console.log(err)
         return res.sendStatus(500)
       }
-      connection.query(`SELECT userID, FROM_UNIXTIME(time,'%D %M %Y %h:%i:%s') AS TimeLogin FROM loginStat;`,
+      connection.query(`SELECT 
+            CONCAT_WS(" ",Users.firstname,Users.lastname) AS FullName, 
+            loginStat.userID AS userID, 
+            FROM_UNIXTIME(time,'%D %M %Y %h:%i:%s') AS TimeLogin 
+            FROM loginStat
+            INNER JOIN Users
+            On loginStat.userID=Users.userID;`,
       (err,rows)=>{
         if(err){
           return res.sendStatus(500)
@@ -155,7 +161,14 @@ router.get("/loginstat",authenticateToken,(req,res)=>{
         console.log("Error Connecting to DB");
         return res.sendStatus(500)
       }
-      connection.query(`SELECT userID, FROM_UNIXTIME(time,'%D %M %Y %h:%i:%s') AS TimeLogin FROM loginStat WHERE userID=?;`,[userid],
+      connection.query(`SELECT 
+          CONCAT_WS(" ",Users.firstname,Users.lastname) AS FullName,
+          loginStat.userID AS userID, 
+          FROM_UNIXTIME(time,'%D %M %Y %h:%i:%s') AS TimeLogin 
+          FROM loginStat
+          INNER JOIN Users
+          On loginStat.userID=Users.userID
+          WHERE loginStat.userID=?;`,[userid],
       (err,rows)=>{
         if(err){
           console.log("Error Query from DB")
