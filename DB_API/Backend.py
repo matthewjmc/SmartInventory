@@ -183,7 +183,20 @@ def return_items(data):
                 if new_amount != 0:
                     sql = "UPDATE Stock SET `availability` = True WHERE `stockID` = %s"
                     kursor.execute(sql, (stockID))
-                    con.commit()
+
+        sql_check = "SELECT overdueID FROM Return_Record WHERE itemID = %s AND userID = %s"
+        kursor.execute(sql_check, (i, data['UserID']))
+        tempID = kursor.fetchall()
+        # print(tempID)
+        for k in tempID:
+            if k['overdueID'] == 0:
+                con.commit()
+                continue
+            else:
+                print(k['overdueID'])
+                sql = "DELETE FROM Overdue WHERE overdueID = %s"
+                kursor.execute(sql, k['overdueID'])
+                con.commit()
     print('return success!')
 
 
