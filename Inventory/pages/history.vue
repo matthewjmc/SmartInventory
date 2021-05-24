@@ -65,10 +65,9 @@ export default {
       console.log(this.$route.params.id);
       const temp = await axios.get(
           `https://api.balemoh.tech/api/withdraw?command=userID&value=${this.$auth.user.uid}`,
-        // `https://api.iotdev.mcmullin.org/api/withdraw?command=userID&value=${this.$route.params.id}`,
         config
       );
-      console.log(temp.data);
+      // console.log(temp.data);
       this.userQuery = temp.data;
     } catch (err) {
       console.log(err);

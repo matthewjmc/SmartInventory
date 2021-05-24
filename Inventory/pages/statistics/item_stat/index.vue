@@ -73,7 +73,7 @@ export default {
         "https://api.balemoh.tech/api//borrowstats",
         config
       );
-      console.log(res.data);
+      // console.log(res.data);
       this.popular_items = res.data;
     } catch (err) {
       console.log(err);

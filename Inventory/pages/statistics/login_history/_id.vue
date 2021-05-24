@@ -87,7 +87,7 @@ export default {
         `https://api.balemoh.tech/api//loginstat?userid=${this.$route.params.id}`,
         config
       );
-      console.log(res.data);
+      // console.log(res.data);
       this.loginHistory = res.data;
     } catch (err) {
       console.log(err);
