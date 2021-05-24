@@ -5,15 +5,16 @@ import json
 import time
 from collections import Counter
 from threading import Thread
+import os
 
 client = mqtt.Client()
-client.connect('broker', 1234)
+client.connect(os.getenv("MQTTHOST"), 1883)
 
 con = pymysql.connect(
-        host = 'host',
-        user = 'user',
-        password = 'password',
-        db = 'schema',
+        host = os.getenv("MYSQLHOST"),
+        user = os.getenv("MYSQLUSER"),
+        password = os.getenv("MYSQLPass"),
+        db = os.getenv("MYSQLDB"),
         cursorclass = pymysql.cursors.DictCursor
     )
 
