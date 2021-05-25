@@ -2,7 +2,6 @@
 <template>
     
     <div class='withdraw'>
-        <div class='itemIdDispSbi'>{{ itemID }} </div>
         <div class='nameDispSbi'>{{ item_name }} </div>
         <div class='userIdDispSbi'>{{ userID }} </div>
         <div class='nameDispSbi'>{{ firstname }}  {{ lastname }} </div>

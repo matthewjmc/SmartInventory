@@ -36,7 +36,6 @@
     <div class="items-container2" v-if="this.itemQuery.length != 0">
       <div class="middlePart">ONGOING TRANSACTION FOR THIS USER</div>
       <div class="queryHeader3">
-        <div class="itemIdHeader3">Item ID</div>
         <div class="nameHeader3">Withdrawn Item</div>
         <div class="userIdHeader3">Student ID</div>
         <div class="nameHeader3">Full Name</div>
@@ -47,7 +46,6 @@
         v-for="record in itemQuery"
         :key="record.item_name"
         :userID="record.userID"
-        :itemID="record.itemID"
         :firstname="record.firstname"
         :lastname="record.lastname"
         :item_name="record.item_name"
@@ -59,7 +57,6 @@
     <div class="overdue-container2" v-if="this.itemOverdueQuery.length != 0">
       <div class="middlePart">OVERDUE TRANSACTION FOR THIS USER</div>
       <div class="queryHeader3">
-        <div class="itemIdHeader3">Item ID</div>
         <div class="nameHeader3">Withdrawn Item</div>
         <div class="userIdHeader3">Student ID</div>
         <div class="nameHeader3">Full Name</div>
@@ -70,7 +67,6 @@
         v-for="record in itemOverdueQuery"
         :key="record.item_name"
         :userID="record.userID"
-        :itemID="record.itemID"
         :Fullname="record.Fullname"
         :item_name="record.item_name"
         :date_borrowed="record.date_borrowed"
