@@ -47,9 +47,9 @@
       />
       </div>
     </div>
-    <div class="text-container" v-else> 
+    <!-- <div class="text-container" v-else> 
         <div class="no_transaction">THERE ARE NO WITHDRAWALS</div>
-    </div>
+    </div> -->
   </div>
 </template>
 

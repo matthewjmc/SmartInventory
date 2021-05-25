@@ -38,9 +38,9 @@
         :expected_return_date="record.ExpectedReturn"
       />
     </div>
-    <div class="text-container" v-else-if="this.withdrawn.length == 0 && this.overdueWithdrawn.length == 0">
+    <!-- <div class="text-container" v-else-if="this.withdrawn.length == 0 && this.overdueWithdrawn.length == 0">
       <div class="no_transaction">THERE ARE NO TRANSACTIONS</div>
-    </div>
+    </div> -->
     <div class="overdue-container" v-if="this.overdueWithdrawn.length != 0">
       <div class="middlePart">OVERDUE TRANSACTION</div>
       <div class="queryHeader">

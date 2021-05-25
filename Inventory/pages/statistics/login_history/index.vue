@@ -47,9 +47,9 @@
         :TimeLogin="record.TimeLogin"
       />
       </div>
-      <div class="text-container" v-else>
+      <!-- <div class="text-container" v-else>
           <div class="no_transaction">NO USER HAS LOGGED-IN WITHIN THE SYSTEM</div>
-      </div>
+      </div> -->
     
   </div>
 </template>

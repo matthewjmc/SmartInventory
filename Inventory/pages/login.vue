@@ -25,8 +25,6 @@
             </div>
           </div>
         </form>
-        <!-- <v-text-field class="entry" v-model="username" label="Username"> </v-text-field>
-        <v-text-field class="entry" v-model="password" label="Password" type="password"> </v-text-field> -->
         <v-btn color="#D77113" @click="handleLoginClicked"> LOGIN </v-btn>
       </div>
     </div>

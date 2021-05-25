@@ -33,7 +33,7 @@
       </div>
     </div>
     
-    <div class="items-container2" v-if="this.itemQuery.length != 0">
+    <div class="items-container2">
       <div class="middlePart">ONGOING TRANSACTION FOR THIS USER</div>
       <div class="queryHeader3">
         <div class="itemIdHeader3">Item ID</div>

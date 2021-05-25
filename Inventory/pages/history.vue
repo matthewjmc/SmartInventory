@@ -45,9 +45,9 @@
         :expected_return_date="record.ExpectedReturn"
       />
     </div>
-    <div class="text-container2" v-else-if="this.userQuery.length == 0 && this.overdueQuery.length == 0">
+    <!-- <div class="text-container2" v-else-if="this.userQuery.length == 0 && this.overdueQuery.length == 0">
       <div class="no_transaction">YOU HAVE NO PENDING TRANSACTION</div>
-    </div>
+    </div> -->
     <div class="overdue-container2" v-if="this.overdueQuery.length != 0">
       <div class="middlePart">OVERDUE TRANSACTION</div>
       <div class="queryHeader2">

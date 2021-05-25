@@ -38,9 +38,9 @@
         :availability="item.availability"
       />
     </div>
-    <div class="text-container" v-else>
+    <!-- <div class="text-container" v-else>
       <div class="no_transaction">THERE ARE NO ITEMS IN YOUR INVENTORY SYSTEM</div>
-    </div>
+    </div> -->
   </div>
 </template>
 
