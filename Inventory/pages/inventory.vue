@@ -80,7 +80,7 @@ export default {
   },
   head() {
     return {
-      title: "Tracking",
+      title: "Inventory",
       meta: [
         { hid: "description", name: "description", content: "Inventory System" }
       ]

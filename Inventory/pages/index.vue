@@ -36,7 +36,7 @@ import AppHeader from '../components/AppHeader.vue';
       },
     head(){
         return{
-        title: 'Introduction',
+        title: 'Welcome',
         meta: [
             { hid: 'description',
             name: 'description',   

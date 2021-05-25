@@ -99,7 +99,7 @@ export default {
   },
   head() {
     return {
-      title: "Statistics",
+      title: "Recent Login",
       meta: [
         {
           hid: "description",

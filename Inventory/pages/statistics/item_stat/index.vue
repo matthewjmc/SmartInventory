@@ -89,7 +89,7 @@ export default {
   },
   head() {
     return {
-      title: "Statistics",
+      title: "Item Statistics",
       meta: [
         {
           hid: "description",
