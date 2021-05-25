@@ -215,9 +215,9 @@ router.get('/overdue',authenticateToken,(req,res)=>{
                 Users.userID,
                 CONCAT_WS(" ",Users.firstname,Users.lastname) AS Fullname,
                 Items.item_name,
-                Return_Record.date_borrowed,
-                Return_Record.expected_return_date
-                
+                DATE_FORMAT(Return_Record.date_borrowed,'%D %M %Y %h:%i:%s') AS date_borrowed,
+                DATE_FORMAT(Return_Record.expected_return_date,'%D %M %Y %h:%i:%s') AS expected_return_date,
+                Items.itemID AS itemID
                 
                 FROM Return_Record
                 INNER JOIN Users
@@ -236,9 +236,9 @@ router.get('/overdue',authenticateToken,(req,res)=>{
                 Users.userID,
                 CONCAT_WS(" ",Users.firstname,Users.lastname) AS Fullname,
                 Items.item_name,
-                Return_Record.date_borrowed,
-                Return_Record.expected_return_date
-                
+                DATE_FORMAT(Return_Record.date_borrowed,'%D %M %Y %h:%i:%s') AS date_borrowed,
+                DATE_FORMAT(Return_Record.expected_return_date,'%D %M %Y %h:%i:%s') AS expected_return_date,
+                Items.itemID AS itemID
                 
                 FROM Return_Record
                 INNER JOIN Users
@@ -258,9 +258,9 @@ router.get('/overdue',authenticateToken,(req,res)=>{
             Users.userID,
             CONCAT_WS(" ",Users.firstname,Users.lastname) AS Fullname,
             Items.item_name,
-            Return_Record.date_borrowed,
-            Return_Record.expected_return_date
-            
+            DATE_FORMAT(Return_Record.date_borrowed,'%D %M %Y %h:%i:%s') AS date_borrowed,
+            DATE_FORMAT(Return_Record.expected_return_date,'%D %M %Y %h:%i:%s') AS expected_return_date,
+            Items.itemID AS itemID
             
             FROM Return_Record
             INNER JOIN Users
