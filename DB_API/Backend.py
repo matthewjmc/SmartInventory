@@ -65,7 +65,7 @@ def get_role(data):
     data_out = json.dumps(temp)
     print(data_out)
     client.publish("hardware", data_out)
-    client.publish("view's topic", data_out)
+    client.publish("UI", data_out)
 
 
 # add new item to stock table (one-by-one)
@@ -84,20 +84,22 @@ def add_items(data):
 
 # update stock for already existed item
 def update_stocks(data):
-    items = data['ItemID']
-    print(len(items))
-    kursor = con.cursor()
-    sql_get = "SELECT amount, item_name FROM Stock WHERE stockID = %s" 
-    kursor.execute(sql_get, data['StockID'])
-    temp = kursor.fetchall()
-    for j in items:
-        for i in temp:
-            print(j,i['item_name'],data['StockID'])
-            sql1 = "INSERT INTO Items (itemID, item_name, stockID) VALUES (%s,%s,%s)"
-            kursor.execute(sql1, (j,i['item_name'],data['StockID']))
+    stockID = data['StockID']
+    itemID = data['ItemID']
+    print(len(stockID))
+    for i in range(len(stockID)):
+        kursor = con.cursor()
+        sql_get = "SELECT amount, item_name FROM Stock WHERE stockID = %s" 
+        kursor.execute(sql_get, stockID[i])
+        temp = kursor.fetchall()
+        for j in temp:
+            print(j, stockID[i], itemID[i])
+            sql1 = "INSERT INTO Items (itemID, item_name, description ,stockID) VALUES (%s,%s,%s,%s)"
+            kursor.execute(sql1, (itemID[i], j['item_name'],"temp description", stockID[i]))
+            new_amount = j['amount'] + 1
             sql2 = "UPDATE Stock SET `amount` = %s, `availability` = True WHERE `stockID` = %s"
-            kursor.execute(sql2, (len(items),data['StockID']))
-            con.commit()
+            kursor.execute(sql2, ( new_amount ,stockID[i]))
+            con.commit()  
     # for old_amount in amount:
     #         for j in old_amount:
     #             #print(old_amount[j])
@@ -145,19 +147,6 @@ def return_items(data):
     print(data['ItemID'])
     for i in data['ItemID']:
         kursor = con.cursor()
-        # sql_get = "SELECT amount FROM Return_Record WHERE itemID = %s AND userID = %s"
-        # kursor.execute(sql_get,(i, data['UserID']))
-        # borrow_amount = kursor.fetchall()
-        # for amount in borrow_amount:
-        #     for j in amount:
-        #         if amount[j] == items[i]:
-        #             sql = "UPDATE Return_Record SET `check_status` = True WHERE `itemID` = %s AND userID = %s"
-        #             kursor.execute(sql,(i, data['UserID']))
-        #         elif amount[j] > items[i]:
-        #             print("mai krob!")
-        #             new_val = amount[j]-items[i]
-        #             sql = "UPDATE Return_Record SET `amount` = %s WHERE `itemID` = %s AND userID = %s"
-        #             kursor.execute(sql,(new_val,i,data['UserID']))
         sql = "UPDATE Return_Record SET `check_status` = True WHERE `itemID` = %s AND userID = %s"
         kursor.execute(sql,(i, data['UserID']))
         
