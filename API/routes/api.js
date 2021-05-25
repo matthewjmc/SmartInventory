@@ -183,30 +183,6 @@ router.get("/loginstat",authenticateToken,(req,res)=>{
   }
 });
 
-function getElem(obj){
-  var months = [];
-  for(var items = 0; items < obj.length; items++){
-    months.push(obj[items].Month);
-  }
-  return Array.from(new Set(months))
-}
-
-function getMaxDates(months,obj){
-  temp = [];
-  for(var i=0; i<months.length; i++){
-    curMax = {};
-    for(var j=0; j<obj.length; j++){
-      if(Object.keys(curMax).length == 0 && obj[j].Month == months[i]){
-        curMax = obj[j];
-      }
-      else if(obj[j].Month == months[i] && obj[j].AmountBorrowed>curMax.AmountBorrowed){
-        curMax = obj[j]
-      }
-    }
-    temp.push(curMax)
-  }
-  return temp
-}
 
 router.get('/borrowstats',authenticateToken,(req,res)=>{
   db.getConnection((err,connection)=>{
@@ -226,6 +202,80 @@ router.get('/borrowstats',authenticateToken,(req,res)=>{
           return res.json(row)
         })
   })
+})
+
+router.get('/overdue',authenticateToken,(req,res)=>{
+  const command = req.query.command;
+  const value = req.query.value;
+        db.getConnection((err,connection)=>{
+          if(err){return res.sendStatus(500)}
+          if(command == "userid"){
+            if(value == "all"){
+              connection.query(`SELECT
+                Users.userID,
+                CONCAT_WS(" ",Users.firstname,Users.lastname) AS Fullname,
+                Items.item_name,
+                DATE_FORMAT(Return_Record.date_borrowed,'%D %M %Y %h:%i:%s') AS date_borrowed,
+                DATE_FORMAT(Return_Record.expected_return_date,'%D %M %Y %h:%i:%s') AS expected_return_date,
+                Items.itemID AS itemID
+                
+                FROM Return_Record
+                INNER JOIN Users
+                ON Return_Record.userID=Users.userID
+                INNER JOIN Items
+                ON Items.itemID=Return_Record.itemID
+                WHERE Return_Record.overdueID > 0;`,
+                  (err,rows)=>{
+                    if(err){return res.sendStatus('all')}
+                    connection.release(err => { if (err) console.error(err) });
+                    return res.json(rows)
+                  })
+               }
+               else{
+                connection.query(`SELECT
+                Users.userID,
+                CONCAT_WS(" ",Users.firstname,Users.lastname) AS Fullname,
+                Items.item_name,
+                DATE_FORMAT(Return_Record.date_borrowed,'%D %M %Y %h:%i:%s') AS date_borrowed,
+                DATE_FORMAT(Return_Record.expected_return_date,'%D %M %Y %h:%i:%s') AS expected_return_date,
+                Items.itemID AS itemID
+                
+                FROM Return_Record
+                INNER JOIN Users
+                ON Return_Record.userID=Users.userID
+                INNER JOIN Items
+                ON Items.itemID=Return_Record.itemID
+                WHERE Return_Record.overdueID > 0 AND Users.userID = ?;`,[value],
+                (err,rows)=>{
+                  if(err){return res.sendStatus(500)}
+                  connection.release(err => { if (err) console.error(err) });
+                  return res.json(rows)
+                })
+              }
+          }
+          if(command=="itemid"){
+            connection.query(`SELECT
+            Users.userID,
+            CONCAT_WS(" ",Users.firstname,Users.lastname) AS Fullname,
+            Items.item_name,
+            DATE_FORMAT(Return_Record.date_borrowed,'%D %M %Y %h:%i:%s') AS date_borrowed,
+            DATE_FORMAT(Return_Record.expected_return_date,'%D %M %Y %h:%i:%s') AS expected_return_date,
+            Items.itemID AS itemID
+            
+            FROM Return_Record
+            INNER JOIN Users
+            ON Return_Record.userID=Users.userID
+            INNER JOIN Items
+            ON Items.itemID=Return_Record.itemID
+            WHERE Return_Record.overdueID > 0 AND Items.itemID = ?;`,[value],
+            (err,rows)=>{
+              if(err){return res.sendStatus(500)}
+              connection.release(err => { if (err) console.error(err) });
+              return res.json(rows)
+            })
+          }
+          
+    })
 })
 
 module.exports = router;

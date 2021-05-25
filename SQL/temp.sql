@@ -22,6 +22,7 @@ CREATE TABLE Stock (
 CREATE TABLE Items (
   itemID VARCHAR(100) NOT NULL,
   item_name VARCHAR(100) NOT NULL,
+  description VARCHAR(100) NOT NULL,
   stockID INT NOT NULL,
   PRIMARY KEY (`itemID`)
 );
@@ -43,19 +44,17 @@ CREATE TABLE Return_Record (
   amount INT NOT NULL,
   date_borrowed DATE NOT NULL,
   expected_return_date DATE NOT NULL,
-  remaining_date INT,
   check_status BOOLEAN NOT NULL,
+  overdueID INT NOT NULL,
   PRIMARY KEY (`userID`, `itemID`),
   FOREIGN KEY(userID) references Users(userID),
   FOREIGN KEY(itemID) references Items(itemID)
 );
 
 CREATE TABLE Overdue (
+  overdueID INT NOT NULL AUTO_INCREMENT,
   userID INT NOT NULL,
   itemID VARCHAR(100) NOT NULL,
-  amount INT NOT NULL,
-  PRIMARY KEY (`userID`, `itemID`),
-  CONSTRAINT Return_Record_unique UNIQUE (itemID, userID),
-  FOREIGN KEY(userID) references Users(userID),
-  FOREIGN KEY(itemID) references Items(itemID)
+  PRIMARY KEY (overdueID),
+  CONSTRAINT Return_Record_unique UNIQUE (overdueID)
 );
