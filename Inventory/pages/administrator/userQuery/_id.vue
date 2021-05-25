@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <div class="items-container2">
+    <div class="items-container2" v-if="this.userQuery.length != 0">
       <div class="middlePart">ONGOING TRANSACTION FOR THIS USER</div>
       <div class="queryHeader2">
         <div class="nameHeader2">Full Name</div>
