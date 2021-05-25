@@ -40,22 +40,26 @@ INSERT INTO Borrow_Record(userID,itemID,amount,date_borrowed,expected_return_dat
     (61011004,2,1,"2021-03-5","2021-03-12"),
     (61011004,3,1,"2021-03-2","2021-03-14"),
     (61011005,7,1,"2021-03-7","2021-03-21");
+
+
+INSERT INTO Overdue(userID,itemID)
+	VALUES
+	(61011005,7),
+    (61011006,4),
+    (61011007,6),
+    (61011008,1),
+    (61011009,5);
+
+INSERT INTO Return_Record(userID,itemID,amount,date_borrowed,expected_return_date,check_status,overdueID)
+	VALUES
+    (61011005,7,1,"2021-03-1","2021-03-12",false,1),
+    (61011006,4,2,"2021-02-1","2021-02-10",true,2),
+    (61011007,6,1,"2021-02-10","2021-02-22",true,3),
+    (61011008,1,2,"2021-02-12","2021-02-27",true,4),
+    (61011009,5,1,"2021-02-10","2021-02-19",true,5);
     
 
-INSERT INTO Return_Record(userID,itemID,amount,date_borrowed,expected_return_date,check_status,overdue_status)
-	VALUES
-    (61011005,7,1,"2021-03-1","2021-03-12",false,false),
-    (61011006,4,2,"2021-02-1","2021-02-10",true,false),
-    (61011007,6,1,"2021-02-10","2021-02-22",true,false),
-    (61011008,1,2,"2021-02-12","2021-02-27",true,false),
-    (61011009,5,1,"2021-02-10","2021-02-19",true,false);
-    
 
-INSERT INTO Overdue(userID,itemID,amount)
-	VALUES
-	(61011003,2,1),
-    (61011004,2,1),
-    (61011004,3,1);
     
 
     
