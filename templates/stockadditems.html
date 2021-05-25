@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://cdn.socket.io/3.1.3/socket.io.min.js"
+        integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh"
+        crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>admin update stock</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Features-Boxed.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Login-Form-Clean.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Registration-Form-with-Photo.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+</head>
+
+<body>
+    <section class="login-clean" style="background: rgb(249,166,27);">
+        <section class="features-boxed" style="background: rgb(255,255,255);height: 808.323px;">
+            <div class="container">
+                <div class="intro" style="height: 119px;">
+                    <h2 class="text-center" style="height: 77px;">
+                        <a href="/inventorystart">
+                            <img src="static/img/unnamed.png" style="height: 61px;color: rgb(244,121,32);">
+                        </a>&nbsp;ADMIN
+                    </h2>
+                    <p class="text-center">Add unregistered item.</p>
+                </div>
+                <div class="row justify-content-center features" style="height: 190.333px;">
+                    <div class="col">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 320.667px;">Name</th>
+                                        <th style="width: 300.667px;">Stock ID</th>
+                                        <th style="width: 306.667px;">Period</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3"><input type="text" placeholder="Item Name" id="name" style="width: 170px;margin: 19px;"></div>
+                    <div class="col-md-3"><input type="number" placeholder="Stock ID" id="id" style="width: 170px;margin: 18px;" min="8" max="7"></div>
+                    <div class="col-md-3"><input type="number" placeholder="Borrowing Period" id="number" style="width: 170px;margin: 18px;" min="8" max="7"></div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary btn-block" type="submit" style="height: 35px;text-align: center;font-size: 15px;font-family: 'Source Sans Pro', sans-serif;margin: 13px 0px 0px;padding: 2px;background: rgb(207,207,207);width: 169px;" onclick="getvalue();">
+                            ADD ITEM
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row" style="height: 75px;">
+                    <div class="col-md-4 offset-lg-4">
+                    <a class="btn btn-primary btn-block" role="button" onclick="postadmin()" href="/inventorystart" style="height: 35px;text-align: center;font-size: 15px;font-family: 'Source Sans Pro', sans-serif;margin: 16px 0px 0px;padding: 2px;background: rgb(252,176,64);">
+                        DONE
+                    </a>
+                </div>
+                </div>
+            </div>
+        </section>
+        <div class="col">
+            <div></div>
+        </div>
+    </section>
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        
+        itemName = []
+        stockid = []
+        lendingPeriod = []
+        function getvalue(){
+            // Selecting the input element and get its value 
+            var inputname = document.getElementById("name").value;
+            var inputid = document.getElementById("id").value
+            var inputnum = document.getElementById("number").value;
+
+            let item = [{"ItemName": inputname, "StockID" : inputid, "LendingPeriod": inputnum}]
+
+            let table = document.querySelector("table.table");
+            itemName.push(inputname)
+            stockid.push(inputid)
+            lendingPeriod.push(inputnum)
+            generateTable(table, item);
+            }
+
+        function generateTable(table, data) {
+            for (let element of data) {
+                let row = table.insertRow();
+                    for (key in element) {
+                        let cell = row.insertCell();
+                        let text = document.createTextNode(element[key]);
+                        cell.appendChild(text);
+                    }
+                }
+            }                
+
+        const items = {"Command": "added", "ItemName": itemName, "StockID" : stockid, "LendingPeriod": lendingPeriod};
+        function postadmin(){
+            console.log(items)
+            $.ajax({
+                method: "POST",
+                url: "/stockadditems",
+                dataType :'json',
+                contentType:"application/json",
+                data: JSON.stringify({"items":items})
+            })
+        }
+    </script>
+</body>
+
+</html>

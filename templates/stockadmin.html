@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://cdn.socket.io/3.1.3/socket.io.min.js"
+        integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh"
+        crossorigin="anonymous"></script>
+    <script>
+        var stock 
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>admin update stock</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Features-Boxed.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Login-Form-Clean.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Registration-Form-with-Photo.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+</head>
+
+<body>
+    <section class="login-clean" style="background: rgb(247,148,30);">
+        <section class="features-boxed" style="background: rgb(255,255,255);height: 808.323px;">
+            <div class="container">
+                <div class="intro" style="height: 119px;">
+                    <h2 class="text-center" style="height: 77px;">
+                        <a href="/inventorystart">
+                            <img src="static/img/unnamed.png" style="height: 61px;color: rgb(244,121,32);">
+                        </a>
+                        &nbsp;ADMIN
+                    </h2>
+                    <p class="text-center">Add exist item.</p>
+                </div>
+                <div class="row justify-content-center features" style="height: 190.333px;">
+                    <div class="col">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Stock ID</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="text" placeholder="Stock ID" id="id" style="width: 268.667px;margin: 19px;">
+                    </div>
+
+                    <div class="col-md-3 offset-lg-2">
+                        <button class="btn btn-primary btn-block" type="button"
+                            style="height: 35px;text-align: center;font-size: 15px;font-family: 'Source Sans Pro', sans-serif;margin: 13px 0px 0px;padding: 2px;background: rgb(207,207,207);width: 169px;"
+                            onclick="getvalue();">
+                            UPDATE
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row" style="height: 75px;">
+                    <div class="col-md-4 offset-lg-4">
+                        <a class="btn btn-primary btn-block" role="button" onclick="postdone()" href="/inventorystart"
+                            style="height: 35px;text-align: center;font-size: 15px;font-family: 'Source Sans Pro', sans-serif;margin: 16px 0px 0px;padding: 2px;background: rgb(252,176,64);">
+                            DONE
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="col">
+            <div></div>
+        </div>
+    </section>
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        const url = 'http://localhost:5000'
+        const socket = io(url);
+
+        
+        function getvalue() {
+            // Selecting the input element and get its value 
+            alert("Updated")
+            var stock1 = document.getElementById("id").value;
+            stock = stock1
+            console.log(stock)
+            postadmin();
+
+        }
+
+        function postadmin() {
+            // console.log(stock)
+            axios.post('/stockadmin', {
+                "stock": { "Command": "updateitem", "StockID": stock }
+            })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+        function generateTable(table, data) {
+            for (let element of data) {
+                let row = table.insertRow();
+                for (key in element) {
+                    let cell = row.insertCell();
+                    let text = document.createTextNode(element[key]);
+                    cell.appendChild(text);
+                }
+            }
+        }
+
+        
+        socket.on('administrator', (data) => {
+            console.log('Socket on administrator')
+            console.error(data)
+            let items = [data];
+
+            let table = document.querySelector("table.table");
+            let info = Object.keys(items);
+            generateTable(table, items);
+        })
+
+        function postdone(){
+            $.ajax({
+                method: "POST",
+                url: "/stockadmin",
+                dataType :'json',
+                contentType:"application/json",
+                data: JSON.stringify({"Command":"Done"})
+            })
+        }
+
+    </script>
+
+</body>
+
+</html>

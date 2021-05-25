@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>inventory  regis</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'bootstrap/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/Footer-Clean.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/Footer-LFBITS.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/Login-Form-Clean.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/Navigation-Clean.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/Navigation-with-Button.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'css/styles.css')}}">
+    </head>
+    <body>
+        <section class="login-clean" style="width: 601.33333;height: 347;margin: 0;">
+            <form method="post" style="width: 209;height: 400;padding: -7px;background: rgb(255,255,255);margin: 137;">
+                <h2 class="sr-only">Login Form</h2>
+                <div class="illustration" style="height: 195px;padding: -42px;margin: -28px;">
+                    <img src="static/img/unnamed.png" style="width: 140px;margin: 1px;padding: 2px;">
+                </div>
+                <div class="form-group">
+                    <a class="btn btn-primary btn-block" role="button" onclick = "postborrow()" href="login" type="button" style="height: 35px;text-align: center;font-size: 15px;font-family: 'Source Sans Pro', sans-serif;margin: 16px 0px 0px;padding: 2px;background: rgb(252,176,64);">
+                        BORROW
+                    </a>
+                </div>
+                <a class="btn btn-primary btn-block" role="button" onclick = "postreturn()" href="login" type="button" style="height: 35px;text-align: center;font-size: 15px;font-family: 'Source Sans Pro', sans-serif;margin: 16px 0px 0px;padding: 2px;background: rgb(252,176,64);">
+                    RETURN
+                </a>
+                <a class="btn btn-primary btn-block" role="button" onclick = "postadditem()" href="login" type="button" style="height: 35px;text-align: center;font-size: 15px;font-family: 'Source Sans Pro', sans-serif;margin: 16px 0px 0px;padding: 2px;background: rgb(252,176,64);">
+                    NEW STOCK
+                </a>
+                <a class="btn btn-primary btn-block" role="button" onclick = "postupdateitem()" href="login" type="button" style="height: 35px;text-align: center;font-size: 15px;font-family: 'Source Sans Pro', sans-serif;margin: 16px 0px 0px;padding: 2px;background: rgb(252,176,64);">
+                    STOCK UPDATE
+                </a>
+            </form>
+        </section>
+        <footer class="footer-clean">
+
+        </footer>
+        <script src="static/js/jquery.min.js"></script>
+        <script src="static/bootstrap/js/bootstrap.min.js">
+        </script>
+        <script> 
+            function postborrow(){
+                $.ajax({
+                method: "POST",
+                url: "/decide",
+                dataType :'json',
+                contentType:"application/json",
+                data: JSON.stringify({"Command":"borrow"})
+            })
+        }
+            function postreturn(){
+                $.ajax({
+                method: "POST",
+                url: "/decide",
+                dataType :'json',
+                contentType:"application/json",
+                data: JSON.stringify({"Command":"return"})
+            })
+        }
+            function postadditem(){
+                $.ajax({
+                method: "POST",
+                url: "/decide",
+                dataType :'json',
+                contentType:"application/json",
+                data: JSON.stringify({"Command":"add"})
+            })
+        }
+            function postupdateitem(){
+                $.ajax({
+                method: "POST",
+                url: "/decide",
+                dataType :'json',
+                contentType:"application/json",
+                data: JSON.stringify({"Command":"updateitem"})
+            })
+        }
+        </script>
+    </body>
+</html>
