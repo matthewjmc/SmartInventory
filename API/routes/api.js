@@ -205,11 +205,13 @@ router.get('/borrowstats',authenticateToken,(req,res)=>{
 })
 
 router.get('/overdue',authenticateToken,(req,res)=>{
-  const userid = req.query.userid;
+  const command = req.query.command;
+  const value = req.query.value;
         db.getConnection((err,connection)=>{
           if(err){return res.sendStatus(500)}
-          if(userid == "all"){
-            connection.query(`SELECT
+          if(command == "userid"){
+            if(value == "all"){
+              connection.query(`SELECT
                 Users.userID,
                 CONCAT_WS(" ",Users.firstname,Users.lastname) AS Fullname,
                 Items.item_name,
@@ -228,8 +230,30 @@ router.get('/overdue',authenticateToken,(req,res)=>{
                     connection.release(err => { if (err) console.error(err) });
                     return res.json(rows)
                   })
-                }
-          else{
+               }
+               else{
+                connection.query(`SELECT
+                Users.userID,
+                CONCAT_WS(" ",Users.firstname,Users.lastname) AS Fullname,
+                Items.item_name,
+                Return_Record.date_borrowed,
+                Return_Record.expected_return_date
+                
+                
+                FROM Return_Record
+                INNER JOIN Users
+                ON Return_Record.userID=Users.userID
+                INNER JOIN Items
+                ON Items.itemID=Return_Record.itemID
+                WHERE Return_Record.overdueID > 0 AND Users.userID = ?;`,[value],
+                (err,rows)=>{
+                  if(err){return res.sendStatus(500)}
+                  connection.release(err => { if (err) console.error(err) });
+                  return res.json(rows)
+                })
+              }
+          }
+          if(command=="itemid"){
             connection.query(`SELECT
             Users.userID,
             CONCAT_WS(" ",Users.firstname,Users.lastname) AS Fullname,
@@ -243,13 +267,14 @@ router.get('/overdue',authenticateToken,(req,res)=>{
             ON Return_Record.userID=Users.userID
             INNER JOIN Items
             ON Items.itemID=Return_Record.itemID
-            WHERE Return_Record.overdueID > 0 AND Users.userID = ?;`,[userid],
+            WHERE Return_Record.overdueID > 0 AND Items.itemID = ?;`,[value],
             (err,rows)=>{
               if(err){return res.sendStatus(500)}
               connection.release(err => { if (err) console.error(err) });
               return res.json(rows)
             })
           }
+          
     })
 })
 
