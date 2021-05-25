@@ -10,16 +10,23 @@
         <div class="square">
           <a class="unselectedButton" href="/inventory">INVENTORY</a>
           <a class="currentButton" href="/history">HISTORY</a>
-          <a class="unselectedButton" href="/administrator" v-if="$auth.user.role=='admin'"
-            >PENDING</a
+          <a
+            class="unselectedButton"
+            href="/administrator"
+            v-if="$auth.user.role == 'admin'"
+            >OVERALL</a
           >
-          <a class="unselectedButton" href="/statistics/login_history" v-if="$auth.user.role=='admin'"
+          <a
+            class="unselectedButton"
+            href="/statistics/login_history"
+            v-if="$auth.user.role == 'admin'"
             >STATISTICS</a
           >
         </div>
       </div>
     </div>
-    <div class="items-container2">
+    <div class="items-container2" v-if="this.userQuery.length != 0">
+      <div class="middlePart">ONGOING TRANSACTION</div>
       <div class="queryHeader2">
         <div class="idHeader2">Student ID</div>
         <div class="nameHeader2">Full Name</div>
@@ -27,7 +34,7 @@
         <div class="dateHeader2">Withdrawn Date</div>
         <div class="dateHeader2">Expected Return</div>
       </div>
-      <UserHistory
+      <userHistory
         v-for="record in userQuery"
         :key="record.item_name"
         :userID="record.userID"
@@ -38,6 +45,28 @@
         :expected_return_date="record.ExpectedReturn"
       />
     </div>
+    <div class="text-container2" v-else-if="this.userQuery.length == 0 && this.overdueQuery.length == 0">
+      <div class="no_transaction">YOU HAVE NO PENDING TRANSACTION</div>
+    </div>
+    <div class="overdue-container2" v-if="this.overdueQuery.length != 0">
+      <div class="middlePart">OVERDUE TRANSACTION</div>
+      <div class="queryHeader2">
+        <div class="idHeader2">Student ID</div>
+        <div class="nameHeader2">Full Name</div>
+        <div class="nameHeader2">Withdrawn Item</div>
+        <div class="dateHeader2">Withdrawn Date</div>
+        <div class="dateHeader2">Expected Return</div>
+      </div>
+      <userOverdueHistory
+        v-for="record in overdueQuery"
+        :key="record.item_name"
+        :userID="record.userID"
+        :fullname="record.Fullname"
+        :item_name="record.item_name"
+        :date_borrowed="record.date_borrowed"
+        :expected_return_date="record.expected_return_date"
+      />
+    </div>
     <!-- props: ['userID','firstname','lastname','item_name','date_borrowed','expected_return_date'] -->
   </div>
 </template>
@@ -45,13 +74,15 @@
 <script>
 import axios from "axios";
 import userHistory from "../components/userHistory.vue";
+import userOverdueHistory from "../components/userOverdueHistory.vue";
 import LoginHeader from "../components/LoginHeader.vue";
 
 export default {
   middleware: "auth",
   data() {
     return {
-      userQuery: []
+      userQuery: [],
+      overdueQuery: []
     };
   },
   async created() {
@@ -63,18 +94,25 @@ export default {
     };
     try {
       console.log(this.$route.params.id);
-      const temp = await axios.get(
-          `https://api.balemoh.tech/api/withdraw?command=userID&value=${this.$auth.user.uid}`,
+      const ongoing = await axios.get(
+        `https://api.balemoh.tech/api/withdraw?command=userID&value=${this.$auth.user.uid}`,
+        config
+      );
+      const overdue = await axios.get(
+        `https://api.balemoh.tech/api/overdue?command=userid&value=${this.$auth.user.uid}`,
         config
       );
       // console.log(temp.data);
-      this.userQuery = temp.data;
+      this.userQuery = ongoing.data;
+      this.overdueQuery = overdue.data;
+      console.log(overdue.data)
     } catch (err) {
       console.log(err);
     }
   },
   components: {
     userHistory,
+    userOverdueHistory,
     LoginHeader
   },
   head() {
@@ -188,6 +226,20 @@ export default {
   padding: 1rem;
   border-radius: 10px;
 }
+.text-container2 {
+  background-color: #ff8d24;
+  width: 50%;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 10px;
+}
+.overdue-container2 {
+  background-color: #cc5500;
+  width: 90%;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 10px;
+}
 
 .queryHeader2 {
   font-size: 26px;
@@ -199,8 +251,40 @@ export default {
   color: #fff;
   justify-content: left;
   text-align: justify;
-  padding-top: 0.5rem;
   padding-bottom: 2px;
+}
+
+.middlePart {
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  width: 100%;
+  color: #fff;
+  justify-content: center;
+  text-align: center;
+  padding-bottom: 0.5rem;
+}
+.no_transaction {
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  width: 100%;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.overdue {
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  width: 100%;
+  color: #fff;
+  justify-content: center;
+  text-align: center;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
 }
 
 .dateHeader2 {

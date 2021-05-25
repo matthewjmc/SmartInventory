@@ -13,7 +13,7 @@
             >HISTORY</a
           >
           <a class="unselectedButton" href="/administrator" v-if="$auth.user.role=='admin'"
-            >PENDING</a
+            >OVERALL</a
           >
           <a class="unselectedButton" href="/statistics/login_history" v-if="$auth.user.role=='admin'"
             >STATISTICS</a
@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div class="items-container">
+    <div class="items-container" v-if="this.currInv.length!=0">
       <div class="queryHeader">
         <div class="itemHeader">Item Names</div>
         <div class="descHeader">Description</div>
@@ -37,6 +37,9 @@
         :amount="item.amount"
         :availability="item.availability"
       />
+    </div>
+    <div class="text-container" v-else>
+      <div class="no_transaction">THERE ARE NO ITEMS IN YOUR INVENTORY SYSTEM</div>
     </div>
   </div>
 </template>
@@ -92,6 +95,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  align-content: center;
 }
 .buttonGroup {
   display: flex;
@@ -135,6 +139,17 @@ export default {
   font-size: 22px;
   margin: 0 10px;
 }
+
+.no_transaction {
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  width: 100%;
+  color: #fff;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
 .currentButton {
   text-align: center;
   justify-content: center;
@@ -157,7 +172,13 @@ export default {
   padding: 1rem;
   border-radius: 10px;
 }
-
+.text-container {
+  background-color: #ff8d24;
+  width: 50%;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 10px;
+}
 .queryHeader {
   font-size: 26px;
   font-weight: bold;

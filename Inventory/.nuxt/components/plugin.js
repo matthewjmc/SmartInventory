@@ -10,8 +10,11 @@ const components = {
   MostWithdrawnItem: () => import('../..\\components\\mostWithdrawnItem.vue' /* webpackChunkName: "components/most-withdrawn-item" */).then(c => wrapFunctional(c.default || c)),
   SearchByItem: () => import('../..\\components\\SearchByItem.vue' /* webpackChunkName: "components/search-by-item" */).then(c => wrapFunctional(c.default || c)),
   SearchByUser: () => import('../..\\components\\SearchByUser.vue' /* webpackChunkName: "components/search-by-user" */).then(c => wrapFunctional(c.default || c)),
+  SearchOverdueByItem: () => import('../..\\components\\SearchOverdueByItem.vue' /* webpackChunkName: "components/search-overdue-by-item" */).then(c => wrapFunctional(c.default || c)),
+  SearchOverdueByUser: () => import('../..\\components\\SearchOverdueByUser.vue' /* webpackChunkName: "components/search-overdue-by-user" */).then(c => wrapFunctional(c.default || c)),
   UserHistory: () => import('../..\\components\\userHistory.vue' /* webpackChunkName: "components/user-history" */).then(c => wrapFunctional(c.default || c)),
-  VuetifyLogo: () => import('../..\\components\\VuetifyLogo.vue' /* webpackChunkName: "components/vuetify-logo" */).then(c => wrapFunctional(c.default || c)),
+  UserOverdueHistory: () => import('../..\\components\\userOverdueHistory.vue' /* webpackChunkName: "components/user-overdue-history" */).then(c => wrapFunctional(c.default || c)),
+  WithdrawOverdueQuery: () => import('../..\\components\\withdrawOverdueQuery.vue' /* webpackChunkName: "components/withdraw-overdue-query" */).then(c => wrapFunctional(c.default || c)),
   WithdrawQuery: () => import('../..\\components\\WithdrawQuery.vue' /* webpackChunkName: "components/withdraw-query" */).then(c => wrapFunctional(c.default || c))
 }
 

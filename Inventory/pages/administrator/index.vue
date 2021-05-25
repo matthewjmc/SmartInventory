@@ -8,19 +8,17 @@
       </div>
       <div class="buttonGroup">
         <div class="square">
-          <a class="unselectedButton" href="/inventory"
-            >INVENTORY</a
+          <a class="unselectedButton" href="/inventory">INVENTORY</a>
+          <a class="unselectedButton" href="/history">HISTORY</a>
+          <a class="currentButton">OVERALL</a>
+          <a class="unselectedButton" href="/statistics/login_history"
+            >STATISTICS</a
           >
-          <a class="unselectedButton" href="/history"
-            >HISTORY</a
-          >
-          <a class="currentButton">PENDING</a>
-          <a class="unselectedButton" href="/statistics/login_history">STATISTICS</a>
         </div>
       </div>
     </div>
-
-    <div class="items-container">
+    <div class="items-container" v-if="this.withdrawn.length != 0">
+      <div class="middlePart">ONGOING TRANSACTION</div>
       <div class="queryHeader">
         <div class="idHeader">Student ID</div>
         <div class="nameHeader">Full Name</div>
@@ -38,48 +36,76 @@
         :item_name="record.item_name"
         :date_borrowed="record.DateBorrowed"
         :expected_return_date="record.ExpectedReturn"
-      /> 
-      </div>
-      <!-- props: ['userID','firstname','lastname','item_name','date_borrowed','expected_return_date'] -->
+      />
     </div>
+    <div class="text-container" v-else-if="this.withdrawn.length == 0 && this.overdueWithdrawn.length == 0">
+      <div class="no_transaction">THERE ARE NO TRANSACTIONS</div>
+    </div>
+    <div class="overdue-container" v-if="this.overdueWithdrawn.length != 0">
+      <div class="middlePart">OVERDUE TRANSACTION</div>
+      <div class="queryHeader">
+        <div class="idHeader">Student ID</div>
+        <div class="nameHeader">Full Name</div>
+        <div class="itemHeader">Withdrawn Item</div>
+        <div class="dateHeader">Withdrawn Date</div>
+        <div class="dateHeader">Expected Return</div>
+      </div>
+      <withdrawalOverdueTable
+        v-for="record in overdueWithdrawn"
+        :key="record.item_name"
+        :itemID="record.itemID"
+        :userID="record.userID"
+        :fullname="record.Fullname"
+        :item_name="record.item_name"
+        :date_borrowed="record.date_borrowed"
+        :expected_return_date="record.expected_return_date"
+      />
+    </div>
+    <!-- props: ['userID','firstname','lastname','item_name','date_borrowed','expected_return_date'] -->
+  </div>
 </template>
 
 <script>
 import axios from "axios";
 import withdrawalTable from "../../components/WithdrawQuery";
+import withdrawalOverdueTable from "../../components/withdrawOverdueQuery";
 import LoginHeader from "../../components/LoginHeader.vue";
 
 export default {
   middleware: "auth-admin",
   data() {
     return {
-      withdrawn: []
+      withdrawn: [],
+      overdueWithdrawn: []
     };
   },
   async created() {
     const config = {
       headers: {
-        authorization: this.$auth.$storage._state['_token.local'],
+        authorization: this.$auth.$storage._state["_token.local"],
         Accept: "application/json"
       }
     };
     try {
-      if( this.$store.userID == null && this.$store.itemID == null ) {
       const res = await axios.get(
         "https://api.balemoh.tech/api/withdraw?command=all",
         config
       );
-      console.log(res.data);
+      const res2 = await axios.get(
+        "https://api.balemoh.tech/api/overdue?command=userid&value=all",    // change this URL to be overdue
+        config
+      );
       this.withdrawn = res.data;
-      console.log(this.withdrawn)}
-
-
+      this.overdueWithdrawn = res2.data;
+      console.log(res)
+      console.log(res2)
     } catch (err) {
       console.log(err);
     }
   },
   components: {
     withdrawalTable,
+    withdrawalOverdueTable,
     LoginHeader
   },
   head() {
@@ -109,6 +135,16 @@ export default {
   margin-top: 1%;
   align-items: center;
   justify-content: center;
+}
+
+.no_transaction {
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  width: 100%;
+  color: #fff;
+  justify-content: center;
+  text-align: center;
 }
 .icon {
   padding-top: 10%;
@@ -164,7 +200,20 @@ export default {
   padding: 1rem;
   border-radius: 10px;
 }
-
+.text-container {
+  background-color: #ff8d24;
+  width: 50%;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 10px;
+}
+.overdue-container {
+  background-color: #cc5500;
+  width: 90%;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 10px;
+}
 .queryHeader {
   font-size: 26px;
   font-weight: 600;
@@ -210,7 +259,16 @@ export default {
   padding-top: 5px;
   padding-bottom: 5px;
 }
-
+.middlePart {
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  width: 100%;
+  color: #fff;
+  justify-content: center;
+  text-align: center;
+  padding-bottom: 0.5rem;
+}
 @keyframes acrossIn {
   0% {
     transform: translate3d(-100%, 0, 0);
@@ -227,5 +285,4 @@ export default {
     transform: translate3d(100%, 0, 0);
   }
 }
-
 </style>

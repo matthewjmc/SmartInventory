@@ -9,11 +9,12 @@
       <div class="buttonGroup">
         <div class="square">
           <a class="unselectedButton" href="/inventory">INVENTORY</a>
-          <a class="unselectedButton" href="/history"
-            >HISTORY</a
-          >
-          <a class="unselectedButton" href="/administrator">PENDING</a>
-           <a class="unselectedButton" href="/statistics/login_history" v-if="$auth.user.role=='admin'"
+          <a class="unselectedButton" href="/history">HISTORY</a>
+          <a class="unselectedButton" href="/administrator">OVERALL</a>
+          <a
+            class="unselectedButton"
+            href="/statistics/login_history"
+            v-if="$auth.user.role == 'admin'"
             >STATISTICS</a
           >
         </div>
@@ -28,6 +29,9 @@
           Search By Student ID : {{ $route.params.id }}
         </div>
       </div>
+    </div>
+    <div class="items-container2" v-if="this.userQuery.length != 0">
+      <div class="middlePart">ONGOING TRANSACTION FOR THIS USER</div>
       <div class="queryHeader2">
         <div class="nameHeader2">Full Name</div>
         <div class="nameHeader2">Withdrawn Item</div>
@@ -45,6 +49,25 @@
         :expected_return_date="record.ExpectedReturn"
       />
     </div>
+
+    <div class="overdue-container2" v-if="this.userOverdueQuery.length != 0">
+      <div class="middlePart">OVERDUE TRANSACTION FOR THIS USER</div>
+      <div class="queryHeader2">
+        <div class="nameHeader2">Full Name</div>
+        <div class="nameHeader2">Withdrawn Item</div>
+        <div class="dateHeader2">Withdrawn Date</div>
+        <div class="dateHeader2">Expected Return</div>
+      </div>
+      <userOverdueWithdrawalTable
+        v-for="record in userOverdueQuery"
+        :key="record.item_name"
+        :userID="record.userID"
+        :fullname="record.Fullname"
+        :item_name="record.item_name"
+        :date_borrowed="record.date_borrowed"
+        :expected_return_date="record.expected_return_date"
+      />
+    </div>
     <!-- props: ['userID','firstname','lastname','item_name','date_borrowed','expected_return_date'] -->
   </div>
 </template>
@@ -52,13 +75,15 @@
 <script>
 import axios from "axios";
 import userWithdrawalTable from "../../../components/SearchByUser.vue";
+import userOverdueWithdrawalTable from "../../../components/SearchOverdueByUser.vue";
 import LoginHeader from "../../../components/LoginHeader.vue";
 
 export default {
   middleware: "auth-admin",
   data() {
     return {
-      userQuery: []
+      userQuery: [],
+      userOverdueQuery: []
     };
   },
   async created() {
@@ -69,19 +94,23 @@ export default {
       }
     };
     try {
-      console.log(this.$route.params.id);
       const temp = await axios.get(
         `https://api.balemoh.tech/api/withdraw?command=userID&value=${this.$route.params.id}`,
         config
       );
-      console.log(temp.data);
+      const temp2 = await axios.get(
+        `https://api.balemoh.tech/api/overdue?command=userid&value=${this.$route.params.id}`,
+        config
+      );
       this.userQuery = temp.data;
+      this.userOverdueQuery = temp2.data;
     } catch (err) {
       console.log(err);
     }
   },
   components: {
     userWithdrawalTable,
+    userOverdueWithdrawalTable,
     LoginHeader
   },
   head() {
@@ -158,7 +187,15 @@ export default {
   font-size: 22px;
   margin: 0 10px;
 }
-
+.no_transaction {
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  width: 100%;
+  color: #fff;
+  justify-content: center;
+  text-align: center;
+}
 .queryResultBar {
   font-size: 26px;
   font-weight: 600;
@@ -195,7 +232,24 @@ export default {
   padding: 1rem;
   border-radius: 10px;
 }
+.overdue-container2 {
+  background-color: #cc5500;
+  width: 90%;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 10px;
+}
 
+.middlePart {
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  width: 100%;
+  color: #fff;
+  justify-content: center;
+  text-align: center;
+  padding-bottom: 0.5rem;
+}
 .queryHeader2 {
   font-size: 26px;
   font-weight: 600;

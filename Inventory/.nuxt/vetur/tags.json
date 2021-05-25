@@ -23,11 +23,20 @@
   "SearchByUser": {
     "description": "Auto imported from components/SearchByUser.vue"
   },
+  "SearchOverdueByItem": {
+    "description": "Auto imported from components/SearchOverdueByItem.vue"
+  },
+  "SearchOverdueByUser": {
+    "description": "Auto imported from components/SearchOverdueByUser.vue"
+  },
   "UserHistory": {
     "description": "Auto imported from components/userHistory.vue"
   },
-  "VuetifyLogo": {
-    "description": "Auto imported from components/VuetifyLogo.vue"
+  "UserOverdueHistory": {
+    "description": "Auto imported from components/userOverdueHistory.vue"
+  },
+  "WithdrawOverdueQuery": {
+    "description": "Auto imported from components/withdrawOverdueQuery.vue"
   },
   "WithdrawQuery": {
     "description": "Auto imported from components/WithdrawQuery.vue"

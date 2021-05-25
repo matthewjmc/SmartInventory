@@ -15,7 +15,7 @@
               class="unselectedButton"
               href="/administrator"
               v-if="$auth.user.role == 'admin'"
-              >PENDING</a
+              >OVERALL</a
             >
             <a class="currentButton">STATISTICS</a>
           </div>
@@ -29,7 +29,7 @@
           </div>
           </div>
     </div>
-    <div class="items-container">
+    <div class="items-container" v-if='this.loginHistory.length!=0'>
       <div class="queryHeader">
         <div class="loginHist_userId_idx">User ID</div>
         <div class="loginHist_userFullname">
@@ -39,7 +39,6 @@
           Recent Logged-in time
         </div>
       </div>
-
       <loginHist
         v-for="record in loginHistory"
         :key="record.userID"
@@ -47,8 +46,11 @@
         :FullName="record.FullName"
         :TimeLogin="record.TimeLogin"
       />
-
-    </div>
+      </div>
+      <div class="text-container" v-else>
+          <div class="no_transaction">NO USER HAS LOGGED-IN WITHIN THE SYSTEM</div>
+      </div>
+    
   </div>
 </template>
 
@@ -208,7 +210,23 @@ export default {
   padding-bottom: 2px;
   padding-bottom: 3px;
 }
-
+.text-container {
+  background-color: #ff8d24;
+  width: 40%;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 10px;
+}
+.no_transaction {
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  width: 100%;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 .loginHist_userId_idx {
   width: 20%;
   font-weight: 600px;

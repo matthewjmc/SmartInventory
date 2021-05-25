@@ -15,7 +15,7 @@
               class="unselectedButton"
               href="/administrator"
               v-if="$auth.user.role == 'admin'"
-              >PENDING</a
+              >OVERALL</a
             >
             <a class="currentButton">STATISTICS</a>
           </div>
@@ -30,7 +30,7 @@
           </div>
     </div>
 
-    <div class="items-container">
+    <div class="items-container"  v-if="this.popular_items.length!=0">
       <div class="queryHeader">
         <div class="itemStat_itemName">Item Name</div>
         <div class="itemStat_amount">
@@ -38,13 +38,17 @@
         </div>
       </div>
 
-      <popularItems
+      <div>
+      <popularItems 
         v-for="item in popular_items"
         :key="item.Name"
         :Name="item.Name"
         :Amount="item.AmountBorrowed"
       />
-
+      </div>
+    </div>
+    <div class="text-container" v-else> 
+        <div class="no_transaction">THERE ARE NO WITHDRAWALS</div>
     </div>
   </div>
 </template>
@@ -155,6 +159,13 @@ export default {
   border-radius: 25px;
   background-color: #ff8d24;
 }
+.text-container {
+  background-color: #ff8d24;
+  width: 40%;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 10px;
+}
 .unselectedButton {
   text-align: center;
   justify-content: center;
@@ -191,7 +202,15 @@ export default {
   padding: 1rem;
   border-radius: 10px;
 }
-
+.no_transaction {
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  width: 100%;
+  color: #fff;
+  justify-content: center;
+  text-align: center;
+}
 .queryHeader {
   font-size: 26px;
   font-weight: bold;
